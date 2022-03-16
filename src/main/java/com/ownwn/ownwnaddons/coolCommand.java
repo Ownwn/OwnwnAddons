@@ -25,7 +25,6 @@ public class coolCommand extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED +
-                "Hello " +  EnumChatFormatting.YELLOW + sender.getDisplayName() + EnumChatFormatting.RED + ", did you know Nelson is a " + EnumChatFormatting.BLUE + "stonahh"));
-
+                "Hello " +  EnumChatFormatting.YELLOW + sender.getName() + EnumChatFormatting.RED + ", did you know Nelson is a " + EnumChatFormatting.BLUE + "stonahh"));
     }
 }
