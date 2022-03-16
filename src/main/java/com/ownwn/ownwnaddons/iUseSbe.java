@@ -26,12 +26,12 @@ public class iUseSbe extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        try {
-            throw new Exception();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
+        System.out.println("Trying to crash...");
+//        try {
+//            throw new Error();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        throw new Error();
     }
 }
