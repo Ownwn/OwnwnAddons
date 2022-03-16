@@ -1,6 +1,5 @@
 package com.ownwn.ownwnaddons;
 
-import net.minecraft.init.Blocks;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +17,8 @@ public class OwnwnAddons
     {
         MinecraftForge.EVENT_BUS.register(new Events());
         MinecraftForge.EVENT_BUS.register(new quizSolver());
-        ClientCommandHandler.instance.registerCommand(new coolCommand());
+        ClientCommandHandler.instance.registerCommand(new owa());
+        ClientCommandHandler.instance.registerCommand(new iUseSbe());
     }
 }
 

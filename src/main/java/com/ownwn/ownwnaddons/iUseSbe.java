@@ -6,14 +6,16 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 
-public class coolCommand extends CommandBase {
+
+public class iUseSbe extends CommandBase {
     @Override
     public String getCommandName() {
-        return "nelsonisastoner";
+        return "iusesbe";
     }
+
     @Override
     public String getCommandUsage(ICommandSender iCommandSender) {
-        return "examplecommand <requiredArg1> [optionalArg2";
+        return "/iusesbe";
     }
 
     @Override
@@ -24,7 +26,12 @@ public class coolCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED +
-                "Hello " +  EnumChatFormatting.YELLOW + sender.getName() + EnumChatFormatting.RED + ", did you know Nelson is a " + EnumChatFormatting.BLUE + "stonahh"));
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
     }
 }
