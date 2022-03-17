@@ -27,6 +27,7 @@ public class owa extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (args.length >= 1 && args[0].equalsIgnoreCase("stoner")) {
+            System.out.println("Running stoner command...");
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED +
                     "Hello " +  EnumChatFormatting.YELLOW + sender.getName() + EnumChatFormatting.RED + ", did you know Nelson is a " + EnumChatFormatting.BLUE + "stonahh"));
         }
