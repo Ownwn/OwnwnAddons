@@ -15,8 +15,8 @@ public class OwnwnAddons
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register(new Events());
         MinecraftForge.EVENT_BUS.register(new quizSolver());
+        MinecraftForge.EVENT_BUS.register(new changeMimicMsg());
         ClientCommandHandler.instance.registerCommand(new owa());
         ClientCommandHandler.instance.registerCommand(new iUseSbe());
     }
