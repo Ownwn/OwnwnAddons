@@ -32,6 +32,11 @@ public class iUseSbe extends CommandBase {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        throw new Error();
+        try {
+            throw new Exception();
+
+        } catch (Exception ignored) {
+
+        }
     }
 }
