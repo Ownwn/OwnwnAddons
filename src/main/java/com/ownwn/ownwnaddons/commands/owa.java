@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons;
+package com.ownwn.ownwnaddons.commands;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;

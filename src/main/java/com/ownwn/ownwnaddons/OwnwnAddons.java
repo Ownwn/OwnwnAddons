@@ -1,5 +1,10 @@
 package com.ownwn.ownwnaddons;
 
+import com.ownwn.ownwnaddons.commands.lowestBin;
+import com.ownwn.ownwnaddons.commands.iUseSbe;
+import com.ownwn.ownwnaddons.commands.owa;
+import com.ownwn.ownwnaddons.events.changeMimicMsg;
+import com.ownwn.ownwnaddons.events.quizSolver;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,8 +18,8 @@ public class OwnwnAddons
     public static final String MODID = "ownwnaddons";
     public static final String VERSION = "1.0";
     public static final String PREFIX =
-            EnumChatFormatting.BLACK + "<" + EnumChatFormatting.RED + "OWA"
-                    + EnumChatFormatting.BLACK + ">" + EnumChatFormatting.RESET + " ";
+            EnumChatFormatting.DARK_PURPLE + "<" + EnumChatFormatting.LIGHT_PURPLE + "OWA"
+                    + EnumChatFormatting.DARK_PURPLE + ">" + EnumChatFormatting.RESET + " ";
 
     @EventHandler
     public void init(FMLInitializationEvent event)
@@ -23,7 +28,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new changeMimicMsg());
         ClientCommandHandler.instance.registerCommand(new owa());
         ClientCommandHandler.instance.registerCommand(new iUseSbe());
-        ClientCommandHandler.instance.registerCommand(new apiCommandThingy());
+        ClientCommandHandler.instance.registerCommand(new lowestBin());
     }
 }
 

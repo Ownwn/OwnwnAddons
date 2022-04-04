@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons;
+package com.ownwn.ownwnaddons.events;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
