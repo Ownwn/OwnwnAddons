@@ -35,6 +35,11 @@ public class owa extends CommandBase {
             Minecraft.getMinecraft().thePlayer.sendChatMessage(args[1]);
 
         }
+        else if (args.length >= 1 && args[0].equalsIgnoreCase("sam")) {
+            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_PURPLE + "Hello sam"));
+
+        }
+
         else {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
                     EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "\u279C OwnwnAddons Help\n"
