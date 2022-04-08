@@ -23,40 +23,38 @@ public class lowestBin extends CommandBase {
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender)
-    {
+    public boolean canCommandSenderUseCommand(ICommandSender sender) {
         return true;
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (args.length >= 1) {
-          if (args[0].equalsIgnoreCase("lbin")) {
-            if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("lbin")) {
+                if (args.length == 2) {
 
                     Thread T = new Thread(() -> {
                         try {
                             int itemPrice = httpRequest.getResponse("https://moulberry.codes/lowestbin.json").get(args[1]).getAsInt();
                             String roundPrice = com.ownwn.ownwnaddons.goodstuff.priceRound.roundPrice(itemPrice);
-                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.GREEN + "The price of " + EnumChatFormatting.AQUA + args[1] + EnumChatFormatting.GREEN + " is: " + EnumChatFormatting.AQUA + roundPrice));
-                    } catch (Exception e) {
+                            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.GREEN + "The price of " + EnumChatFormatting.AQUA + args[1] + EnumChatFormatting.GREEN + " is: " + EnumChatFormatting.AQUA + roundPrice));
+                        } catch (Exception e) {
                             e.printStackTrace();
                             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.RED + "Invalid ItemID!"));
                         }
 
                     });
-                T.start();
+                    T.start();
 
 
+                } else {
+                    Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.RED + "Please enter an ItemID!"));
+                }
+            } else {
+                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.RED + "Invalid subcommand!"));
             }
-            else {
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.RED + "Please enter an ItemID!"));
-            }
-        }
-        else {
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.RED + "Invalid subcommand!"));
-        }
-    }else {
+        } else {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + EnumChatFormatting.RED + "Please enter a subcommand!"));
         }
-}}
+    }
+}
