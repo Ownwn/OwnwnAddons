@@ -1,6 +1,6 @@
 package com.ownwn.ownwnaddons;
 
-import com.ownwn.ownwnaddons.commands.lowestBin;
+import com.ownwn.ownwnaddons.commands.hyperionPrice;
 import com.ownwn.ownwnaddons.commands.owa;
 import com.ownwn.ownwnaddons.events.changeMimicMsg;
 import com.ownwn.ownwnaddons.events.quizSolver;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class OwnwnAddons
 {
     public static final String MODID = "ownwnaddons";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.1";
     public static final String PREFIX =
             EnumChatFormatting.DARK_PURPLE + "<" + EnumChatFormatting.LIGHT_PURPLE + "OWA"
                     + EnumChatFormatting.DARK_PURPLE + ">" + EnumChatFormatting.RESET + " ";
@@ -26,8 +26,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new quizSolver());
         MinecraftForge.EVENT_BUS.register(new changeMimicMsg());
         ClientCommandHandler.instance.registerCommand(new owa());
-        ClientCommandHandler.instance.registerCommand(new lowestBin());
-        // MinecraftForge.EVENT_BUS.register(new starCult());
+        ClientCommandHandler.instance.registerCommand(new hyperionPrice());
     }
 }
 

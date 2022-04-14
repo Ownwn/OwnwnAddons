@@ -1,5 +1,9 @@
 package com.ownwn.ownwnaddons.commands;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.goodstuff.httpRequest;
+import com.ownwn.ownwnaddons.goodstuff.priceRound;
+import com.ownwn.ownwnaddons.goodstuff.sendMsg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -38,6 +42,42 @@ public class owa extends CommandBase {
         else if (args.length >= 1 && args[0].equalsIgnoreCase("sam")) {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_PURPLE + "Hello sam"));
 
+        }
+
+        else if (args.length >= 1 && args[0].equalsIgnoreCase("lbin")) {
+            if (args.length == 2) {
+
+                Thread T = new Thread(() -> {
+                    try {
+                        int itemPrice = httpRequest.getResponse("https://moulberry.codes/lowestbin.json").get(args[1]).getAsInt();
+                        String roundPrice = com.ownwn.ownwnaddons.goodstuff.priceRound.roundPrice(itemPrice);
+                        sendMsg.Msg(EnumChatFormatting.GREEN + "The price of " + EnumChatFormatting.AQUA + args[1] + EnumChatFormatting.GREEN + " is: " + EnumChatFormatting.AQUA + roundPrice);
+                    } catch (Exception e) {
+                        sendMsg.Msg(EnumChatFormatting.RED + "Invalid ItemID!");
+                    }
+
+                });
+                T.start();
+
+
+            } else {
+                sendMsg.Msg(EnumChatFormatting.RED + "Please enter an ItemID!");
+            }
+        }
+
+        else if (args.length >= 1 && args[0].equalsIgnoreCase("hyperionprice")) {
+            Thread T = new Thread(() -> {
+                try {
+                    String hypPrice = priceRound.roundPrice(httpRequest.getResponse("https://moulberry.codes/lowestbin.json").get("HYPERION").getAsInt());
+                    sendMsg.Msg(EnumChatFormatting.BLUE + "hi");
+
+                } catch (Exception e) {
+                    sendMsg.Msg(EnumChatFormatting.RED + "Something went wrong. See the logs for more details");
+                    e.printStackTrace();
+                }
+
+            });
+            T.start();
         }
 
         else {
