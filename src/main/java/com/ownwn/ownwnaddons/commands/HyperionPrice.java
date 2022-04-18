@@ -1,14 +1,14 @@
 package com.ownwn.ownwnaddons.commands;
 
 import com.google.gson.JsonObject;
-import com.ownwn.ownwnaddons.goodstuff.httpRequest;
-import com.ownwn.ownwnaddons.goodstuff.priceRound;
-import com.ownwn.ownwnaddons.goodstuff.sendMsg;
+import com.ownwn.ownwnaddons.outside.HttpRequest;
+import com.ownwn.ownwnaddons.goodstuff.PriceRound;
+import com.ownwn.ownwnaddons.goodstuff.SendMsg;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.EnumChatFormatting;
 
-public class hyperionPrice extends CommandBase {
+public class HyperionPrice extends CommandBase {
     @Override
     public String getCommandName() {
         return "hyperionprice";
@@ -25,9 +25,9 @@ public class hyperionPrice extends CommandBase {
     }
 
     public static void sendResults(String hypPrice, int cleanHyperion) {
-        sendMsg.Msg(EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "Hyperion Price Info: \n"
+        SendMsg.Msg(EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "Hyperion Price Info: \n"
                 + EnumChatFormatting.GREEN + "  Lowest BIN: " + EnumChatFormatting.BLUE + hypPrice + "\n"
-                + EnumChatFormatting.GREEN + "  Craft Cost: " + EnumChatFormatting.BLUE + priceRound.roundPrice(cleanHyperion));
+                + EnumChatFormatting.GREEN + "  Craft Cost: " + EnumChatFormatting.BLUE + PriceRound.roundPrice(cleanHyperion));
     }
 
     @Override
@@ -42,9 +42,9 @@ public class hyperionPrice extends CommandBase {
         else {
             Thread T = new Thread(() -> {
                 try {
-                    JsonObject lbin = httpRequest.getResponse("https://ytbnhudbghdkbghdrb.com/pog.json");
+                    JsonObject lbin = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
 
-                    String hypPrice = priceRound.roundPrice(lbin.get("HYPERION").getAsInt());
+                    String hypPrice = PriceRound.roundPrice(lbin.get("HYPERION").getAsInt());
                     int necronBlade = lbin.get("NECRON_HANDLE").getAsInt() + (lbin.get("WITHER_CATALYST").getAsInt() * 24);
                     int cleanHyperion = necronBlade + (lbin.get("GIANT_FRAGMENT_LASER").getAsInt() * 8);
 

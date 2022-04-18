@@ -4,7 +4,7 @@ import com.ownwn.ownwnaddons.OwnwnAddons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
-public class sendMsg {
+public class SendMsg {
     public static void Msg(String msg) {
         Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + msg));
     }

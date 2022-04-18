@@ -1,9 +1,8 @@
 package com.ownwn.ownwnaddons.commands;
 
-import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.goodstuff.httpRequest;
-import com.ownwn.ownwnaddons.goodstuff.priceRound;
-import com.ownwn.ownwnaddons.goodstuff.sendMsg;
+import com.ownwn.ownwnaddons.outside.HttpRequest;
+import com.ownwn.ownwnaddons.goodstuff.PriceRound;
+import com.ownwn.ownwnaddons.goodstuff.SendMsg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -11,7 +10,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 
 
-public class owa extends CommandBase {
+public class Owa extends CommandBase {
     @Override
     public String getCommandName() {
         return "owa";
@@ -49,11 +48,11 @@ public class owa extends CommandBase {
 
                 Thread T = new Thread(() -> {
                     try {
-                        int itemPrice = httpRequest.getResponse("https://moulberry.codes/lowestbin.json").get(args[1]).getAsInt();
-                        String roundPrice = com.ownwn.ownwnaddons.goodstuff.priceRound.roundPrice(itemPrice);
-                        sendMsg.Msg(EnumChatFormatting.GREEN + "The price of " + EnumChatFormatting.AQUA + args[1] + EnumChatFormatting.GREEN + " is: " + EnumChatFormatting.AQUA + roundPrice);
+                        int itemPrice = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json").get(args[1]).getAsInt();
+                        String roundPrice = PriceRound.roundPrice(itemPrice);
+                        SendMsg.Msg(EnumChatFormatting.GREEN + "The price of " + EnumChatFormatting.AQUA + args[1] + EnumChatFormatting.GREEN + " is: " + EnumChatFormatting.AQUA + roundPrice);
                     } catch (Exception e) {
-                        sendMsg.Msg(EnumChatFormatting.RED + "Invalid ItemID!");
+                        SendMsg.Msg(EnumChatFormatting.RED + "Invalid ItemID!");
                     }
 
                 });
@@ -61,18 +60,18 @@ public class owa extends CommandBase {
 
 
             } else {
-                sendMsg.Msg(EnumChatFormatting.RED + "Please enter an ItemID!");
+                SendMsg.Msg(EnumChatFormatting.RED + "Please enter an ItemID!");
             }
         }
 
         else if (args.length >= 1 && args[0].equalsIgnoreCase("hyperionprice")) {
             Thread T = new Thread(() -> {
                 try {
-                    String hypPrice = priceRound.roundPrice(httpRequest.getResponse("https://moulberry.codes/lowestbin.json").get("HYPERION").getAsInt());
-                    sendMsg.Msg(EnumChatFormatting.BLUE + "hi");
+                    String hypPrice = PriceRound.roundPrice(HttpRequest.getResponse("https://moulberry.codes/lowestbin.json").get("HYPERION").getAsInt());
+                    SendMsg.Msg(EnumChatFormatting.BLUE + "hi");
 
                 } catch (Exception e) {
-                    sendMsg.Msg(EnumChatFormatting.RED + "Something went wrong. See the logs for more details");
+                    SendMsg.Msg(EnumChatFormatting.RED + "Something went wrong. See the logs for more details");
                     e.printStackTrace();
                 }
 

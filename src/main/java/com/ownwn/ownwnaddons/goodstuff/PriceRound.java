@@ -1,6 +1,6 @@
 package com.ownwn.ownwnaddons.goodstuff;
 
-public class priceRound {
+public class PriceRound {
     public static String roundPrice(float price) {
         if (price >= 1000000000) {
             float floatPrice = price / 1000000000;

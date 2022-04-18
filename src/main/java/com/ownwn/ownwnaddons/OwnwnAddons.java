@@ -1,9 +1,11 @@
 package com.ownwn.ownwnaddons;
 
-import com.ownwn.ownwnaddons.commands.hyperionPrice;
-import com.ownwn.ownwnaddons.commands.owa;
-import com.ownwn.ownwnaddons.events.changeMimicMsg;
-import com.ownwn.ownwnaddons.events.quizSolver;
+import com.ownwn.ownwnaddons.commands.CmdTest;
+import com.ownwn.ownwnaddons.commands.HyperionPrice;
+import com.ownwn.ownwnaddons.commands.Owa;
+import com.ownwn.ownwnaddons.events.ChangeMimicMsg;
+import com.ownwn.ownwnaddons.events.PartyFinder;
+
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,10 +25,11 @@ public class OwnwnAddons
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register(new quizSolver());
-        MinecraftForge.EVENT_BUS.register(new changeMimicMsg());
-        ClientCommandHandler.instance.registerCommand(new owa());
-        ClientCommandHandler.instance.registerCommand(new hyperionPrice());
+        MinecraftForge.EVENT_BUS.register(new ChangeMimicMsg());
+        MinecraftForge.EVENT_BUS.register(new PartyFinder());
+        ClientCommandHandler.instance.registerCommand(new Owa());
+        ClientCommandHandler.instance.registerCommand(new HyperionPrice());
+        ClientCommandHandler.instance.registerCommand(new CmdTest());
     }
 }
 
