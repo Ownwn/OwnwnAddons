@@ -8,6 +8,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.EnumChatFormatting;
 
+import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
+
 public class HyperionPrice extends CommandBase {
     @Override
     public String getCommandName() {
@@ -30,33 +32,40 @@ public class HyperionPrice extends CommandBase {
                 + EnumChatFormatting.GREEN + "  Craft Cost: " + EnumChatFormatting.BLUE + PriceRound.roundPrice(cleanHyperion));
     }
 
+
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
 
-        if (args.length >= 1 && args[0].equalsIgnoreCase("max")) {
-        }
+        Thread T = new Thread(() -> {
 
-        else if (args.length >= 1 && args[0].equalsIgnoreCase("semimax")) {
-        }
 
-        else {
-            Thread T = new Thread(() -> {
-                try {
-                    JsonObject lbin = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
+            String hypPrice = PriceRound.roundPrice(lbin("HYPERION"));
 
-                    String hypPrice = PriceRound.roundPrice(lbin.get("HYPERION").getAsInt());
-                    int necronBlade = lbin.get("NECRON_HANDLE").getAsInt() + (lbin.get("WITHER_CATALYST").getAsInt() * 24);
-                    int cleanHyperion = necronBlade + (lbin.get("GIANT_FRAGMENT_LASER").getAsInt() * 8);
+            int necronBlade = lbin("NECRON_HANDLE") + (lbin("WITHER_CATALYST") * 24);
+            int cleanHyperion = necronBlade + (lbin("GIANT_FRAGMENT_LASER") * 8);
 
-                    sendResults(hypPrice, cleanHyperion);
-                } catch (Exception ignored) {
 
-                }
+            if (args.length >= 1 && args[0].equalsIgnoreCase("max")) {
 
-            });
-            T.start();
+                // jasper =
 
-        }
+            }
 
+            else if (args.length >= 1 && args[0].equalsIgnoreCase("semimax")) {
+
+            }
+
+            else {
+                    try {
+                        sendResults(hypPrice, cleanHyperion);
+
+                    } catch (Exception e) {
+                        SendMsg.Msg(EnumChatFormatting.RED + "Something went wrong! ");
+                        e.printStackTrace();
+                    }
+            }
+
+        });
+        T.start();
     }
 }

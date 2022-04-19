@@ -8,6 +8,7 @@ import com.ownwn.ownwnaddons.goodstuff.SendMsg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
+import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -89,6 +90,17 @@ public class HttpRequest {
         return latestProfile;
     }
 
+
+    public static int lbin(String item) {
+        JsonObject lowestbin = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
+        return lowestbin.get(item).getAsInt();
+    }
+
+    public static float bz(String item) throws IOException {
+        JsonObject bazaar = HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar");
+
+        return bazaar.getAsJsonObject("products").getAsJsonObject(item).getAsJsonArray("sell_summary").get(0).getAsFloat(); //.getDouble("pricePerUnit") cross off get asfloat
+    }
 
 }
 
