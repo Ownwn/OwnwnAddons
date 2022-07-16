@@ -8,6 +8,9 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.EnumChatFormatting;
 
+import java.io.IOException;
+
+import static com.ownwn.ownwnaddons.outside.HttpRequest.bz;
 import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
 
 public class HyperionPrice extends CommandBase {
@@ -46,8 +49,17 @@ public class HyperionPrice extends CommandBase {
 
 
             if (args.length >= 1 && args[0].equalsIgnoreCase("max")) {
+                try {
 
-                // jasper =
+                    String bzPrice = String.valueOf(bz("PERFECT_SAPPHIRE_GEM"));
+                    SendMsg.Msg(EnumChatFormatting.BLUE + bzPrice);
+
+
+
+                } catch (NullPointerException f) {
+                    SendMsg.Msg(EnumChatFormatting.RED + "Invalid item!");
+                    f.printStackTrace();
+                }
 
             }
 

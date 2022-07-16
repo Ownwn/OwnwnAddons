@@ -13,6 +13,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -96,10 +98,12 @@ public class HttpRequest {
         return lowestbin.get(item).getAsInt();
     }
 
-    public static float bz(String item) throws IOException {
-        JsonObject bazaar = HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar");
+    public static int bz(String item) {
 
-        return bazaar.getAsJsonObject("products").getAsJsonObject(item).getAsJsonArray("sell_summary").get(0).getAsFloat(); //.getDouble("pricePerUnit") cross off get asfloat
+            JsonObject bazaar = HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar");
+
+            return bazaar.getAsJsonObject("products").getAsJsonObject(item).getAsJsonObject("quick_status").get("buyPrice").getAsInt();
+
     }
 
 }

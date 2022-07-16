@@ -23,7 +23,7 @@ public class CmdTest extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
 
-        SendMsg.Msg("\u00A7dDungeon Finder \u00A7r\u00A7f> \u00A7r\u00A7aWr41thBruh \u00A7r\u00A7ejoined the dungeon group! (\u00A7r\u00A7bMage Level 24\u00A7r\u00A7e)\u00A7r");
+        SendMsg.Msg("\u00A7r\u00A7dTest of Stamina \u00A7r\u00A7e\u00A7lOBJECTIVES\u00A7r");
 
 
     }
