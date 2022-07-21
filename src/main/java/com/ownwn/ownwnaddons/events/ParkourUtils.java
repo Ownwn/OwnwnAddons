@@ -2,6 +2,7 @@ package com.ownwn.ownwnaddons.events;
 
 import com.ownwn.ownwnaddons.goodstuff.ScoreBoardInterface;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -31,5 +32,4 @@ public class ParkourUtils {
 
         }
     }
-
 }

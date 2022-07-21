@@ -7,6 +7,7 @@ import com.ownwn.ownwnaddons.events.ChangeMimicMsg;
 import com.ownwn.ownwnaddons.events.ParkourUtils;
 import com.ownwn.ownwnaddons.events.PartyFinder;
 
+import com.ownwn.ownwnaddons.events.RepellingCandle;
 import com.ownwn.ownwnaddons.events.dojo.StaminaTimer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -31,6 +32,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
         MinecraftForge.EVENT_BUS.register(new StaminaTimer());
         MinecraftForge.EVENT_BUS.register(new ParkourUtils());
+        MinecraftForge.EVENT_BUS.register(new RepellingCandle());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
         ClientCommandHandler.instance.registerCommand(new CmdTest());
