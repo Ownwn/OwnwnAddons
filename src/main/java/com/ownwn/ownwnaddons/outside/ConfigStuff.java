@@ -5,7 +5,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
-
+    // Code taken from Danker's Skyblock Mod (DSM) Thank you :) https://github.com/bowser0000/SkyblockMod/
 public class ConfigStuff {
     public static Configuration config;
     private final static String file = "config/OwnwnAddons/OwnwnAddons.cfg";
@@ -35,6 +35,7 @@ public class ConfigStuff {
             config.save();
         }
         return "";
+
     }
 
 

@@ -1,5 +1,5 @@
 {
-  "package": "com.ownwn.mixin",
+  "package": "com.ownwn.ownwnaddons.mixin",
   "refmap": "mixins.ownwn.refmap.json",
   "minVersion": "0.7",
   "compatibilityLevel": "JAVA_8",
