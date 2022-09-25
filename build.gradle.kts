@@ -6,7 +6,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-group = "com.example.archloomtemplate"
+group = "com.ownwn.archloomtemplate"
 version = "1.0.0"
 
 // Toolchains:
@@ -23,17 +23,17 @@ loom {
             property("mixin.debug", "true")
             property("asmhelper.verbose", "true")
             arg("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
-            arg("--mixin", "mixins.examplemod.json")
+            arg("--mixin", "mixins.ownwnaddons.json")
         }
     }
     forge {
         pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
         // If you don't want mixins, remove this lines
-        mixinConfig("mixins.examplemod.json")
+        mixinConfig("mixins.ownwnaddons.json")
     }
     // If you don't want mixins, remove these lines
     mixin {
-        defaultRefmapName.set("mixins.examplemod.refmap.json")
+        defaultRefmapName.set("mixins.ownwnaddons.refmap.json")
     }
 }
 

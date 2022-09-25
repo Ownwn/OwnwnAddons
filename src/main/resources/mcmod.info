@@ -1,14 +1,14 @@
 [
   {
-	"modid": "examplemod",
-	"name": "Xample Mod",
-	"description": "A mod that is used as an example.",
+	"modid": "ownwnaddons",
+	"name": "Ownwn Addobs",
+	"description": "Updated OwnwnAddons that uses a new template :)",
 	"version": "1.0.0",
 	"mcversion": "1.8.9",
-	"url": "https://github.com/romangraef/Forge1.8.9Template/",
+	"url": "",
 	"updateUrl": "",
 	"authorList": [
-	  "You"
+	  "Ownwn"
 	],
 	"credits": "",
 	"logoFile": "",
