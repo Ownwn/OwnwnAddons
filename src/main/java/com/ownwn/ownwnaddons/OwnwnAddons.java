@@ -36,6 +36,7 @@ public class OwnwnAddons
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
         ClientCommandHandler.instance.registerCommand(new CmdTest());
+        System.out.println("git commit shit");
     }
 }
 
