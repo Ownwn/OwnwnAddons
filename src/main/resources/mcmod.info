@@ -1,16 +1,18 @@
 [
-{
-  "modid": "ownwnaddons",
-  "name": "Ownwn's Cool Mod",
-  "description": "Very cool mod made by Ownwn",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["Ownwn"],
-  "credits": "Just me, Ownwn ",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+	"modid": "examplemod",
+	"name": "Xample Mod",
+	"description": "A mod that is used as an example.",
+	"version": "1.0.0",
+	"mcversion": "1.8.9",
+	"url": "https://github.com/romangraef/Forge1.8.9Template/",
+	"updateUrl": "",
+	"authorList": [
+	  "You"
+	],
+	"credits": "",
+	"logoFile": "",
+	"screenshots": [],
+	"dependencies": []
+  }
 ]
