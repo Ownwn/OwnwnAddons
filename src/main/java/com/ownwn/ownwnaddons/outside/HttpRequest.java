@@ -26,19 +26,23 @@ public class HttpRequest {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                System.out.println("connection is OK");
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                System.out.println(in);
                 String input;
                 StringBuilder response = new StringBuilder();
+                System.out.println(response);
 
                 while ((input = in.readLine()) != null) {
                     response.append(input);
                 }
                 in.close();
+                System.out.println("");
 
                 Gson gson = new Gson();
                 return gson.fromJson(response.toString(), JsonObject.class);
+
             }
         } catch (IOException ex) {
             SendMsg.Msg(EnumChatFormatting.RED + "Error connecting to: \n " + EnumChatFormatting.RED + urlString + "\n" + EnumChatFormatting.RED + " See logs for more details.");
@@ -54,13 +58,19 @@ public class HttpRequest {
 
 
     public static String getLatestProfileID(String UUID, String key) {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-
         // Get profiles
-        System.out.println("Fetching profiles...");
 
-        JsonObject profilesResponse = getResponse("https://api.hypixel.net/skyblock/profiles?uuid=" + UUID + "&key=" + key);
+        System.out.println("Fetching profiles...");
+        JsonObject profilesResponse = null;
+        try {
+            profilesResponse = getResponse("https://api.hypixel.net/skyblock/profiles?uuid=" + UUID + "&key=" + key);
+            System.out.println("https://api.hypixel.net/skyblock/profiles?uuid=" + UUID + "&key=" + key);
+            System.out.println(profilesResponse);
+        } catch (Exception gg) {
+            SendMsg.Msg(EnumChatFormatting.RED + "Error fetching profiles with uuid and key");
+        }
         if (!profilesResponse.get("success").getAsBoolean()) {
+            System.out.println("we got here");
             String reason = profilesResponse.get("cause").getAsString();
             SendMsg.Msg(EnumChatFormatting.RED + "Failed with reason: " + reason);
             return null;

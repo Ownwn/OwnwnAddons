@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,10 @@ public class PartyFinder {
     @SubscribeEvent // thank you Cowlection for the code
     public void onChat(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().contains("joined the dungeon group! (")) {
+
+            if (!Objects.equals(ConfigStuff.getString("features", "PartyFinder"), "true")) {
+                return;
+            }
             String message = EnumChatFormatting.getTextWithoutFormattingCodes(event.message.getUnformattedText());
 
             Matcher dungMatch = PARTY_FINDER_JOIN.matcher(message);
@@ -38,10 +43,11 @@ public class PartyFinder {
 
 
                     String username = dungMatch.group(1);
-                    String key = ConfigStuff.getString("api", "APIKey");
+                    String key = ConfigStuff.getString("api", "Key");
 
                     if (key.equals("")) {
                         SendMsg.Msg(EnumChatFormatting.RED + "You don't have an API key bozo. put it in the config");
+                        return;
                     }
                     String uuid;
                     try {
@@ -50,10 +56,17 @@ public class PartyFinder {
                         SendMsg.Msg(EnumChatFormatting.RED + "Invalid player name: " + username);
                         return;
                     }
-                    String newestProfile = HttpRequest.getLatestProfileID(uuid, key);
+                    String newestProfile = null;
+                    try {
+                        newestProfile = HttpRequest.getLatestProfileID(uuid, key);
+                    } catch (Exception a) {
+                        SendMsg.Msg(EnumChatFormatting.RED + "Error getting the latest profile id");
+                        return;
+                    }
                     if (newestProfile == null) return;
-
+                    System.out.println(newestProfile);
                     String profileURL = "https://api.hypixel.net/skyblock/profile?profile=" + newestProfile + "&key=" + key;
+                    System.out.println(profileURL);
                     JsonObject profileResponse = HttpRequest.getResponse(profileURL);
                     if (!profileResponse.get("success").getAsBoolean()) {
                         String reason = profileResponse.get("cause").getAsString();
@@ -115,6 +128,7 @@ public class PartyFinder {
                     } catch (IOException ex) {
                         SendMsg.Msg(EnumChatFormatting.RED + "shit went really wrong :(");
                         ex.printStackTrace();
+                        return;
                     }
 
                     boolean joinedYourself = username.equals(Minecraft.getMinecraft().thePlayer.getName());

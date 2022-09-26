@@ -1,10 +1,13 @@
 package com.ownwn.ownwnaddons.events;
 
 import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import com.ownwn.ownwnaddons.outside.ConfigStuff;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import java.util.Objects;
 
 
 public class RepellingCandle {
@@ -17,12 +20,17 @@ public class RepellingCandle {
             return;
         }
 
+        if (!Objects.equals(ConfigStuff.getString("features", "RepellingCandle"), "true")) {
+            return;
+        }
+
         ItemStack inHand = Minecraft.getMinecraft().thePlayer.getHeldItem();
 
         if (inHand == null) {
             return;
         }
         if (inHand.getDisplayName().equals("Repelling Candle")) {
+
 
             yee++;
             SendMsg.Msg(String.valueOf(yee));
