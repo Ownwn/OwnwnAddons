@@ -25,6 +25,38 @@ public class NewConfig extends Vigilant {
     )
     public boolean REPELLING_CANDLE_SWITCH = false;
 
+    @Property(
+            type = PropertyType.TEXT,
+            name = "API Key",
+            description = "What is your API Key?",
+            category = "Stuff"
+    )
+    public String API_KEY_TEXT = "";
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Parkour Utils",
+            description = "Toggles the parkour utils feature (W.I.P)",
+            category = "Events"
+    )
+    public boolean PARKOUR_UTILS_SWITCH = false;
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Stamina Timer",
+            description = "Toggles whether the dojo stamina timer should activate",
+            category = "Events"
+    )
+    public boolean DOJO_STAMINA_SWITCH = false;
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Party Finder",
+            description = "Toggles the party finder stats display feature",
+            category = "Events"
+    )
+    public boolean PARTY_FINDER_SWITCH = false;
+
     public NewConfig() {
         super(new File("./config/OwnwnAddons/OwnwnAddons.toml"));
         initialize();

@@ -1,16 +1,11 @@
 package com.ownwn.ownwnaddons.events;
 
-import com.ownwn.ownwnaddons.goodstuff.ScoreBoardInterface;
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.SendMsg;
-import com.ownwn.ownwnaddons.outside.ConfigStuff;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.io.IOException;
-import java.util.Objects;
 
 import static com.ownwn.ownwnaddons.goodstuff.ScoreBoardInterface.getSidebarLines;
 import static com.ownwn.ownwnaddons.goodstuff.ScoreBoardInterface.goodScore;
@@ -29,7 +24,7 @@ public class ParkourUtils {
             return;
         }
 
-        if (!Objects.equals(ConfigStuff.getString("features", "Parkour"), "true")) {
+        if (!OwnwnAddons.config.PARKOUR_UTILS_SWITCH) {
             return;
         }
 

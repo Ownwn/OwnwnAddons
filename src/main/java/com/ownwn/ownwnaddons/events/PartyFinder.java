@@ -1,8 +1,8 @@
 package com.ownwn.ownwnaddons.events;
 
 import com.google.gson.JsonObject;
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.SendMsg;
-import com.ownwn.ownwnaddons.outside.ConfigStuff;
 import com.ownwn.ownwnaddons.outside.HttpRequest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -28,7 +28,7 @@ public class PartyFinder {
     public void onChat(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().contains("joined the dungeon group! (")) {
 
-            if (!Objects.equals(ConfigStuff.getString("features", "PartyFinder"), "true")) {
+            if (!OwnwnAddons.config.PARTY_FINDER_SWITCH) {
                 return;
             }
             String message = EnumChatFormatting.getTextWithoutFormattingCodes(event.message.getUnformattedText());
@@ -43,7 +43,7 @@ public class PartyFinder {
 
 
                     String username = dungMatch.group(1);
-                    String key = ConfigStuff.getString("api", "Key");
+                    String key = OwnwnAddons.config.API_KEY_TEXT;
 
                     if (key.equals("")) {
                         SendMsg.Msg(EnumChatFormatting.RED + "You don't have an API key bozo. put it in the config");
@@ -56,7 +56,7 @@ public class PartyFinder {
                         SendMsg.Msg(EnumChatFormatting.RED + "Invalid player name: " + username);
                         return;
                     }
-                    String newestProfile = null;
+                    String newestProfile;
                     try {
                         newestProfile = HttpRequest.getLatestProfileID(uuid, key);
                     } catch (Exception a) {

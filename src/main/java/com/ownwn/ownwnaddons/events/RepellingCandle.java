@@ -2,13 +2,10 @@ package com.ownwn.ownwnaddons.events;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.SendMsg;
-import com.ownwn.ownwnaddons.outside.ConfigStuff;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import java.util.Objects;
 
 
 public class RepellingCandle {

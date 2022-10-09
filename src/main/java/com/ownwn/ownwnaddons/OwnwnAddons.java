@@ -37,7 +37,6 @@ public class OwnwnAddons
         new ExampleCommand("ExampleCommand").register();
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new ChangeMimicMsg());
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
         MinecraftForge.EVENT_BUS.register(new StaminaTimer());
         MinecraftForge.EVENT_BUS.register(new ParkourUtils());
