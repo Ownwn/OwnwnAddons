@@ -1,8 +1,10 @@
 package com.ownwn.ownwnaddons.commands;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.outside.HttpRequest;
 import com.ownwn.ownwnaddons.goodstuff.PriceRound;
 import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import gg.essential.api.EssentialAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -66,7 +68,7 @@ public class Owa extends CommandBase {
         }
 
 
-        else {
+        else if (args.length >= 1 && args[0].equalsIgnoreCase("help")) {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
                     EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "\u279C OwnwnAddons Help\n"
 
@@ -79,5 +81,10 @@ public class Owa extends CommandBase {
                     + EnumChatFormatting.BLUE + "/owa lbin <item> \u27A1 " + EnumChatFormatting.AQUA + "Find the lowest bin for any item (uses Moulberry)\n"
             ));
         }
+
+        else {
+            EssentialAPI.getGuiUtil().openScreen(OwnwnAddons.config.gui());
+        }
+
     }
 }

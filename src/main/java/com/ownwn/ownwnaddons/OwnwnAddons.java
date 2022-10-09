@@ -1,7 +1,6 @@
 package com.ownwn.ownwnaddons;
 
 import com.ownwn.ownwnaddons.commands.CmdTest;
-import com.ownwn.ownwnaddons.commands.ExampleCommand;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.events.*;
@@ -34,7 +33,6 @@ public class OwnwnAddons
         Vigilance.initialize();
         config.preload();
 
-        new ExampleCommand("ExampleCommand").register();
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
