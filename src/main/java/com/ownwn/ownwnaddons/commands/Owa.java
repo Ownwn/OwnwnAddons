@@ -31,17 +31,8 @@ public class Owa extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        if (args.length >= 1 && args[0].equalsIgnoreCase("stoner")) {
-            System.out.println("Running stoner command...");
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED +
-                    "Hello " +  EnumChatFormatting.YELLOW + sender.getName() + EnumChatFormatting.RED + ", did you know Nelson is a " + EnumChatFormatting.BLUE + "stonahh"));
-        }
-        else if (args.length >= 2 && args[0].equalsIgnoreCase("say")) {
+        if (args.length >= 2 && args[0].equalsIgnoreCase("say")) {
             Minecraft.getMinecraft().thePlayer.sendChatMessage(args[1]);
-
-        }
-        else if (args.length >= 1 && args[0].equalsIgnoreCase("sam")) {
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.DARK_PURPLE + "Hello sam"));
 
         }
 
@@ -74,11 +65,7 @@ public class Owa extends CommandBase {
 
                     + EnumChatFormatting.BLUE + "/owa \u27A1 " + EnumChatFormatting.AQUA + "Opens the GUI\n"
 
-                    + EnumChatFormatting.BLUE + "/owa stoner \u27A1 " + EnumChatFormatting.AQUA + "Runs a super secret stoner command\n"
-
                     + EnumChatFormatting.BLUE + "/owa say <message> \u27A1 " + EnumChatFormatting.AQUA + "Say anything!\n"
-
-                    + EnumChatFormatting.BLUE + "/owa sam \u27A1 " + EnumChatFormatting.AQUA + "Testing message\n"
 
                     + EnumChatFormatting.BLUE + "/owa lbin <item> \u27A1 " + EnumChatFormatting.AQUA + "Find the lowest bin for any item (uses Moulberry)"
             ));
