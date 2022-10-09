@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons.events;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.SendMsg;
 import com.ownwn.ownwnaddons.outside.ConfigStuff;
 import net.minecraft.client.Minecraft;
@@ -20,7 +21,7 @@ public class RepellingCandle {
             return;
         }
 
-        if (!Objects.equals(ConfigStuff.getString("features", "RepellingCandle"), "true")) {
+        if (!OwnwnAddons.config.REPELLING_CANDLE_SWITCH) {
             return;
         }
 

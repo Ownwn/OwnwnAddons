@@ -36,7 +36,7 @@ public class ParkourUtils {
         if (goodScore("Ownwn")) {
             try {
                 Minecraft.getMinecraft().fontRendererObj.drawSplitString(
-                        getSidebarLines().get(1 ), 300, 300, 500, 2013291);
+                        getSidebarLines().get(1), 300, 300, 500, 2013291);
             } catch (Exception e) {
                 SendMsg.Msg(EnumChatFormatting.RED + "Error parsing scoreboard");
             }

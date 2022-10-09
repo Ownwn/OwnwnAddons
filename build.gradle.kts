@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     idea
     java
     id("gg.essential.loom") version "0.10.0.+"
     id("dev.architectury.architectury-pack200") version "0.1.3"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm") version "1.7.20"
 }
 
 group = "com.ownwn.archloomtemplate"
@@ -48,6 +51,7 @@ repositories {
     maven("https://repo.spongepowered.org/maven/")
     // If you don't want to log in with your real minecraft account, remove this line
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+    maven(url = "https://repo.essential.gg/repository/maven-public")
 }
 
 val shadowImpl: Configuration by configurations.creating {
@@ -67,6 +71,11 @@ dependencies {
 
     // If you don't want to log in with your real minecraft account, remove this line
     runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.0")
+
+    implementation(kotlin("stdlib-jdk8"))
+    shadowImpl("gg.essential:loader-launchwrapper:1.1.3")
+    implementation("gg.essential:vigilance-1.8.9-forge:195")
+    implementation("gg.essential:essential-1.8.9-forge:3662")
 
 }
 
@@ -110,3 +119,11 @@ tasks.shadowJar {
 
 tasks.assemble.get().dependsOn(tasks.remapJar)
 
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
