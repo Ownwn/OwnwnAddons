@@ -13,6 +13,7 @@ public class RepellingCandle {
 
     @SubscribeEvent
     public void sadsada(TickEvent event) {
+
         if (Minecraft.getMinecraft().currentScreen != null ||
                 Minecraft.getMinecraft().gameSettings.showDebugInfo) {
             return;

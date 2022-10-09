@@ -86,14 +86,14 @@ tasks.withType(JavaCompile::class) {
 }
 
 tasks.withType(Jar::class) {
-    archiveBaseName.set("examplemod")
+    archiveBaseName.set("ownwnaddons")
     manifest.attributes.run {
         this["FMLCorePluginContainsFMLMod"] = "true"
         this["ForceLoadAsMod"] = "true"
 
         // If you don't want mixins, remove these lines
         this["TweakClass"] = "org.spongepowered.asm.launch.MixinTweaker"
-        this["MixinConfigs"] = "mixins.examplemod.json"
+        this["MixinConfigs"] = "mixins.ownwnaddons.json"
     }
 }
 
@@ -114,7 +114,7 @@ tasks.shadowJar {
     }
 
     // If you want to include other dependencies and shadow them, you can relocate them in here
-    fun relocate(name: String) = relocate(name, "com.examplemod.deps.$name")
+    fun relocate(name: String) = relocate(name, "com.ownwnaddons.deps.$name")
 }
 
 tasks.assemble.get().dependsOn(tasks.remapJar)

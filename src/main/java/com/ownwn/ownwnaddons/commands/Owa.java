@@ -68,9 +68,11 @@ public class Owa extends CommandBase {
         }
 
 
-        else if (args.length >= 1 && args[0].equalsIgnoreCase("help")) {
+        else if (args.length >= 1) {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
                     EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "\u279C OwnwnAddons Help\n"
+
+                    + EnumChatFormatting.BLUE + "/owa \u27A1 " + EnumChatFormatting.AQUA + "Opens the GUI\n"
 
                     + EnumChatFormatting.BLUE + "/owa stoner \u27A1 " + EnumChatFormatting.AQUA + "Runs a super secret stoner command\n"
 
@@ -78,7 +80,7 @@ public class Owa extends CommandBase {
 
                     + EnumChatFormatting.BLUE + "/owa sam \u27A1 " + EnumChatFormatting.AQUA + "Testing message\n"
 
-                    + EnumChatFormatting.BLUE + "/owa lbin <item> \u27A1 " + EnumChatFormatting.AQUA + "Find the lowest bin for any item (uses Moulberry)\n"
+                    + EnumChatFormatting.BLUE + "/owa lbin <item> \u27A1 " + EnumChatFormatting.AQUA + "Find the lowest bin for any item (uses Moulberry)"
             ));
         }
 
