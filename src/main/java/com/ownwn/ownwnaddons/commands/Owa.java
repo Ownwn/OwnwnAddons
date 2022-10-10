@@ -1,15 +1,14 @@
 package com.ownwn.ownwnaddons.commands;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.outside.HttpRequest;
 import com.ownwn.ownwnaddons.goodstuff.PriceRound;
-import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import com.ownwn.ownwnaddons.outside.HttpRequest;
 import gg.essential.api.EssentialAPI;
+import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
 
 
 public class Owa extends CommandBase {
@@ -44,9 +43,9 @@ public class Owa extends CommandBase {
                         int itemPrice = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json").get(args[1].toUpperCase()).getAsInt();
                         String roundPrice = PriceRound.roundPrice(itemPrice);
 
-                        SendMsg.Msg(EnumChatFormatting.GREEN + "The price of " + EnumChatFormatting.AQUA + args[1].toUpperCase() + EnumChatFormatting.GREEN + " is: " + EnumChatFormatting.AQUA + roundPrice);
+                        UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + args[1].toUpperCase() + "&a is: &b" + roundPrice);
                     } catch (Exception e) {
-                        SendMsg.Msg(EnumChatFormatting.RED + "Invalid ItemID!");
+                        UChat.chat(OwnwnAddons.PREFIX + "&cInvalid ItemID!");
                     }
 
                 });
@@ -54,20 +53,20 @@ public class Owa extends CommandBase {
 
 
             } else {
-                SendMsg.Msg(EnumChatFormatting.RED + "Please enter an ItemID!");
+                UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
             }
         }
 
 
         else if (args.length >= 1) {
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
-                    EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "\u279C OwnwnAddons Help\n"
+                    "&9&l\u279C OwnwnAddons Help\n"
 
-                    + EnumChatFormatting.BLUE + "/owa \u27A1 " + EnumChatFormatting.AQUA + "Opens the GUI\n"
+                    + "&9/owa \u27A1 &bOpens the GUI\n"
 
-                    + EnumChatFormatting.BLUE + "/owa say <message> \u27A1 " + EnumChatFormatting.AQUA + "Say anything!\n"
+                    + "&9/owa say <message> \u27A1 &bSay anything!\n"
 
-                    + EnumChatFormatting.BLUE + "/owa lbin <item> \u27A1 " + EnumChatFormatting.AQUA + "Find the lowest bin for any item (uses Moulberry)"
+                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses Moulberry)"
             ));
         }
 

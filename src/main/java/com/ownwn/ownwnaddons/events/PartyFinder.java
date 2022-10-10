@@ -2,8 +2,8 @@ package com.ownwn.ownwnaddons.events;
 
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.goodstuff.SendMsg;
 import com.ownwn.ownwnaddons.outside.HttpRequest;
+import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,9 +16,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static net.minecraft.util.EnumChatFormatting.getTextWithoutFormattingCodes;
 
 public class PartyFinder {
 
@@ -31,7 +32,7 @@ public class PartyFinder {
             if (!OwnwnAddons.config.PARTY_FINDER_SWITCH) {
                 return;
             }
-            String message = EnumChatFormatting.getTextWithoutFormattingCodes(event.message.getUnformattedText());
+            String message = getTextWithoutFormattingCodes(event.message.getUnformattedText());
 
             Matcher dungMatch = PARTY_FINDER_JOIN.matcher(message);
 
@@ -46,44 +47,42 @@ public class PartyFinder {
                     String key = OwnwnAddons.config.API_KEY_TEXT;
 
                     if (key.equals("")) {
-                        SendMsg.Msg(EnumChatFormatting.RED + "You don't have an API key bozo. put it in the config");
+                        UChat.chat(OwnwnAddons.PREFIX + "&cYou don't have an API key bozo. put it in the config");
                         return;
                     }
                     String uuid;
                     try {
                         uuid = HttpRequest.getUUID(username);
                     } catch (NullPointerException e){
-                        SendMsg.Msg(EnumChatFormatting.RED + "Invalid player name: " + username);
+                        UChat.chat(OwnwnAddons.PREFIX + "&cInvalid player name: " + username);
                         return;
                     }
                     String newestProfile;
                     try {
                         newestProfile = HttpRequest.getLatestProfileID(uuid, key);
                     } catch (Exception a) {
-                        SendMsg.Msg(EnumChatFormatting.RED + "Error getting the latest profile id");
+                        UChat.chat(OwnwnAddons.PREFIX + "&cError getting the latest profile id");
                         return;
                     }
                     if (newestProfile == null) return;
-                    System.out.println(newestProfile);
                     String profileURL = "https://api.hypixel.net/skyblock/profile?profile=" + newestProfile + "&key=" + key;
-                    System.out.println(profileURL);
+                    if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("The link to the latest profile is: " + profileURL);}
                     JsonObject profileResponse = HttpRequest.getResponse(profileURL);
                     if (!profileResponse.get("success").getAsBoolean()) {
                         String reason = profileResponse.get("cause").getAsString();
-                        SendMsg.Msg("you messed up: " + reason);
+                        UChat.chat(OwnwnAddons.PREFIX + "you messed up: " + reason);
                         return;
                     }
-
-                    String invBase64 = profileResponse.get("profile").getAsJsonObject().get("members").getAsJsonObject().get(uuid).getAsJsonObject().get("inv_contents").getAsJsonObject().get("data").getAsString();
+                    String invBase64 = profileResponse.get("profile").getAsJsonObject().get("members").getAsJsonObject().get(uuid).getAsJsonObject().get("inv_armor").getAsJsonObject().get("data").getAsString();
                     InputStream invStream = new ByteArrayInputStream(Base64.getDecoder().decode(invBase64));
                     try {
                         NBTTagCompound inventory = CompressedStreamTools.readCompressed(invStream);
                         NBTTagList inventoryList = inventory.getTagList("i", 10);
 
-                        String slot1 = EnumChatFormatting.BLUE + "None";
-                        String slot2 = EnumChatFormatting.BLUE + "None";
-                        String slot3 = EnumChatFormatting.BLUE + "None";
-                        String slot4 = EnumChatFormatting.BLUE + "None";
+                        String slot1 = "&9None";
+                        String slot2 = "&9None";
+                        String slot3 = "&9None";
+                        String slot4 = "&9None";
 
                         for (int i = 0; i < inventoryList.tagCount(); i++) {
 
@@ -113,20 +112,19 @@ public class PartyFinder {
                         }
                         invStream.close();
 
-                        SendMsg.Msg("" + EnumChatFormatting.BOLD + "-------------------\n" +
-                                EnumChatFormatting.AQUA + " " + username + "'s Armour:\n" +
-                                EnumChatFormatting.YELLOW + " Helmet:      " + slot1 + "\n" +
-                                EnumChatFormatting.YELLOW + " Chestplate: " + slot2 + "\n" +
-                                EnumChatFormatting.YELLOW + " Leggings:   " + slot3 + "\n" +
-                                EnumChatFormatting.YELLOW + " Boots:       " + slot4 + "\n" +
-                                EnumChatFormatting.YELLOW + " " + EnumChatFormatting.BOLD + "-------------------");
+                        UChat.chat(OwnwnAddons.PREFIX + "\n" +
+                                "&b " + username + "'s Armour:\n&4 - " +
+                                slot1 + "\n&4 - " +
+                                slot2 + "\n&4 - " +
+                                slot3 + "\n&4 - " +
+                                slot4);
 
 
 
 
 
                     } catch (IOException ex) {
-                        SendMsg.Msg(EnumChatFormatting.RED + "shit went really wrong :(");
+                        UChat.chat("&cshit went really wrong :(");
                         ex.printStackTrace();
                         return;
                     }
@@ -134,7 +132,7 @@ public class PartyFinder {
                     boolean joinedYourself = username.equals(Minecraft.getMinecraft().thePlayer.getName());
                     if (!joinedYourself) {
                         String dungeonClass = dungMatch.group(2) + " Lvl " + dungMatch.group(3);
-                        SendMsg.Msg(EnumChatFormatting.GREEN + dungMatch.group(1) + EnumChatFormatting.GRAY + " - " + EnumChatFormatting.AQUA + dungeonClass);
+                        UChat.chat("&a" + dungMatch.group(1) + "&7 - &b" + dungeonClass);
 
                     }
 

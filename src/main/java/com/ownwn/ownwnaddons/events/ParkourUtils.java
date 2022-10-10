@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.events;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -33,7 +33,7 @@ public class ParkourUtils {
                 Minecraft.getMinecraft().fontRendererObj.drawSplitString(
                         getSidebarLines().get(1), 300, 300, 500, 2013291);
             } catch (Exception e) {
-                SendMsg.Msg(EnumChatFormatting.RED + "Error parsing scoreboard");
+                UChat.chat(OwnwnAddons.PREFIX + "&cError parsing scoreboard");
             }
 
 

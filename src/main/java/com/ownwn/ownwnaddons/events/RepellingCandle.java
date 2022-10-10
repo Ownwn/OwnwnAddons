@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.events;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -32,7 +32,7 @@ public class RepellingCandle {
 
 
             yee++;
-            SendMsg.Msg(String.valueOf(yee));
+            UChat.chat(OwnwnAddons.PREFIX + yee);
             // System.out.println(inHand.getDisplayName());
 
 

@@ -9,13 +9,6 @@ import java.awt.*;
 import java.io.File;
 
 public class NewConfig extends Vigilant {
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Config Test",
-            description = "Toggles the config test event",
-            category = "Events"
-    )
-    public boolean CONFIG_TEST_SWITCH = false;
 
     @Property(
             type = PropertyType.SWITCH,
@@ -56,6 +49,14 @@ public class NewConfig extends Vigilant {
             category = "Events"
     )
     public boolean PARTY_FINDER_SWITCH = false;
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Verbose Code",
+            description = "Should things like HTTP requests print responses?",
+            category = "Stuff"
+    )
+    public boolean VERBOSE_CODE_SWITCH = false;
 
     public NewConfig() {
         super(new File("./config/OwnwnAddons/OwnwnAddons.toml"));

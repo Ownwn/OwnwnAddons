@@ -1,14 +1,10 @@
 package com.ownwn.ownwnaddons.commands;
 
-import com.google.gson.JsonObject;
-import com.ownwn.ownwnaddons.outside.HttpRequest;
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.PriceRound;
-import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.EnumChatFormatting;
-
-import java.io.IOException;
 
 import static com.ownwn.ownwnaddons.outside.HttpRequest.bz;
 import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
@@ -30,14 +26,18 @@ public class HyperionPrice extends CommandBase {
     }
 
     public static void sendResults(String hypPrice, int cleanHyperion) {
-        SendMsg.Msg(EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "Hyperion Price Info: \n"
-                + EnumChatFormatting.GREEN + "  Lowest BIN: " + EnumChatFormatting.BLUE + hypPrice + "\n"
-                + EnumChatFormatting.GREEN + "  Craft Cost: " + EnumChatFormatting.BLUE + PriceRound.roundPrice(cleanHyperion));
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + PriceRound.roundPrice(cleanHyperion));
+
     }
 
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
+
+        if (args.length == 0 || !args[0].equalsIgnoreCase("max") && !args[0].equalsIgnoreCase("semimax") && !args[0].equalsIgnoreCase("clean") ) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cInvalid argument!");
+            return;
+        }
 
         Thread T = new Thread(() -> {
 
@@ -48,22 +48,22 @@ public class HyperionPrice extends CommandBase {
             int cleanHyperion = necronBlade + (lbin("GIANT_FRAGMENT_LASER") * 8);
 
 
-            if (args.length >= 1 && args[0].equalsIgnoreCase("max")) {
+            if (args[0].equalsIgnoreCase("max")) {
                 try {
 
                     String bzPrice = String.valueOf(bz("PERFECT_SAPPHIRE_GEM"));
-                    SendMsg.Msg(EnumChatFormatting.BLUE + bzPrice);
+                UChat.chat(OwnwnAddons.PREFIX + "&9" + bzPrice);
 
 
 
                 } catch (NullPointerException f) {
-                    SendMsg.Msg(EnumChatFormatting.RED + "Invalid item!");
+                    UChat.chat("&cInvalid item!");
                     f.printStackTrace();
                 }
 
             }
 
-            else if (args.length >= 1 && args[0].equalsIgnoreCase("semimax")) {
+            else if (args[0].equalsIgnoreCase("semimax")) {
 
             }
 
@@ -72,10 +72,12 @@ public class HyperionPrice extends CommandBase {
                         sendResults(hypPrice, cleanHyperion);
 
                     } catch (Exception e) {
-                        SendMsg.Msg(EnumChatFormatting.RED + "Something went wrong! ");
+                        UChat.chat(OwnwnAddons.PREFIX + "&cSomething went wrong! ");
                         e.printStackTrace();
                     }
             }
+
+
 
         });
         T.start();

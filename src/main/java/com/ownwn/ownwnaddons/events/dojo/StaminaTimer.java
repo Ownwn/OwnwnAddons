@@ -29,10 +29,14 @@ public class StaminaTimer {
             return;
         }
 
-        if (goodScore("Challenge: Stamina")) {
+        if (goodScore("Ownwn")) {
+        try {
+            Minecraft.getMinecraft().fontRendererObj.drawSplitString(
+                    getSidebarLines().get(3), 300, 300, 500, 2013291);
 
-        Minecraft.getMinecraft().fontRendererObj.drawSplitString(
-                getSidebarLines().get(3), 300, 300, 500, 2013291);
+        } catch (Exception nosidebar3) {
+            if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("Error getting sidebar lines, player must not be in the dojo");}
+            }
 
 
         }
