@@ -4,8 +4,11 @@ import com.ownwn.ownwnaddons.OwnwnAddons;
 import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import java.util.Objects;
 
 
 public class RepellingCandle {
@@ -14,31 +17,35 @@ public class RepellingCandle {
     @SubscribeEvent
     public void sadsada(TickEvent event) {
 
-        if (Minecraft.getMinecraft().currentScreen != null ||
-                Minecraft.getMinecraft().gameSettings.showDebugInfo) {
-            return;
-        }
-
         if (!OwnwnAddons.config.REPELLING_CANDLE_SWITCH) {
             return;
         }
 
-        ItemStack inHand = Minecraft.getMinecraft().thePlayer.getHeldItem();
-
-        if (inHand == null) {
+        if (Minecraft.getMinecraft().currentScreen != null ||
+                Minecraft.getMinecraft().gameSettings.showDebugInfo) {
             return;
         }
-        if (inHand.getDisplayName().equals("Repelling Candle")) {
+        // code taken from NEU https://github.com/NotEnoughUpdates/NotEnoughUpdates
+
+        ItemStack stack = Minecraft.getMinecraft().thePlayer.getHeldItem();
+
+        if (stack != null && stack.hasTagCompound()) {
+
+            NBTTagCompound tag = stack.getTagCompound();
+
+            if (tag.hasKey("ExtraAttributes", 10)) {
+                NBTTagCompound ea = tag.getCompoundTag("ExtraAttributes");
+                if (ea.getTag("id").toString().equals("REPELLING_CANDLE")) {
+                    return;
+                }
+
+                yee++;
+                UChat.chat(OwnwnAddons.PREFIX + yee);
+                // System.out.println(inHand.getDisplayName());
 
 
-            yee++;
-            UChat.chat(OwnwnAddons.PREFIX + yee);
-            // System.out.println(inHand.getDisplayName());
-
-
+            }
 
         }
-
-
     }
 }

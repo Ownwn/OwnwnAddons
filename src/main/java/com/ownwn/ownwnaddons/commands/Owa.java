@@ -8,7 +8,6 @@ import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
 
 
 public class Owa extends CommandBase {
@@ -59,7 +58,7 @@ public class Owa extends CommandBase {
 
 
         else if (args.length >= 1) {
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
+            UChat.chat(
                     "&9&l\u279C OwnwnAddons Help\n"
 
                     + "&9/owa \u27A1 &bOpens the GUI\n"
@@ -67,7 +66,7 @@ public class Owa extends CommandBase {
                     + "&9/owa say <message> \u27A1 &bSay anything!\n"
 
                     + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses Moulberry)"
-            ));
+            );
         }
 
         else {

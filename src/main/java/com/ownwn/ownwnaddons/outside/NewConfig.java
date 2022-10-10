@@ -1,11 +1,9 @@
 package com.ownwn.ownwnaddons.outside;
 
-import gg.essential.universal.UChat;
 import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;
 import gg.essential.vigilance.data.PropertyType;
 
-import java.awt.*;
 import java.io.File;
 
 public class NewConfig extends Vigilant {
@@ -25,22 +23,6 @@ public class NewConfig extends Vigilant {
             category = "Stuff"
     )
     public String API_KEY_TEXT = "";
-
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Parkour Utils",
-            description = "Toggles the parkour utils feature (W.I.P)",
-            category = "Events"
-    )
-    public boolean PARKOUR_UTILS_SWITCH = false;
-
-    @Property(
-            type = PropertyType.SWITCH,
-            name = "Stamina Timer",
-            description = "Toggles whether the dojo stamina timer should activate",
-            category = "Events"
-    )
-    public boolean DOJO_STAMINA_SWITCH = false;
 
     @Property(
             type = PropertyType.SWITCH,

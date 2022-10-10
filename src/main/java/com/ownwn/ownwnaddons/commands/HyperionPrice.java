@@ -35,7 +35,7 @@ public class HyperionPrice extends CommandBase {
     public void processCommand(ICommandSender sender, String[] args) {
 
         if (args.length == 0 || !args[0].equalsIgnoreCase("max") && !args[0].equalsIgnoreCase("semimax") && !args[0].equalsIgnoreCase("clean") ) {
-            UChat.chat(OwnwnAddons.PREFIX + "&cInvalid argument!");
+            UChat.chat(OwnwnAddons.PREFIX + "&cInvalid argument! Valid arguments are: \n &c- clean \n &c- semimax \n &c- max ");
             return;
         }
 
@@ -64,7 +64,7 @@ public class HyperionPrice extends CommandBase {
             }
 
             else if (args[0].equalsIgnoreCase("semimax")) {
-
+                UChat.chat("&cNot yet implemented!");
             }
 
             else {
