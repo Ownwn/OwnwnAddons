@@ -12,7 +12,7 @@ public class NewConfig extends Vigilant {
             type = PropertyType.SWITCH,
             name = "Repelling Candle",
             description = "Toggles whether the (N.Y.I) repelling candle feature should activate",
-            category = "Events"
+            category = "Features"
     )
     public boolean REPELLING_CANDLE_SWITCH = false;
 
@@ -28,7 +28,7 @@ public class NewConfig extends Vigilant {
             type = PropertyType.SWITCH,
             name = "Party Finder",
             description = "Toggles the party finder stats display feature",
-            category = "Events"
+            category = "Features"
     )
     public boolean PARTY_FINDER_SWITCH = false;
 

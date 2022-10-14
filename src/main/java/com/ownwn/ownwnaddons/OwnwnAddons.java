@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons;
 
+import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.events.PartyFinder;
@@ -37,6 +38,8 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new RepellingCandle());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
+        ClientCommandHandler.instance.registerCommand(new FragRunCalc());
+
     }
 }
 

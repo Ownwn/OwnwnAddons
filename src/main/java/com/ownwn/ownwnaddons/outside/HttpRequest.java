@@ -64,7 +64,6 @@ public class HttpRequest {
         }
         try {
             if (profilesResponse != null && !profilesResponse.get("success").getAsBoolean()) {
-                if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("we got here");}
                 String reason = profilesResponse.get("cause").getAsString();
                 UChat.chat(OwnwnAddons.PREFIX + "&cFailed with reason: " + reason);
                 return null;
@@ -105,7 +104,7 @@ public class HttpRequest {
 
 
     public static int lbin(String item) {
-        JsonObject lowestbin = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
+        JsonObject lowestbin = HttpRequest.getResponse("https://lb.tricked.pro/lowestbins.json");
         return lowestbin.get(item).getAsInt();
     }
 

@@ -39,7 +39,7 @@ public class Owa extends CommandBase {
 
                 Thread T = new Thread(() -> {
                     try {
-                        int itemPrice = HttpRequest.getResponse("https://moulberry.codes/lowestbin.json").get(args[1].toUpperCase()).getAsInt();
+                        int itemPrice = HttpRequest.getResponse("https://lb.tricked.pro/lowestbins.json").get(args[1].toUpperCase()).getAsInt();
                         String roundPrice = PriceRound.roundPrice(itemPrice);
 
                         UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + args[1].toUpperCase() + "&a is: &b" + roundPrice);
@@ -65,7 +65,7 @@ public class Owa extends CommandBase {
 
                     + "&9/owa say <message> \u27A1 &bSay anything!\n"
 
-                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses Moulberry)"
+                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses lb.tricked.pro)"
             );
         }
 
