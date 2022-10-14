@@ -21,10 +21,10 @@ public class HttpRequest {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+
+            if (OwnwnAddons.config.VERBOSE_CODE_SWITCH) { System.out.println("Response Code: " + conn.getResponseCode());}
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                if (OwnwnAddons.config.VERBOSE_CODE_SWITCH) {
-                    System.out.println("connection is OK");
-                }
+
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String input;
                 StringBuilder response = new StringBuilder();
@@ -103,9 +103,9 @@ public class HttpRequest {
     }
 
 
-    public static int lbin(String item) {
-        JsonObject lowestbin = HttpRequest.getResponse("https://lb.tricked.pro/lowestbins.json");
-        return lowestbin.get(item).getAsInt();
+    public static JsonObject lbin() {
+        // return lowestbin.get(item).getAsInt();
+        return HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
     }
 
     public static int bz(String item) {

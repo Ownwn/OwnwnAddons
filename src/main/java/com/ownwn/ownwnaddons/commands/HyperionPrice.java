@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons.commands;
 
+import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.PriceRound;
 import gg.essential.universal.UChat;
@@ -41,11 +42,11 @@ public class HyperionPrice extends CommandBase {
 
         Thread T = new Thread(() -> {
 
+            JsonObject lbins = lbin();
+            String hypPrice = PriceRound.roundPrice(lbins.get("HYPERION").getAsInt());
 
-            String hypPrice = PriceRound.roundPrice(lbin("HYPERION"));
-
-            int necronBlade = lbin("NECRON_HANDLE") + (lbin("WITHER_CATALYST") * 24);
-            int cleanHyperion = necronBlade + (lbin("GIANT_FRAGMENT_LASER") * 8);
+            int necronBlade = lbins.get("NECRON_HANDLE").getAsInt() + (lbins.get("WITHER_CATALYST").getAsInt() * 24);
+            int cleanHyperion = necronBlade + (lbins.get("GIANT_FRAGMENT_LASER").getAsInt() * 8);
 
 
             if (args[0].equalsIgnoreCase("max")) {

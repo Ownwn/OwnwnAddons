@@ -1,12 +1,12 @@
 package com.ownwn.ownwnaddons.commands;
 
+import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.PriceRound;
 import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
-import static com.ownwn.ownwnaddons.outside.HttpRequest.bz;
 import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
 
 public class FragRunCalc extends CommandBase {
@@ -25,15 +25,15 @@ public class FragRunCalc extends CommandBase {
         return true;
     }
 
-    public static void sendResults(String hypPrice, int cleanHyperion) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + hypPrice + "\n &aDiamante Cost: &a" + PriceRound.roundPrice(cleanHyperion));
+    public static void sendResults(String profitPerHour, int diamante) {
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + PriceRound.roundPrice(diamante));
 
     }
 
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        if (args.length != 2 || !args[1].equalsIgnoreCase("no") && !args[0].equalsIgnoreCase("yes") ) {
+        if (args.length != 2 || !args[1].equalsIgnoreCase("no") && !args[1].equalsIgnoreCase("yes") ) {
             UChat.chat(OwnwnAddons.PREFIX + "&cInvalid usage! Use /calcfragrun <time in seconds> <looting yes/no>");
             return;
         }
@@ -49,42 +49,23 @@ public class FragRunCalc extends CommandBase {
 
         Thread T = new Thread(() -> {
 
+            JsonObject lbins = lbin();
+            int diamante = lbins.get("GIANT_FRAGMENT_DIAMOND").getAsInt();
 
-            String hypPrice = PriceRound.roundPrice(lbin("HYPERION"));
+            int averagePrice = lbins.get("GIANT_FRAGMENT_LASER").getAsInt() + lbins.get("GIANT_FRAGMENT_BOULDER").getAsInt() + lbins.get("GIANT_FRAGMENT_BIGFOOT").getAsInt() + lbins.get("GIANT_FRAGMENT_DIAMOND").getAsInt();
+            averagePrice /= 4;
 
-            int necronBlade = lbin("NECRON_HANDLE") + (lbin("WITHER_CATALYST") * 24);
-            int cleanHyperion = necronBlade + (lbin("GIANT_FRAGMENT_LASER") * 8);
-
-
-            if (args[0].equalsIgnoreCase("max")) {
-                try {
-
-                    String bzPrice = String.valueOf(bz("PERFECT_SAPPHIRE_GEM"));
-                    UChat.chat(OwnwnAddons.PREFIX + "&9" + bzPrice);
-
-
-
-                } catch (NullPointerException f) {
-                    UChat.chat("&cInvalid item!");
-                    f.printStackTrace();
-                }
-
+            // IDK if looting affects precursor loot, so I'm going to assume that it does
+            double finalChance = averagePrice * 0.75;
+            if (args[1].equalsIgnoreCase("no")) {
+                    finalChance = averagePrice * 0.5;
             }
+            System.out.println(finalChance);
+            double moneyPerHour = (finalChance / Integer.parseInt(args[0])) * 3600;
 
-            else if (args[0].equalsIgnoreCase("semimax")) {
-                UChat.chat("&cNot yet implemented!");
-            }
+            String rounded = PriceRound.roundPrice(moneyPerHour);
 
-            else {
-                try {
-                    sendResults(hypPrice, cleanHyperion);
-
-                } catch (Exception e) {
-                    UChat.chat(OwnwnAddons.PREFIX + "&cSomething went wrong! ");
-                    e.printStackTrace();
-                }
-            }
-
+            sendResults(rounded, diamante);
 
 
         });
