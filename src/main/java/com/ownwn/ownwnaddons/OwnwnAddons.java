@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class OwnwnAddons
 {
     public static final String MODID = "ownwnaddons";
-    public static final String VERSION = "1.1";
+    public static final String VERSION = "1.2.0";
     public static final String PREFIX =
             EnumChatFormatting.DARK_PURPLE + "<" + EnumChatFormatting.LIGHT_PURPLE + "OWA"
                     + EnumChatFormatting.DARK_PURPLE + ">" + EnumChatFormatting.RESET + " ";
