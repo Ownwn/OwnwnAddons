@@ -9,17 +9,9 @@ import java.io.File;
 public class NewConfig extends Vigilant {
 
     @Property(
-            type = PropertyType.SWITCH,
-            name = "Repelling Candle",
-            description = "Toggles whether the (N.Y.I) repelling candle feature should activate",
-            category = "Features"
-    )
-    public boolean REPELLING_CANDLE_SWITCH = false;
-
-    @Property(
             type = PropertyType.TEXT,
             name = "API Key",
-            description = "What is your API Key?",
+            description = "Used for things such as the party finder display",
             category = "Stuff"
     )
     public String API_KEY_TEXT = "";
@@ -35,7 +27,7 @@ public class NewConfig extends Vigilant {
     @Property(
             type = PropertyType.SWITCH,
             name = "Verbose Code",
-            description = "Should things like HTTP requests print responses?",
+            description = "Should the mod write things like HTTP responses to the log?",
             category = "Stuff"
     )
     public boolean VERBOSE_CODE_SWITCH = false;

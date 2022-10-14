@@ -4,7 +4,6 @@ import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.events.PartyFinder;
-import com.ownwn.ownwnaddons.events.RepellingCandle;
 import com.ownwn.ownwnaddons.outside.NewConfig;
 import gg.essential.vigilance.Vigilance;
 import net.minecraft.util.EnumChatFormatting;
@@ -35,7 +34,6 @@ public class OwnwnAddons
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
-        MinecraftForge.EVENT_BUS.register(new RepellingCandle());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
         ClientCommandHandler.instance.registerCommand(new FragRunCalc());

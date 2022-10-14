@@ -37,7 +37,6 @@ public class PartyFinder {
 
 
             if (dungMatch.find()) {
-                event.setCanceled(true);
                 new Thread(() -> {
 
 
@@ -46,7 +45,7 @@ public class PartyFinder {
                     String key = OwnwnAddons.config.API_KEY_TEXT;
 
                     if (key.equals("")) {
-                        UChat.chat(OwnwnAddons.PREFIX + "&cYou don't have an API key bozo. put it in the config");
+                        UChat.chat(OwnwnAddons.PREFIX + "&cYou don't have a Hypixel API key bozo. Put it in the config using /owa");
                         return;
                     }
                     String uuid;
@@ -60,7 +59,7 @@ public class PartyFinder {
                     try {
                         newestProfile = HttpRequest.getLatestProfileID(uuid, key);
                     } catch (Exception a) {
-                        UChat.chat(OwnwnAddons.PREFIX + "&cError getting the latest profile id");
+                        UChat.chat(OwnwnAddons.PREFIX + "&cError getting the latest profile ID. This is likely caused by an invalid Hypixel API key.");
                         return;
                     }
                     if (newestProfile == null) return;
@@ -111,7 +110,7 @@ public class PartyFinder {
                         }
                         invStream.close();
 
-                        UChat.chat(OwnwnAddons.PREFIX + "\n" +
+                        UChat.chat(OwnwnAddons.PREFIX +
                                 "&b " + username + "'s Armour:\n&4 - " +
                                 slot1 + "\n&4 - " +
                                 slot2 + "\n&4 - " +
@@ -123,17 +122,16 @@ public class PartyFinder {
 
 
                     } catch (IOException ex) {
-                        UChat.chat("&cshit went really wrong :(");
+                        UChat.chat("&cstuff went really wrong :(");
                         ex.printStackTrace();
-                        return;
                     }
 
-                    boolean joinedYourself = username.equals(Minecraft.getMinecraft().thePlayer.getName());
+                    /* boolean joinedYourself = username.equals(Minecraft.getMinecraft().thePlayer.getName());
                     if (!joinedYourself) {
                         String dungeonClass = dungMatch.group(2) + " Lvl " + dungMatch.group(3);
                         UChat.chat("&a" + dungMatch.group(1) + "&7 - &b" + dungeonClass);
 
-                    }
+                    } */
 
                 }).start();
             }

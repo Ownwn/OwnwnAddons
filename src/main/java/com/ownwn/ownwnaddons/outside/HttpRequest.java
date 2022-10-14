@@ -54,11 +54,9 @@ public class HttpRequest {
     public static String getLatestProfileID(String UUID, String key) {
         // Get profiles
 
-        if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("Fetching profiles...");}
         JsonObject profilesResponse = null;
         try {
             profilesResponse = getResponse("https://api.hypixel.net/skyblock/profiles?uuid=" + UUID + "&key=" + key);
-            if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("The list of profiles is: https://api.hypixel.net/skyblock/profiles?uuid=" + UUID + "&key=" + key);}
         } catch (Exception gg) {
             UChat.chat(OwnwnAddons.PREFIX + "&cError fetching profiles with uuid and key");
         }
@@ -111,7 +109,6 @@ public class HttpRequest {
     public static JsonObject bz() {
 
             return HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
-
     }
 
 }

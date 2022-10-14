@@ -34,7 +34,7 @@ public class FragRunCalc extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (args.length != 2 || !args[1].equalsIgnoreCase("no") && !args[1].equalsIgnoreCase("yes") ) {
-            UChat.chat(OwnwnAddons.PREFIX + "&cInvalid usage! Use /calcfragrun <time in seconds> <looting yes/no>");
+            UChat.chat(OwnwnAddons.PREFIX + "&cUsage: /calcfragrun <time in seconds> <looting yes/no>");
             return;
         }
 
