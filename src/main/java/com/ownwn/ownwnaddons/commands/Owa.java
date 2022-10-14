@@ -32,6 +32,7 @@ public class Owa extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
 
+
         if (args.length >= 1 && args[0].equalsIgnoreCase("lbin")) {
             if (args.length >= 2) {
 
@@ -64,7 +65,6 @@ public class Owa extends CommandBase {
                     + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)"
             );
         }
-
         else {
             EssentialAPI.getGuiUtil().openScreen(OwnwnAddons.config.gui());
         }
