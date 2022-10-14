@@ -1,11 +1,9 @@
 package com.ownwn.ownwnaddons;
 
-import com.ownwn.ownwnaddons.commands.CmdTest;
+import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
-import com.ownwn.ownwnaddons.events.*;
-
-import com.ownwn.ownwnaddons.events.dojo.StaminaTimer;
+import com.ownwn.ownwnaddons.events.PartyFinder;
 import com.ownwn.ownwnaddons.outside.NewConfig;
 import gg.essential.vigilance.Vigilance;
 import net.minecraft.util.EnumChatFormatting;
@@ -19,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class OwnwnAddons
 {
     public static final String MODID = "ownwnaddons";
-    public static final String VERSION = "1.1";
+    public static final String VERSION = "1.2.0";
     public static final String PREFIX =
             EnumChatFormatting.DARK_PURPLE + "<" + EnumChatFormatting.LIGHT_PURPLE + "OWA"
                     + EnumChatFormatting.DARK_PURPLE + ">" + EnumChatFormatting.RESET + " ";
@@ -36,13 +34,10 @@ public class OwnwnAddons
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
-        MinecraftForge.EVENT_BUS.register(new StaminaTimer());
-        MinecraftForge.EVENT_BUS.register(new ParkourUtils());
-        MinecraftForge.EVENT_BUS.register(new RepellingCandle());
-        MinecraftForge.EVENT_BUS.register(new confiugtest());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
-        ClientCommandHandler.instance.registerCommand(new CmdTest());
+        ClientCommandHandler.instance.registerCommand(new FragRunCalc());
+
     }
 }
 

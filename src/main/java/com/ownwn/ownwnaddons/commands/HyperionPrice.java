@@ -1,14 +1,11 @@
 package com.ownwn.ownwnaddons.commands;
 
 import com.google.gson.JsonObject;
-import com.ownwn.ownwnaddons.outside.HttpRequest;
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.goodstuff.PriceRound;
-import com.ownwn.ownwnaddons.goodstuff.SendMsg;
+import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.EnumChatFormatting;
-
-import java.io.IOException;
 
 import static com.ownwn.ownwnaddons.outside.HttpRequest.bz;
 import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
@@ -30,9 +27,8 @@ public class HyperionPrice extends CommandBase {
     }
 
     public static void sendResults(String hypPrice, int cleanHyperion) {
-        SendMsg.Msg(EnumChatFormatting.BLUE + "" + EnumChatFormatting.BOLD + "Hyperion Price Info: \n"
-                + EnumChatFormatting.GREEN + "  Lowest BIN: " + EnumChatFormatting.BLUE + hypPrice + "\n"
-                + EnumChatFormatting.GREEN + "  Craft Cost: " + EnumChatFormatting.BLUE + PriceRound.roundPrice(cleanHyperion));
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + PriceRound.roundPrice(cleanHyperion));
+
     }
 
 
@@ -40,42 +36,22 @@ public class HyperionPrice extends CommandBase {
     public void processCommand(ICommandSender sender, String[] args) {
 
         Thread T = new Thread(() -> {
+            String hypPrice;
+            int cleanHyperion;
+            try {
+                JsonObject lbins = lbin();
+                hypPrice = PriceRound.roundPrice(lbins.get("HYPERION").getAsInt());
 
+                int necronBlade = lbins.get("NECRON_HANDLE").getAsInt() + (lbins.get("WITHER_CATALYST").getAsInt() * 24);
+                cleanHyperion = necronBlade + (lbins.get("GIANT_FRAGMENT_LASER").getAsInt() * 8);
 
-            String hypPrice = PriceRound.roundPrice(lbin("HYPERION"));
-
-            int necronBlade = lbin("NECRON_HANDLE") + (lbin("WITHER_CATALYST") * 24);
-            int cleanHyperion = necronBlade + (lbin("GIANT_FRAGMENT_LASER") * 8);
-
-
-            if (args.length >= 1 && args[0].equalsIgnoreCase("max")) {
-                try {
-
-                    String bzPrice = String.valueOf(bz("PERFECT_SAPPHIRE_GEM"));
-                    SendMsg.Msg(EnumChatFormatting.BLUE + bzPrice);
-
-
-
-                } catch (NullPointerException f) {
-                    SendMsg.Msg(EnumChatFormatting.RED + "Invalid item!");
-                    f.printStackTrace();
-                }
-
+            } catch (Exception e) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cError reaching the LBIN Api! ");
+                e.printStackTrace();
+                return;
             }
 
-            else if (args.length >= 1 && args[0].equalsIgnoreCase("semimax")) {
-
-            }
-
-            else {
-                    try {
-                        sendResults(hypPrice, cleanHyperion);
-
-                    } catch (Exception e) {
-                        SendMsg.Msg(EnumChatFormatting.RED + "Something went wrong! ");
-                        e.printStackTrace();
-                    }
-            }
+            sendResults(hypPrice, cleanHyperion);
 
         });
         T.start();
