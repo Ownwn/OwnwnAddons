@@ -35,7 +35,7 @@ public class HyperionPrice extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
 
-        if (args.length == 0 || !args[0].equalsIgnoreCase("max") && !args[0].equalsIgnoreCase("semimax") && !args[0].equalsIgnoreCase("clean") ) {
+        if (args.length == 0 || !args[0].equalsIgnoreCase("max") && !args[0].equalsIgnoreCase("clean") ) {
             UChat.chat(OwnwnAddons.PREFIX + "&cInvalid argument! Valid arguments are: \n &c- clean \n &c- semimax \n &c- max ");
             return;
         }
@@ -50,23 +50,30 @@ public class HyperionPrice extends CommandBase {
 
 
             if (args[0].equalsIgnoreCase("max")) {
+                JsonObject jasperjson, sapphirejson;
                 try {
-
-                    String bzPrice = String.valueOf(bz("PERFECT_SAPPHIRE_GEM"));
-                UChat.chat(OwnwnAddons.PREFIX + "&9" + bzPrice);
-
-
+                    JsonObject bzs = bz();
+                    jasperjson = bzs.getAsJsonObject("PERFECT_JASPER_GEMSTONE");
+                    sapphirejson = bzs.getAsJsonObject("PERFECT_SAPPHIRE_GEMSTONE");
 
                 } catch (NullPointerException f) {
-                    UChat.chat("&cInvalid item!");
-                    f.printStackTrace();
+                    UChat.chat("&cThe bazaar API is currently unresponsive. Please try again later.");
+                    return;
                 }
 
+
+                try {
+                    double jasper, sapphire = 0;
+                    jasper = jasperjson.getAsJsonObject("quick_status").getAsJsonObject("buyPrice").getAsDouble();
+                    sapphire = sapphirejson.getAsJsonObject("quick_status").getAsJsonObject("buyPrice").getAsDouble();
+                } catch (Exception e) {
+                    UChat.chat("&cOne or more gemstones have no buy price. This may offset the hyperion price.");
+                }
+
+
             }
 
-            else if (args[0].equalsIgnoreCase("semimax")) {
-                UChat.chat("&cNot yet implemented!");
-            }
+
 
             else {
                     try {

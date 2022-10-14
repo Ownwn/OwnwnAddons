@@ -108,11 +108,9 @@ public class HttpRequest {
         return HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
     }
 
-    public static int bz(String item) {
+    public static JsonObject bz() {
 
-            JsonObject bazaar = HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar");
-
-            return bazaar.getAsJsonObject("products").getAsJsonObject(item).getAsJsonObject("quick_status").get("buyPrice").getAsInt();
+            return HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
 
     }
 
