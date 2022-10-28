@@ -51,6 +51,22 @@ public class HyperionPrice extends CommandBase {
                 return;
             }
 
+            try {
+                JsonObject bzs = bz();
+                double WITHER_SHIELD = bzs.get("WITHER_SHIELD_SCROLL").getAsJsonObject().get("quick_status").getAsJsonObject().get("buyPrice").getAsDouble();
+                double IMPLOSION = bzs.get("IMPLOSION_SCROLL").getAsJsonObject().get("quick_status").getAsJsonObject().get("buyPrice").getAsDouble();
+                double SHADOW_WARP = bzs.get("SHADOW_WARP_SCROLL").getAsJsonObject().get("quick_status").getAsJsonObject().get("buyPrice").getAsDouble();
+
+                System.out.println("The price for all the scrolls is: " + WITHER_SHIELD + IMPLOSION + SHADOW_WARP);
+
+            } catch (Exception e) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cError reaching the Bazaar API! ");
+                e.printStackTrace();
+                return;
+            }
+
+
+
             sendResults(hypPrice, cleanHyperion);
 
         });

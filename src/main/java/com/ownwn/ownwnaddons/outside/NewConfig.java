@@ -33,7 +33,7 @@ public class NewConfig extends Vigilant {
     public boolean VERBOSE_CODE_SWITCH = false;
 
     public NewConfig() {
-        super(new File("./config/OwnwnAddons/OwnwnAddons.toml"));
+        super(new File("./config/OwnwnAddons.toml"));
         initialize();
     }
 
