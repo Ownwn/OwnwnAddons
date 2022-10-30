@@ -32,6 +32,14 @@ public class NewConfig extends Vigilant {
     )
     public boolean VERBOSE_CODE_SWITCH = false;
 
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Custom Name Colour",
+            description = "Change the colour of your name to anything",
+            category = "Features"
+    )
+    public boolean CUSTOM_NAME_SWITCH = false;
+
     public NewConfig() {
         super(new File("./config/OwnwnAddons.toml"));
         initialize();

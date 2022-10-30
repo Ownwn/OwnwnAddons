@@ -24,7 +24,7 @@ public class PartyFinder {
 
     private static final Pattern PARTY_FINDER_JOIN = Pattern.compile("^Dungeon Finder > (\\w+) joined the dungeon group! \\(([A-Z][a-z]+) Level (\\d+)\\)$");
 
-    @SubscribeEvent // thank you Cowlection for the code
+    @SubscribeEvent // thank you Cowlection for the code https://github.com/cow-mc/Cowlection/
     public void onChat(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().contains("joined the dungeon group! (")) {
 

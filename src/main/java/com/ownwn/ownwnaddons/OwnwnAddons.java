@@ -3,6 +3,7 @@ package com.ownwn.ownwnaddons;
 import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
+import com.ownwn.ownwnaddons.events.CustomNameColour;
 import com.ownwn.ownwnaddons.events.PartyFinder;
 import com.ownwn.ownwnaddons.outside.NewConfig;
 import gg.essential.vigilance.Vigilance;
@@ -12,6 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import tv.twitch.chat.ChatUserInfo;
 
 @Mod(modid = OwnwnAddons.MODID, version = OwnwnAddons.VERSION)
 public class OwnwnAddons
@@ -34,6 +36,7 @@ public class OwnwnAddons
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
+        MinecraftForge.EVENT_BUS.register(new CustomNameColour());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
         ClientCommandHandler.instance.registerCommand(new FragRunCalc());
