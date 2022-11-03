@@ -26,8 +26,8 @@ public class HyperionPrice extends CommandBase {
         return true;
     }
 
-    public static void sendResults(String hypPrice, int cleanHyperion) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + PriceRound.roundPrice(cleanHyperion));
+    public static void sendResults(String hypPrice, int cleanHyperion, int scrollsCost) {
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + PriceRound.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + PriceRound.roundPrice(scrollsCost));
 
     }
 
@@ -37,7 +37,9 @@ public class HyperionPrice extends CommandBase {
 
         Thread T = new Thread(() -> {
             String hypPrice;
+            int scrollsCost;
             int cleanHyperion;
+            int totalHype;
             try {
                 JsonObject lbins = lbin();
                 hypPrice = PriceRound.roundPrice(lbins.get("HYPERION").getAsInt());
@@ -51,7 +53,24 @@ public class HyperionPrice extends CommandBase {
                 return;
             }
 
-            sendResults(hypPrice, cleanHyperion);
+            try {
+                JsonObject bzs = bz();
+                int witherShield = bzs.get("WITHER_SHIELD_SCROLL").getAsJsonObject().get("quick_status").getAsJsonObject().get("buyPrice").getAsInt();
+                int implosion = bzs.get("IMPLOSION_SCROLL").getAsJsonObject().get("quick_status").getAsJsonObject().get("buyPrice").getAsInt();
+                int shadowWarp = bzs.get("SHADOW_WARP_SCROLL").getAsJsonObject().get("quick_status").getAsJsonObject().get("buyPrice").getAsInt();
+                scrollsCost = witherShield + implosion + shadowWarp;
+
+                totalHype = cleanHyperion + scrollsCost;
+
+            } catch (Exception e) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cError reaching the Bazaar API! ");
+                e.printStackTrace();
+                return;
+            }
+
+
+
+            sendResults(hypPrice, totalHype, scrollsCost);
 
         });
         T.start();
