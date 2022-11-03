@@ -47,7 +47,7 @@ public class NewConfig extends Vigilant {
             description = "Select the name colour you want",
             category = "Features",
             subcategory = "Name Colour",
-            options = {"Black", "Dark Blue", "Green", "Dark Aqua", "Dark Red", "Purple", "Gold", "Grey", "Dark Grey", "Light Blue"}
+            options = {"Black", "Dark Blue", "Green", "Dark Aqua", "Dark Red", "Purple", "Gold", "Grey", "Dark Grey", "Blue", "Lime", "Aqua", "Red", "Pink", "Yellow", "White"}
     )
     public int NAME_COLOUR_SELECT = 0;
 
