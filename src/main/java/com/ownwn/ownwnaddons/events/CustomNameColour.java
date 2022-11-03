@@ -27,18 +27,20 @@ public class CustomNameColour {
 
         String goodColour = EnumChatFormatting.values()[OwnwnAddons.config.NAME_COLOUR_SELECT].toString();
 
-        String regex = "\\u00A7.\\[.+] " + player;
-        Matcher matcher = Pattern.compile(regex).matcher(msg);
+        Matcher rankMatcher = Pattern.compile("\\u00A7.\\[.+] " + player).matcher(msg); // for players with vip/mvp
+        Matcher defaultMatcher = Pattern.compile("\\u00A77" + player).matcher(msg); // for players without a rank (grey name)
 
-        if (!matcher.find()) {
+        if (rankMatcher.find()) {
+            msg = msg.replace(player, goodColour + player + "§r");
+        }
+        else if (defaultMatcher.find()) {
+            msg = msg.replace(player, goodColour + player + "§7");
+        }
+        else {
             return;
         }
 
-        msg = msg.replace(player, goodColour + player + "§r");
         event.message = new ChatComponentText(msg).setChatStyle(event.message.getChatStyle());
-
-
-
 
     }
 }
