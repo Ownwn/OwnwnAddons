@@ -6,5 +6,6 @@ https://discord.gg/rTx7fqZhUw
 - Hyperion craft price calculator
 - F7 frag run profit calculator
 - Party finder stats display (Somewhat unfinished)
+- Custom name editor, supports default MC formatting codes (§a-f, §1-9)
 
 The config is managed using Essential's Elementa and Vigilance
