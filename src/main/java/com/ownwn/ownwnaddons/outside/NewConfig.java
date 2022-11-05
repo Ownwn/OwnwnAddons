@@ -33,29 +33,17 @@ public class NewConfig extends Vigilant {
     public boolean VERBOSE_CODE_SWITCH = false;
 
     @Property(
-            type = PropertyType.SWITCH,
-            name = "Custom Name Colour",
-            description = "Change the colour of your name to anything",
-            category = "Features",
-            subcategory = "Name Colour"
+            type = PropertyType.TEXT,
+            name = "Custom Name",
+            description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes, Credit to NEU for the idea.",
+            category = "Features"
     )
-    public boolean NAME_COLOUR_SWITCH = false;
-
-    @Property(
-            type = PropertyType.SELECTOR,
-            name = "Name Colour",
-            description = "Select the name colour you want",
-            category = "Features",
-            subcategory = "Name Colour",
-            options = {"Black", "Dark Blue", "Green", "Dark Aqua", "Dark Red", "Purple", "Gold", "Grey", "Dark Grey", "Blue", "Lime", "Aqua", "Red", "Pink", "Yellow", "White"}
-    )
-    public int NAME_COLOUR_SELECT = 0;
+    public String CUSTOM_NAME_EDITOR = "";
 
 
     public NewConfig() {
         super(new File("./config/OwnwnAddons.toml"));
         initialize();
     }
-
 }
 
