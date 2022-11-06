@@ -34,7 +34,7 @@ public class CustomNameColour {
             newMsg = msg.replace(player, newCustomName + "\u00A7r");
 
             if (OwnwnAddons.config.NAME_REPLACE_RANK) {
-                newMsg = Pattern.compile("\\u00A7.\\[\\D+] " + player).matcher(msg).replaceAll(newCustomName + "");
+                newMsg = Pattern.compile("\\u00A7.\\[(\\u00A7.)*\\D+(\\u00A7.)*\\D+(\\u00A7.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
             }
         }
 
