@@ -42,7 +42,7 @@ public class NewConfig extends Vigilant {
 
 
     public NewConfig() {
-        super(new File("./config/OwnwnAddons/OwnwnAddons.toml"));
+        super(new File("./config/OwnwnAddons.toml"));
         initialize();
     }
 }
