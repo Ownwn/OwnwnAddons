@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.goodstuff;
+package com.ownwn.ownwnaddons.utils;
 
 public class PriceRound {
     public static String roundPrice(double price) {

@@ -3,9 +3,9 @@ package com.ownwn.ownwnaddons;
 import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
-import com.ownwn.ownwnaddons.events.CustomNameColour;
-import com.ownwn.ownwnaddons.events.PartyFinder;
-import com.ownwn.ownwnaddons.outside.NewConfig;
+import com.ownwn.ownwnaddons.features.CustomNameColour;
+import com.ownwn.ownwnaddons.features.PartyFinder;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import gg.essential.vigilance.Vigilance;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -23,7 +23,6 @@ public class OwnwnAddons
             EnumChatFormatting.DARK_PURPLE + "<" + EnumChatFormatting.LIGHT_PURPLE + "OWA"
                     + EnumChatFormatting.DARK_PURPLE + ">" + EnumChatFormatting.RESET + " ";
 
-    public static final OwnwnAddons instance = new OwnwnAddons();
     public static NewConfig config = new NewConfig();
 
     @EventHandler

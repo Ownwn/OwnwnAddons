@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.events;
+package com.ownwn.ownwnaddons.features;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import net.minecraft.client.Minecraft;
@@ -29,17 +29,17 @@ public class CustomNameColour {
         Matcher rankMatcher = Pattern.compile("\\u00A7.\\[.+] " + player).matcher(msg); // for players with vip/mvp
         Matcher defaultMatcher = Pattern.compile("\\u00A77" + player).matcher(msg); // for players without a rank (grey name)
 
-        if (rankMatcher.find()) {
+        if (rankMatcher.find()) { // has vip/mvp
             msg = msg.replace(player, newCustomName + "§r");
         }
-        else if (defaultMatcher.find()) {
+        else if (defaultMatcher.find()) { // default rank
             msg = msg.replace(player, newCustomName + "§7");
         }
         else {
             return;
         }
 
-        event.message = new ChatComponentText(msg).setChatStyle(event.message.getChatStyle());
+        event.message = new ChatComponentText(msg).setChatStyle(event.message.getChatStyle()); // replace msg
 
     }
 }

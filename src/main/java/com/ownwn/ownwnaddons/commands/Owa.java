@@ -1,15 +1,13 @@
 package com.ownwn.ownwnaddons.commands;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.goodstuff.PriceRound;
-import com.ownwn.ownwnaddons.outside.HttpRequest;
+import com.ownwn.ownwnaddons.utils.PriceRound;
 import gg.essential.api.EssentialAPI;
 import gg.essential.universal.UChat;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
-import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
+import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
 
 
 public class Owa extends CommandBase {
