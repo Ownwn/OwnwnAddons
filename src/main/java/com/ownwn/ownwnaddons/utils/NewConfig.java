@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.outside;
+package com.ownwn.ownwnaddons.utils;
 
 import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;

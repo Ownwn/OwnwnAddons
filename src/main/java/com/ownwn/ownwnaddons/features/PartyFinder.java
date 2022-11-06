@@ -1,10 +1,9 @@
-package com.ownwn.ownwnaddons.events;
+package com.ownwn.ownwnaddons.features;
 
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.outside.HttpRequest;
+import com.ownwn.ownwnaddons.utils.HttpRequest;
 import gg.essential.universal.UChat;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

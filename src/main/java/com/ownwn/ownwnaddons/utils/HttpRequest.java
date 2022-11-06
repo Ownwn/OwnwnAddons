@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.outside;
+package com.ownwn.ownwnaddons.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

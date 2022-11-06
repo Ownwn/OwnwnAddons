@@ -2,13 +2,13 @@ package com.ownwn.ownwnaddons.commands;
 
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.goodstuff.PriceRound;
+import com.ownwn.ownwnaddons.utils.PriceRound;
 import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
-import static com.ownwn.ownwnaddons.outside.HttpRequest.bz;
-import static com.ownwn.ownwnaddons.outside.HttpRequest.lbin;
+import static com.ownwn.ownwnaddons.utils.HttpRequest.bz;
+import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
 
 public class HyperionPrice extends CommandBase {
     @Override

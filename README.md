@@ -1,4 +1,4 @@
-# A QOL mod for Hypickle Cornblock 
+# A QOL mod for Hypickle Cornblock
 If you have any questions or concerns you can message me on Discord at Ownwn#3723 or join my discord server
 https://discord.gg/rTx7fqZhUw
 
