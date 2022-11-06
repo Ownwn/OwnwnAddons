@@ -36,9 +36,19 @@ public class NewConfig extends Vigilant {
             type = PropertyType.TEXT,
             name = "Custom Name",
             description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes, Credit to NEU for the idea.",
-            category = "Features"
+            category = "Features",
+            subcategory = "Custom Name"
     )
     public String CUSTOM_NAME_EDITOR = "";
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Replace Rank",
+            description = "Should your rank be replaced with the custom name?",
+            category = "Features",
+            subcategory = "Custom Name"
+    )
+    public boolean NAME_REPLACE_RANK = false;
 
 
     public NewConfig() {
