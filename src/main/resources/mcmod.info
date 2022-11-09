@@ -3,8 +3,8 @@
 	"modid": "ownwnaddons",
 	"name": "Ownwn Addons",
 	"description": "A QOL mod for Hypixel Skyblock",
-	"version": "1.2.0",
-	"mcversion": "1.8.9",
+	"version": "${version}",
+	"mcversion": "${mcversion}",
 	"url": "https://github.com/Ownwn/OwnwnAddons",
 	"updateUrl": "",
 	"authorList": [
