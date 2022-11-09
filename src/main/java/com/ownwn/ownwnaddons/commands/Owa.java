@@ -60,8 +60,8 @@ public class Owa extends CommandBase {
                     mm.append(args[i]).append(" ");
                 }
 
-
-                UChat.chat(mm);
+                String formattedMsg = mm.toString().replace("&", "\u00A7");
+                UChat.chat(formattedMsg);
 
             } else {
                 UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
