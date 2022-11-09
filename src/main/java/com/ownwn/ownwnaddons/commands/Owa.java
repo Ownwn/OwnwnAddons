@@ -47,12 +47,26 @@ public class Owa extends CommandBase {
                 });
                 T.start();
 
-
             } else {
                 UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
             }
         }
 
+        else if (args.length >= 1 && args[0].equalsIgnoreCase("preview")) {
+            if (args.length >= 2) {
+
+                StringBuilder mm = new StringBuilder();
+                for (int i = 1; i < args.length; i++) {
+                    mm.append(args[i]).append(" ");
+                }
+
+
+                UChat.chat(mm);
+
+            } else {
+                UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
+            }
+        }
 
         else if (args.length >= 1) {
             UChat.chat(
@@ -60,9 +74,12 @@ public class Owa extends CommandBase {
 
                     + "&9/owa \u27A1 &bOpens the GUI\n"
 
-                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)"
+                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)\n"
+
+                    + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes"
             );
         }
+
         else {
             EssentialAPI.getGuiUtil().openScreen(OwnwnAddons.config.gui());
         }
