@@ -19,6 +19,7 @@ public class CustomNameColour {
 
         String player = Minecraft.getMinecraft().thePlayer.getName();
         String msg = event.message.getFormattedText();
+        String newMsg;
 
         if (!msg.contains(player)) {
             return;
@@ -30,16 +31,22 @@ public class CustomNameColour {
         Matcher defaultMatcher = Pattern.compile("\\u00A77" + player).matcher(msg); // for players without a rank (grey name)
 
         if (rankMatcher.find()) { // has vip/mvp
-            msg = msg.replace(player, newCustomName + "§r");
+            newMsg = msg.replace(player, newCustomName + "\u00A7r");
+
+            if (OwnwnAddons.config.NAME_REPLACE_RANK) {
+                newMsg = Pattern.compile("\\u00A7.\\[(\\u00A7.)*\\D+(\\u00A7.)*\\D+(\\u00A7.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
+            }
         }
+
         else if (defaultMatcher.find()) { // default rank
-            msg = msg.replace(player, newCustomName + "§7");
+            newMsg = msg.replace(player, newCustomName + "\u00A77");
         }
+
         else {
             return;
         }
 
-        event.message = new ChatComponentText(msg).setChatStyle(event.message.getChatStyle()); // replace msg
+        event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle()); // replace msg
 
     }
 }
