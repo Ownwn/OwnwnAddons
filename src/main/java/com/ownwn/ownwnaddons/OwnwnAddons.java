@@ -3,8 +3,9 @@ package com.ownwn.ownwnaddons;
 import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
-import com.ownwn.ownwnaddons.features.CustomNameColour;
+import com.ownwn.ownwnaddons.features.CustomChat;
 import com.ownwn.ownwnaddons.features.PartyFinder;
+import com.ownwn.ownwnaddons.features.TrevorChatCleanup;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import gg.essential.vigilance.Vigilance;
 import net.minecraft.util.EnumChatFormatting;
@@ -18,7 +19,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class OwnwnAddons
 {
     public static final String MODID = "ownwnaddons";
-    public static final String VERSION = "1.2.2";
+    public static final String VERSION = "1.2.3";
     public static final String PREFIX =
             EnumChatFormatting.DARK_PURPLE + "<" + EnumChatFormatting.LIGHT_PURPLE + "OWA"
                     + EnumChatFormatting.DARK_PURPLE + ">" + EnumChatFormatting.RESET + " ";
@@ -34,7 +35,8 @@ public class OwnwnAddons
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
-        MinecraftForge.EVENT_BUS.register(new CustomNameColour());
+        MinecraftForge.EVENT_BUS.register(new CustomChat());
+        MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
         ClientCommandHandler.instance.registerCommand(new FragRunCalc());

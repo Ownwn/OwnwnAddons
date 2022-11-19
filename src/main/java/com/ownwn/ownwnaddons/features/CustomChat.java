@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CustomNameColour {
+public class CustomChat {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
@@ -26,9 +26,11 @@ public class CustomNameColour {
         }
 
         String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "\u00A7");
+        String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "\u00A7");
 
         Matcher rankMatcher = Pattern.compile("\\u00A7.\\[.+] " + player).matcher(msg); // for players with vip/mvp
         Matcher defaultMatcher = Pattern.compile("\\u00A77" + player).matcher(msg); // for players without a rank (grey name)
+        Matcher customChatMatcher = Pattern.compile(player + "(\\u00A7.\\u00A7r\\u00A7.:)").matcher(msg);
 
         if (rankMatcher.find()) { // has vip/mvp
             newMsg = msg.replace(player, newCustomName + "\u00A7r");
@@ -43,7 +45,11 @@ public class CustomNameColour {
         }
 
         else {
-            return;
+            newMsg = msg;
+        }
+
+        if (!OwnwnAddons.config.CUSTOM_CHAT_COLOUR.equals("") && customChatMatcher.find()) {
+            newMsg = newMsg.replace(customChatMatcher.group(1), "\u00A7f:" + newCustomChat);
         }
 
         event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle()); // replace msg

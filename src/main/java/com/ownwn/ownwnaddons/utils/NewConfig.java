@@ -34,10 +34,18 @@ public class NewConfig extends Vigilant {
 
     @Property(
             type = PropertyType.TEXT,
+            name = "Custom Chat Colour",
+            description = "Customize the colour of your chat messages. Leave blank for default colour. Use \"&&\" for colour codes, Credit to NEU for the idea.",
+            category = "Chat Replacers",
+            subcategory = "Custom Chat"
+    )
+    public String CUSTOM_CHAT_COLOUR = "";
+    @Property(
+            type = PropertyType.TEXT,
             name = "Custom Name",
             description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes, Credit to NEU for the idea.",
-            category = "Features",
-            subcategory = "Custom Name"
+            category = "Chat Replacers",
+            subcategory = "Custom Chat"
     )
     public String CUSTOM_NAME_EDITOR = "";
 
@@ -45,10 +53,18 @@ public class NewConfig extends Vigilant {
             type = PropertyType.SWITCH,
             name = "Replace Rank",
             description = "Should your rank be replaced with the custom name?",
-            category = "Features",
-            subcategory = "Custom Name"
+            category = "Chat Replacers",
+            subcategory = "Custom Chat"
     )
     public boolean NAME_REPLACE_RANK = false;
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Trevor Chat Cleanup",
+            description = "Cleans up the chat messages sent by Trevor the Trapper",
+            category = "Chat Replacers"
+    )
+    public boolean TREVOR_CHAT_CLEANUP = false;
 
 
     public NewConfig() {
