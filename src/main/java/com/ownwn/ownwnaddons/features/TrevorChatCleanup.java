@@ -17,7 +17,7 @@ public class TrevorChatCleanup {
 
 
         String msg = event.message.getFormattedText();
-        String newMsg;
+        String newMsg = "";
 
         if (!msg.toLowerCase().contains("pelt") && !msg.toLowerCase().contains("trapper")) {
             return;
@@ -26,7 +26,7 @@ public class TrevorChatCleanup {
 
 
         Matcher peltReward = Pattern.compile("§r§aKilling the animal rewarded you §r§5(\\d+) pelts§r§a.§r").matcher(msg);
-        Matcher mobLocation = Pattern.compile("§e\\[NPC] Trevor The Trapper§f: §rYou can find your (.+) §fanimal near the (.+).§r§r").matcher(msg);
+        Matcher mobLocation = Pattern.compile("§e\\[NPC] Trevor The Trapper§f: §rYou can find your (.+) §fanimal near the (.+).§r").matcher(msg);
 
         if (peltReward.find()) { // has vip/mvp
             newMsg = "\u00A7a+\u00A75" + peltReward.group(1) + "\u00A7a pelts.";
@@ -34,27 +34,29 @@ public class TrevorChatCleanup {
         else if (mobLocation.find()) { // has vip/mvp
             newMsg = "§e[NPC] Trevor§f: " + mobLocation.group(1) + "§f -> " + mobLocation.group(2) + "§f.§r";
         }
-        else {
-            newMsg = msg;
-        }
 
         switch (msg) {
-            case "§e[NPC] Trevor The Trapper§f: §rSorry, I don't have any animals for you to hunt.§r§r":
+            case "§e[NPC] Trevor The Trapper§f: §rSorry, I don't have any animals for you to hunt.§r":
                 newMsg = "§e[NPC] Trevor§f: §cStill on cooldown!\u00A7r";
                 break;
-            case "§e[NPC] Trevor The Trapper§f: §rCome back soon!§r§r":
-            case "§e[NPC] Trevor The Trapper§f: §rAny longer than that and the animal will run away!§r§r":
+            case "§e[NPC] Trevor The Trapper§f: §rCome back soon!§r":
+            case "§e[NPC] Trevor The Trapper§f: §rAny longer than that and the animal will run away!§r":
                 event.setCanceled(true);
                 break;
-            case "§e[NPC] Trevor The Trapper§f: §rYou will have 10 minutes to find the mob from when you accept the task.§r§r":
-                newMsg = "§e[NPC] Trevor§f: §rLoading...§r§r";
+            case "§e[NPC] Trevor The Trapper§f: §rYou will have 10 minutes to find the mob from when you accept the task.§r":
+                newMsg = "§e[NPC] Trevor§f: §rLoading...§r";
                 break;
-            case "§e[NPC] Trevor The Trapper§f: §rI couldnt locate any animals. Come back in a little bit!§r§r":
+            case "§e[NPC] Trevor The Trapper§f: §rI couldnt locate any animals. Come back in a little bit!§r":
                 newMsg = "§e[NPC] Trevor§f: §cAn error occurred, try again.§r";
                 break;
+
+        }
+        if (newMsg.equals("")) { // avoid screwing with other messages e.g. removing click prompts
+            return;
         }
 
         event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle()); // replace msg
+
 
     }
 }
