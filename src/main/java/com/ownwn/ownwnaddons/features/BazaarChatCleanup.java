@@ -28,9 +28,11 @@ public class BazaarChatCleanup {
         switch (msg) {
             case "§r§6[Bazaar] §r§7Putting goods in escrow...§r":
             case "§r§6[Bazaar] §r§7Submitting sell offer...§r":
+            case "§r§6[Bazaar] §r§7Submitting buy order...§r":
             case "§r§6[Bazaar] §r§7Executing instant buy...§r":
             case "§r§6[Bazaar] §r§7Executing instant sell...§r":
             case "§r§6[Bazaar] §r§7Claiming order...§r":
+            case "§r§6[Bazaar] §r§7Cancelling order...§r":
                 event.setCanceled(true);
                 return;
         }
