@@ -41,6 +41,7 @@ public class TrevorChatCleanup {
                 break;
             case "§e[NPC] Trevor The Trapper§f: §rCome back soon!§r":
             case "§e[NPC] Trevor The Trapper§f: §rAny longer than that and the animal will run away!§r":
+            case "§r§aReturn to the Trapper soon to get a new animal to hunt!§r":
                 event.setCanceled(true);
                 break;
             case "§e[NPC] Trevor The Trapper§f: §rYou will have 10 minutes to find the mob from when you accept the task.§r":

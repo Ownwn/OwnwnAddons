@@ -3,6 +3,7 @@ package com.ownwn.ownwnaddons;
 import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
+import com.ownwn.ownwnaddons.features.BazaarChatCleanup;
 import com.ownwn.ownwnaddons.features.CustomChat;
 import com.ownwn.ownwnaddons.features.PartyFinder;
 import com.ownwn.ownwnaddons.features.TrevorChatCleanup;
@@ -37,6 +38,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new PartyFinder());
         MinecraftForge.EVENT_BUS.register(new CustomChat());
         MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
+        MinecraftForge.EVENT_BUS.register(new BazaarChatCleanup());
         ClientCommandHandler.instance.registerCommand(new Owa());
         ClientCommandHandler.instance.registerCommand(new HyperionPrice());
         ClientCommandHandler.instance.registerCommand(new FragRunCalc());

@@ -66,6 +66,14 @@ public class NewConfig extends Vigilant {
     )
     public boolean TREVOR_CHAT_CLEANUP = false;
 
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Bazaar Chat Cleanup",
+            description = "Cleans up the chat messages sent by the Bazaar",
+            category = "Chat Replacers"
+    )
+    public boolean BAZAAR_CHAT_CLEANUP = false;
+
 
     public NewConfig() {
         super(new File("./config/OwnwnAddons.toml"));
