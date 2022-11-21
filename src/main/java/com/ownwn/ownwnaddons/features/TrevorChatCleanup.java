@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TrevorChatCleanup {
+
+    public static long finishTime;
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
         if (!OwnwnAddons.config.TREVOR_CHAT_CLEANUP) {
@@ -33,6 +35,7 @@ public class TrevorChatCleanup {
         }
         else if (mobLocation.find()) { // has vip/mvp
             newMsg = "§e[NPC] Trevor§f: " + mobLocation.group(1) + "§f -> " + mobLocation.group(2) + "§f.§r";
+            finishTime = System.currentTimeMillis() + 10000;
         }
 
         switch (msg) {

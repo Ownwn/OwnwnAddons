@@ -74,6 +74,36 @@ public class NewConfig extends Vigilant {
     )
     public boolean BAZAAR_CHAT_CLEANUP = false;
 
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Trevor Cooldown",
+            description = "Displays a cooldown for Trevor the Trapper",
+            category = "Features",
+            subcategory = "Trevor Cooldown"
+    )
+    public boolean TREVOR_COOLDOWN = false;
+
+    @Property(
+            type = PropertyType.SLIDER,
+            name = "Verticle Location",
+            description = "Changes the verticle location of the trapper cooldown",
+            category = "Features",
+            subcategory = "Trevor Cooldown",
+            max = 500
+    )
+    public int TREVOR_COOLDOWN_Y = 0;
+
+    @Property(
+            type = PropertyType.SLIDER,
+            name = "Horizontal Location",
+            description = "Changes the horizontal location of the trapper cooldown",
+            category = "Features",
+            subcategory = "Trevor Cooldown",
+            max = 600
+    )
+    public int TREVOR_COOLDOWN_X = 0;
+
+
 
     public NewConfig() {
         super(new File("./config/OwnwnAddons.toml"));
