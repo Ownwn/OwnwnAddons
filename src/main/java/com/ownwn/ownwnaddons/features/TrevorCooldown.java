@@ -29,7 +29,7 @@ public class TrevorCooldown {
             cooldown = "READY";
         }
 
-        renderer.drawString("§eTrevor Cooldown: §a" + cooldown, OwnwnAddons.config.TREVOR_COOLDOWN_X, OwnwnAddons.config.TREVOR_COOLDOWN_Y, 0);
+        renderer.drawString("§eTrevor Cooldown: §a" + cooldown, 0, 0, 0);
 
     }
 }
