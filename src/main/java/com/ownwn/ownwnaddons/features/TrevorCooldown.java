@@ -10,7 +10,12 @@ public class TrevorCooldown {
     @SubscribeEvent
     public void onrender(RenderGameOverlayEvent event) {
 
-        if (!OwnwnAddons.config.TREVOR_COOLDOWN) {
+        if (!OwnwnAddons.config.TREVOR_COOLDOWN_GOOD) {
+            return;
+        }
+
+        if (Minecraft.getMinecraft().currentScreen != null ||
+                Minecraft.getMinecraft().gameSettings.showDebugInfo) {
             return;
         }
 

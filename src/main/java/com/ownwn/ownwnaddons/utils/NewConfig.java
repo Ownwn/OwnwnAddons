@@ -81,7 +81,7 @@ public class NewConfig extends Vigilant {
             category = "Features",
             subcategory = "Trevor Cooldown"
     )
-    public boolean TREVOR_COOLDOWN = false;
+    public boolean TREVOR_COOLDOWN_GOOD = false;
 
     @Property(
             type = PropertyType.SLIDER,
