@@ -14,8 +14,7 @@ public class TrevorCooldown {
             return;
         }
 
-        if (Minecraft.getMinecraft().currentScreen != null ||
-                Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+        if (Minecraft.getMinecraft().currentScreen != null || Minecraft.getMinecraft().gameSettings.showDebugInfo) {
             return;
         }
 
@@ -29,7 +28,7 @@ public class TrevorCooldown {
             cooldown = "READY";
         }
 
-        renderer.drawString("§eTrevor Cooldown: §a" + cooldown, 0, 0, 0);
+        renderer.drawString("§eTrevor Cooldown: §a" + cooldown + "§r", OwnwnAddons.config.TREVOR_COOLDOWN_X, OwnwnAddons.config.TREVOR_COOLDOWN_Y, 0);
 
     }
 }

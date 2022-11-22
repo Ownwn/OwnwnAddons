@@ -13,7 +13,7 @@ public class CustomChat {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if (OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
+        if (OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("") && OwnwnAddons.config.CUSTOM_CHAT_COLOUR.equals("")) {
             return;
         }
 
@@ -32,24 +32,30 @@ public class CustomChat {
         Matcher defaultMatcher = Pattern.compile("\\u00A77" + player).matcher(msg); // for players without a rank (grey name)
         Matcher customChatMatcher = Pattern.compile(player + "(\\u00A7.\\u00A7r\\u00A7.:)").matcher(msg);
 
-        if (rankMatcher.find()) { // has vip/mvp
-            newMsg = msg.replace(player, newCustomName + "\u00A7r");
 
-            if (OwnwnAddons.config.NAME_REPLACE_RANK) {
-                newMsg = Pattern.compile("\\u00A7.\\[(\\u00A7.)*\\D+(\\u00A7.)*\\D+(\\u00A7.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
+        if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
+
+            if (rankMatcher.find()) { // has vip/mvp
+                newMsg = msg.replace(player, newCustomName);
+
+                if (OwnwnAddons.config.NAME_REPLACE_RANK) {
+                    newMsg = Pattern.compile("\\u00A7.\\[(\\u00A7.)*\\D+(\\u00A7.)*\\D+(\\u00A7.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
+                }
+            } else if (defaultMatcher.find()) { // default rank
+                newMsg = msg.replace(player, newCustomName + "\u00A77");
+            } else {
+                newMsg = msg;
             }
-        }
-
-        else if (defaultMatcher.find()) { // default rank
-            newMsg = msg.replace(player, newCustomName + "\u00A77");
-        }
-
-        else {
+        } else {
             newMsg = msg;
         }
 
         if (!OwnwnAddons.config.CUSTOM_CHAT_COLOUR.equals("") && customChatMatcher.find()) {
             newMsg = newMsg.replace(customChatMatcher.group(1), "\u00A7f:" + newCustomChat);
+        }
+
+        if (newMsg.equals("")) { // avoid screwing with other messages e.g. removing click prompts
+            return;
         }
 
         event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle()); // replace msg

@@ -83,25 +83,25 @@ public class NewConfig extends Vigilant {
     )
     public boolean TREVOR_COOLDOWN_GOOD = false;
 
-//    @Property(
-//            type = PropertyType.SLIDER,
-//            name = "Verticle Location",
-//            description = "Changes the verticle location of the trapper cooldown",
-//            category = "Features",
-//            subcategory = "Trevor Cooldown",
-//            max = 500
-//    )
-//    public int TREVOR_COOLDOWN_Y = 0;
-//
-//    @Property(
-//            type = PropertyType.SLIDER,
-//            name = "Horizontal Location",
-//            description = "Changes the horizontal location of the trapper cooldown",
-//            category = "Features",
-//            subcategory = "Trevor Cooldown",
-//            max = 600
-//    )
-//    public int TREVOR_COOLDOWN_X = 0;
+    @Property(
+            type = PropertyType.SLIDER,
+            name = "Verticle Location",
+            description = "Changes the verticle location of the trapper cooldown",
+            category = "Features",
+            subcategory = "Trevor Cooldown",
+            max = 500
+    )
+    public int TREVOR_COOLDOWN_Y = 0;
+
+    @Property(
+            type = PropertyType.SLIDER,
+            name = "Horizontal Location",
+            description = "Changes the horizontal location of the trapper cooldown",
+            category = "Features",
+            subcategory = "Trevor Cooldown",
+            max = 600
+    )
+    public int TREVOR_COOLDOWN_X = 0;
 
 
 
