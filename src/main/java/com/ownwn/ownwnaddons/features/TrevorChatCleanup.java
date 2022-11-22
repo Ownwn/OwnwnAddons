@@ -35,7 +35,7 @@ public class TrevorChatCleanup {
         }
         else if (mobLocation.find()) { // has vip/mvp
             newMsg = "§e[NPC] Trevor§f: " + mobLocation.group(1) + "§f -> " + mobLocation.group(2) + "§f.§r";
-            finishTime = System.currentTimeMillis() + 10000;
+            finishTime = System.currentTimeMillis() + 30000;
         }
 
         switch (msg) {
