@@ -25,12 +25,12 @@ public class CustomChat {
             return;
         }
 
-        String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "\u00A7");
-        String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "\u00A7");
+        String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "§");
+        String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "§");
 
-        Matcher rankMatcher = Pattern.compile("\\u00A7.\\[.+] " + player).matcher(msg); // for players with vip/mvp
-        Matcher defaultMatcher = Pattern.compile("\\u00A77" + player).matcher(msg); // for players without a rank (grey name)
-        Matcher customChatMatcher = Pattern.compile(player + "(\\u00A7.\\u00A7r\\u00A7.:)").matcher(msg);
+        Matcher rankMatcher = Pattern.compile("§.\\[.+] " + player).matcher(msg); // for players with vip/mvp
+        Matcher defaultMatcher = Pattern.compile("§7" + player).matcher(msg); // for players without a rank (grey name)
+        Matcher customChatMatcher = Pattern.compile(player + "(§.§r§.:)").matcher(msg);
 
 
         if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
@@ -39,10 +39,10 @@ public class CustomChat {
                 newMsg = msg.replace(player, newCustomName);
 
                 if (OwnwnAddons.config.NAME_REPLACE_RANK) {
-                    newMsg = Pattern.compile("\\u00A7.\\[(\\u00A7.)*\\D+(\\u00A7.)*\\D+(\\u00A7.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
+                    newMsg = Pattern.compile("§.\\[(§.)*\\D+(§.)*\\D+(§.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
                 }
             } else if (defaultMatcher.find()) { // default rank
-                newMsg = msg.replace(player, newCustomName + "\u00A77");
+                newMsg = msg.replace(player, newCustomName + "§");
             } else {
                 newMsg = msg;
             }
@@ -51,7 +51,7 @@ public class CustomChat {
         }
 
         if (!OwnwnAddons.config.CUSTOM_CHAT_COLOUR.equals("") && customChatMatcher.find()) {
-            newMsg = newMsg.replace(customChatMatcher.group(1), "\u00A7f:" + newCustomChat);
+            newMsg = newMsg.replace(customChatMatcher.group(1), "§f:" + newCustomChat);
         }
 
         if (newMsg.equals("")) { // avoid screwing with other messages e.g. removing click prompts

@@ -60,7 +60,7 @@ public class Owa extends CommandBase {
                     mm.append(args[i]).append(" ");
                 }
 
-                String formattedMsg = mm.toString().replace("&", "\u00A7");
+                String formattedMsg = mm.toString().replace("&", "§");
                 UChat.chat(formattedMsg);
 
             } else {

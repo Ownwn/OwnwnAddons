@@ -31,7 +31,7 @@ public class TrevorChatCleanup {
         Matcher mobLocation = Pattern.compile("§e\\[NPC] Trevor The Trapper§f: §rYou can find your (.+) §fanimal near the (.+).§r").matcher(msg);
 
         if (peltReward.find()) { // has vip/mvp
-            newMsg = "\u00A7a+\u00A75" + peltReward.group(1) + "\u00A7a pelts.";
+            newMsg = "§a+§5" + peltReward.group(1) + "§a pelts.";
         }
         else if (mobLocation.find()) { // has vip/mvp
             newMsg = "§e[NPC] Trevor§f: " + mobLocation.group(1) + "§f -> " + mobLocation.group(2) + "§f.§r";
@@ -40,7 +40,7 @@ public class TrevorChatCleanup {
 
         switch (msg) {
             case "§e[NPC] Trevor The Trapper§f: §rSorry, I don't have any animals for you to hunt.§r":
-                newMsg = "§e[NPC] Trevor§f: §cStill on cooldown!\u00A7r";
+                newMsg = "§e[NPC] Trevor§f: §cStill on cooldown!§r";
                 break;
             case "§e[NPC] Trevor The Trapper§f: §rCome back soon!§r":
             case "§e[NPC] Trevor The Trapper§f: §rAny longer than that and the animal will run away!§r":
@@ -50,7 +50,7 @@ public class TrevorChatCleanup {
             case "§e[NPC] Trevor The Trapper§f: §rYou will have 10 minutes to find the mob from when you accept the task.§r":
                 newMsg = "§e[NPC] Trevor§f: §rLoading...§r";
                 break;
-            case "§e[NPC] Trevor The Trapper§f: §rI couldnt locate any animals. Come back in a little bit!§r":
+            case "§e[NPC] Trevor The Trapper§f: §rI couldn't locate any animals. Come back in a little bit!§r":
                 newMsg = "§e[NPC] Trevor§f: §cAn error occurred, try again.§r";
                 break;
 
