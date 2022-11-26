@@ -28,26 +28,30 @@ public class CustomChat {
         String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "§");
         String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "§");
 
-        Matcher singlePlayerMatcher = Pattern.compile("<(§.)*" + player + "(§.)*>").matcher(msg); // filter out singleplayer messages
-        Matcher rankMatcher = Pattern.compile("§.\\[.+] (§.)*" + player).matcher(msg); // for players with vip/mvp
-        Matcher defaultMatcher = Pattern.compile("(§.)+" + player).matcher(msg); // for players without a rank (grey name)
+
+        Matcher rankMatcher = Pattern.compile("(§.\\[[^\\[\\]]+] ((§.)*" + player + "))").matcher(msg); // for players with vip/mvp
+        Matcher defaultMatcher = Pattern.compile("((§7)+" + player + ")").matcher(msg); // for players without a rank (grey name)
         Matcher customChatMatcher = Pattern.compile(player + "((§.)+:)").matcher(msg);
 
-        if (singlePlayerMatcher.find()) { // too lazy to check if on hypixel
-            return;
-        }
 
         if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
 
-            if (rankMatcher.find()) { // has vip/mvp
-                newMsg = msg.replaceFirst(player, newCustomName);
+             if (defaultMatcher.find()) { // default rank
+                newMsg = msg.replace(defaultMatcher.group(1), newCustomName);
+            }
+            else if (rankMatcher.find()) { // has vip/mvp or another rank
+
 
                 if (OwnwnAddons.config.NAME_REPLACE_RANK) {
-                    newMsg = Pattern.compile("§.\\[(§.)*\\D+(§.)*\\D+(§.)*] ").matcher(newMsg).replaceAll("");
+                    newMsg = msg.replace(rankMatcher.group(1), newCustomName); // include rank in replacement
+                } else {
+                    newMsg = msg.replace(rankMatcher.group(2), newCustomName); // only replace name, not rank
                 }
-            } else if (defaultMatcher.find()) { // default rank
-                newMsg = msg.replace(player, newCustomName + "§");
-            } else {
+
+            }
+
+
+             else {
                 newMsg = msg;
             }
         } else {
@@ -58,7 +62,7 @@ public class CustomChat {
             newMsg = newMsg.replace(customChatMatcher.group(1), "§f:" + newCustomChat);
         }
 
-        if (newMsg.equals("")) { // avoid screwing with other messages e.g. removing click prompts
+        if (newMsg.equals(msg)) { // avoid screwing with other messages e.g. removing click prompts
             return;
         }
 
