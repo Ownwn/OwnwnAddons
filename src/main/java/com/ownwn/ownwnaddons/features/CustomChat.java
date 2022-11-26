@@ -28,10 +28,14 @@ public class CustomChat {
         String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "§");
         String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "§");
 
-        Matcher rankMatcher = Pattern.compile("§.\\[.+] (§.)*" + player + "(§.)+:").matcher(msg); // for players with vip/mvp
-        Matcher defaultMatcher = Pattern.compile("(§.)+" + player + "(§.)+:").matcher(msg); // for players without a rank (grey name)
+        Matcher singlePlayerMatcher = Pattern.compile("<(§.)*" + player + "(§.)*>").matcher(msg); // filter out singleplayer messages
+        Matcher rankMatcher = Pattern.compile("§.\\[.+] (§.)*" + player).matcher(msg); // for players with vip/mvp
+        Matcher defaultMatcher = Pattern.compile("(§.)+" + player).matcher(msg); // for players without a rank (grey name)
         Matcher customChatMatcher = Pattern.compile(player + "((§.)+:)").matcher(msg);
 
+        if (singlePlayerMatcher.find()) { // too lazy to check if on hypixel
+            return;
+        }
 
         if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
 
