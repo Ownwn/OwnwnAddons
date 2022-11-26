@@ -28,9 +28,9 @@ public class CustomChat {
         String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "§");
         String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "§");
 
-        Matcher rankMatcher = Pattern.compile("§.\\[.+] " + player).matcher(msg); // for players with vip/mvp
-        Matcher defaultMatcher = Pattern.compile("§7" + player).matcher(msg); // for players without a rank (grey name)
-        Matcher customChatMatcher = Pattern.compile(player + "(§.§r§.:)").matcher(msg);
+        Matcher rankMatcher = Pattern.compile("§.\\[.+] (§.)*" + player).matcher(msg); // for players with vip/mvp
+        Matcher defaultMatcher = Pattern.compile("(§.)*" + player).matcher(msg); // for players without a rank (grey name)
+        Matcher customChatMatcher = Pattern.compile(player + "((§.)*:)").matcher(msg);
 
 
         if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
@@ -39,7 +39,7 @@ public class CustomChat {
                 newMsg = msg.replace(player, newCustomName);
 
                 if (OwnwnAddons.config.NAME_REPLACE_RANK) {
-                    newMsg = Pattern.compile("§.\\[(§.)*\\D+(§.)*\\D+(§.)*] " + player).matcher(msg).replaceAll(newCustomName + "");
+                    newMsg = Pattern.compile("§.\\[(§.)*\\D+(§.)*\\D+(§.)*] ").matcher(newMsg).replaceAll("");
                 }
             } else if (defaultMatcher.find()) { // default rank
                 newMsg = msg.replace(player, newCustomName + "§");
