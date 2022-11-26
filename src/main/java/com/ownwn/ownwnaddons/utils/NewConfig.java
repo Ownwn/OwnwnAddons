@@ -77,7 +77,7 @@ public class NewConfig extends Vigilant {
     @Property(
             type = PropertyType.SWITCH,
             name = "Trevor Cooldown",
-            description = "Displays a cooldown for Trevor the Trapper",
+            description = "Displays a cooldown for Trevor the Trapper. Currently slightly buggy and may cause rendering issues.",
             category = "Features",
             subcategory = "Trevor Cooldown"
     )
