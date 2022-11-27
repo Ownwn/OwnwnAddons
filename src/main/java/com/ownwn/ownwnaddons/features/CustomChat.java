@@ -31,7 +31,7 @@ public class CustomChat {
 
         Matcher rankMatcher = Pattern.compile("(§.\\[[^\\[\\]]+] ((§.)*" + player + "))").matcher(msg); // for players with vip/mvp
         Matcher defaultMatcher = Pattern.compile("((§7)+" + player + ")").matcher(msg); // for players without a rank (grey name)
-        Matcher customChatMatcher = Pattern.compile(player + "((§.)+:)").matcher(msg);
+        Matcher customChatMatcher = Pattern.compile(player + "((§.)+:( §.)*)").matcher(msg);
 
 
         if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {

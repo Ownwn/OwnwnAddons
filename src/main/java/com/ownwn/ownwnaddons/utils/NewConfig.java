@@ -103,6 +103,14 @@ public class NewConfig extends Vigilant {
     )
     public int TREVOR_COOLDOWN_X = 0;
 
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Frag Run Tracker",
+            description = "Times F7 fragruns. Timer starts on dungeon entry and ends when the player leaves.",
+            category = "Features"
+    )
+    public boolean FRAG_RUN_TIMER = false;
+
 
 
     public NewConfig() {
