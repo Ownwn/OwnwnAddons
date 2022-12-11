@@ -2,7 +2,7 @@ package com.ownwn.ownwnaddons.commands;
 
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.utils.PriceRound;
+import com.ownwn.ownwnaddons.utils.Utils;
 import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -26,7 +26,7 @@ public class FragRunCalc extends CommandBase {
     }
 
     public static void sendResults(String profitPerHour, int diamante) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + PriceRound.roundPrice(diamante));
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + Utils.roundPrice(diamante));
 
     }
 
@@ -63,7 +63,7 @@ public class FragRunCalc extends CommandBase {
             System.out.println(finalChance);
             double moneyPerHour = (finalChance / Integer.parseInt(args[0])) * 3600;
 
-            String rounded = PriceRound.roundPrice(moneyPerHour);
+            String rounded = Utils.roundPrice(moneyPerHour);
 
             sendResults(rounded, diamante);
 

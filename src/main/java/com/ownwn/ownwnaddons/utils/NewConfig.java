@@ -20,9 +20,19 @@ public class NewConfig extends Vigilant {
             type = PropertyType.SWITCH,
             name = "Party Finder",
             description = "Toggles the party finder stats display feature",
-            category = "Features"
+            category = "Features",
+            subcategory = "Party Finder"
     )
     public boolean PARTY_FINDER_SWITCH = false;
+
+    @Property(
+            type = PropertyType.SWITCH,
+            name = "Secret Stats Display",
+            description = "Adds secret, very important stats display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public boolean SECRET_PARTY_FINDER = false;
 
     @Property(
             type = PropertyType.SWITCH,

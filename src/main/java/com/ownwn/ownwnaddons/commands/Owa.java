@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.commands;
 
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.utils.PriceRound;
+import com.ownwn.ownwnaddons.utils.Utils;
 import gg.essential.api.EssentialAPI;
 import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
@@ -37,7 +37,7 @@ public class Owa extends CommandBase {
                 Thread T = new Thread(() -> {
                     try {
                         int itemPrice = lbin().get(args[1].toUpperCase()).getAsInt();
-                        String roundPrice = PriceRound.roundPrice(itemPrice);
+                        String roundPrice = Utils.roundPrice(itemPrice);
 
                         UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + args[1].toUpperCase() + "&a is: &b" + roundPrice);
                     } catch (Exception e) {

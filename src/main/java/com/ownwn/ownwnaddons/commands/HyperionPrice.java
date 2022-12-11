@@ -2,7 +2,7 @@ package com.ownwn.ownwnaddons.commands;
 
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.utils.PriceRound;
+import com.ownwn.ownwnaddons.utils.Utils;
 import gg.essential.universal.UChat;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -27,7 +27,7 @@ public class HyperionPrice extends CommandBase {
     }
 
     public static void sendResults(String hypPrice, int cleanHyperion, int scrollsCost) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + PriceRound.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + PriceRound.roundPrice(scrollsCost));
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + Utils.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + Utils.roundPrice(scrollsCost));
 
     }
 
@@ -42,7 +42,7 @@ public class HyperionPrice extends CommandBase {
             int totalHype;
             try {
                 JsonObject lbins = lbin();
-                hypPrice = PriceRound.roundPrice(lbins.get("HYPERION").getAsInt());
+                hypPrice = Utils.roundPrice(lbins.get("HYPERION").getAsInt());
 
                 int necronBlade = lbins.get("NECRON_HANDLE").getAsInt() + (lbins.get("WITHER_CATALYST").getAsInt() * 24);
                 cleanHyperion = necronBlade + (lbins.get("GIANT_FRAGMENT_LASER").getAsInt() * 8);
