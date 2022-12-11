@@ -1,88 +1,52 @@
 package com.ownwn.ownwnaddons.commands;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.commands.annotations.*;
 import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.utils.HttpRequest;
 import com.ownwn.ownwnaddons.utils.Utils;
-import gg.essential.api.EssentialAPI;
-import gg.essential.universal.UChat;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
 
-import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
+@Command(value = "owa", description = "Access the " + OwnwnAddons.NAME + " GUI.", customHelpMessage = OwnwnAddons.HELP)
+public class Owa {
 
-
-public class Owa extends CommandBase {
-    @Override
-    public String getCommandName() {
-        return "owa";
+    @Main
+    private static void main() {
+        OwnwnAddons.INSTANCE.config.openGui();
     }
 
-    @Override
-    public String getCommandUsage(ICommandSender iCommandSender) {
-        return "/owa [subcommand]";
-    }
+    @SubCommand(description = "Gets the lowest BIN price for any item.")
+    @SuppressWarnings("SameParameterValue")
+    private void lbin(@Description("ItemID") @Greedy String id) {
+        if (id.equals("")) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
+            return;
+        }
+        UChat.actionBar(OwnwnAddons.PREFIX + " &bFetching...");
+        Thread T = new Thread(() -> {
+            try {
+                int itemPrice = HttpRequest.lbin().get(id.toUpperCase()).getAsInt();
+                String roundPrice = Utils.roundPrice(itemPrice);
 
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender)
-    {
-        return true;
-    }
-
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) {
-
-
-        if (args.length >= 1 && args[0].equalsIgnoreCase("lbin")) {
-            if (args.length >= 2) {
-
-                Thread T = new Thread(() -> {
-                    try {
-                        int itemPrice = lbin().get(args[1].toUpperCase()).getAsInt();
-                        String roundPrice = Utils.roundPrice(itemPrice);
-
-                        UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + args[1].toUpperCase() + "&a is: &b" + roundPrice);
-                    } catch (Exception e) {
-                        UChat.chat(OwnwnAddons.PREFIX + "&cInvalid ItemID!");
-                    }
-
-                });
-                T.start();
-
-            } else {
-                UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
+                UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + id.toUpperCase() + "&a is: &b" + roundPrice);
+            } catch (Exception e) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cInvalid ItemID!");
             }
-        }
-
-        else if (args.length >= 1 && args[0].equalsIgnoreCase("preview")) {
-            if (args.length >= 2) {
-
-                StringBuilder mm = new StringBuilder();
-                for (int i = 1; i < args.length; i++) {
-                    mm.append(args[i]).append(" ");
-                }
-
-                String formattedMsg = mm.toString().replace("&", "§");
-                UChat.chat(formattedMsg);
-
-            } else {
-                UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
-            }
-        }
-
-        else if (args.length >= 1) {
-            UChat.chat(
-                    "&9&l\u279C OwnwnAddons Help\n"
-
-                    + "&9/owa \u27A1 &bOpens the GUI\n"
-
-                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)\n"
-
-                    + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes"
-            );
-        }
-
-        else {
-            EssentialAPI.getGuiUtil().openScreen(OwnwnAddons.config.gui());
-        }
-
+        });
+        T.start();
     }
+
+
+    @SubCommand(description = "Displays a customizable, formatted chat message in your chat. \"&\"s will be replaced with formatting codes.")
+    @SuppressWarnings("SameParameterValue")
+    private void preview(@Description("message") @Greedy String message) {
+        if (message.equals("")) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
+            return;
+        }
+
+        UChat.chat(message);
+    }
+
+
+
 }

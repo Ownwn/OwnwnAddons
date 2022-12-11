@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.utils;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

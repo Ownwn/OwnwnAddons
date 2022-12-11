@@ -1,7 +1,6 @@
 package com.ownwn.ownwnaddons.utils;
 
 import com.google.gson.JsonObject;
-import com.ownwn.ownwnaddons.OwnwnAddons;
 
 public class Utils {
     public static int JsonInt(JsonObject source, String key) {
@@ -9,7 +8,7 @@ public class Utils {
         try {
             returnNum = source.get(key).getAsInt();
         } catch (NullPointerException bad) {
-            if (OwnwnAddons.config.VERBOSE_CODE_SWITCH) {
+            if (NewConfig.VERBOSE_CODE_SWITCH) {
                 System.out.println("Could not find integer value of " + key + " from JsonObject");
             }
         }

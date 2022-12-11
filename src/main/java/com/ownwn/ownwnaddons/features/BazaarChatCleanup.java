@@ -1,6 +1,6 @@
 package com.ownwn.ownwnaddons.features;
 
-import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -12,7 +12,7 @@ public class BazaarChatCleanup {
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
 
-        if (!OwnwnAddons.config.BAZAAR_CHAT_CLEANUP) {
+        if (!NewConfig.BAZAAR_CHAT_CLEANUP) {
             return;
         }
 

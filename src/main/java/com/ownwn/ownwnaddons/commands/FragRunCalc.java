@@ -1,52 +1,39 @@
 package com.ownwn.ownwnaddons.commands;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
+import cc.polyfrost.oneconfig.utils.commands.annotations.Description;
+import cc.polyfrost.oneconfig.utils.commands.annotations.Greedy;
+import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.Utils;
-import gg.essential.universal.UChat;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
 
 import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
 
-public class FragRunCalc extends CommandBase {
-    @Override
-    public String getCommandName() {
-        return "calcfragrun";
-    }
-
-    @Override
-    public String getCommandUsage(ICommandSender iCommandSender) {
-        return "/calcfragrun";
-    }
-
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
-    }
-
-    public static void sendResults(String profitPerHour, int diamante) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + Utils.roundPrice(diamante));
-
-    }
-
-
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) {
-        if (args.length != 2 || !args[1].equalsIgnoreCase("no") && !args[1].equalsIgnoreCase("yes") ) {
+@Command(value = "calcfragrun", aliases = "cfr", description = "Calculate profit per hour while F7 frag-running.", customHelpMessage = OwnwnAddons.HELP)
+public class FragRunCalc {
+    @Main
+    private static void main(@Description("<Time in seconds> <Looting? yes/no>") @Greedy String args) {
+        if (!args.contains(" ")) {
             UChat.chat(OwnwnAddons.PREFIX + "&cUsage: /calcfragrun <time in seconds> <looting yes/no>");
             return;
         }
 
+        String[] allArgs = args.split(" ");
+        if (allArgs.length != 2 || !allArgs[1].equalsIgnoreCase("no") && !allArgs[1].equalsIgnoreCase("yes") ) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cUsage: /calcfragrun <time in seconds> <looting yes/no>");
+            return;
+        }
 
         try {
-            Integer.parseInt(args[0]);
+            Integer.parseInt(allArgs[0]);
         } catch (NumberFormatException e){
             UChat.chat(OwnwnAddons.PREFIX + "&cInvalid run time! Please enter the time in seconds");
             return;
         }
 
-
+        UChat.actionBar(OwnwnAddons.PREFIX + " &bFetching...");
         Thread T = new Thread(() -> {
 
             JsonObject lbins = lbin();
@@ -57,11 +44,11 @@ public class FragRunCalc extends CommandBase {
 
             // IDK if looting affects precursor loot, so I'm going to assume that it does
             double finalChance = averagePrice * 0.75;
-            if (args[1].equalsIgnoreCase("no")) {
-                    finalChance = averagePrice * 0.5;
+            if (allArgs[1].equalsIgnoreCase("no")) {
+                finalChance = averagePrice * 0.5;
             }
             System.out.println(finalChance);
-            double moneyPerHour = (finalChance / Integer.parseInt(args[0])) * 3600;
+            double moneyPerHour = (finalChance / Integer.parseInt(allArgs[0])) * 3600;
 
             String rounded = Utils.roundPrice(moneyPerHour);
 
@@ -70,5 +57,12 @@ public class FragRunCalc extends CommandBase {
 
         });
         T.start();
+
+
     }
+
+    public static void sendResults(String profitPerHour, int diamante) {
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + Utils.roundPrice(diamante));
+    }
+
 }

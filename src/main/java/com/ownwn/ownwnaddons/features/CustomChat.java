@@ -1,6 +1,6 @@
 package com.ownwn.ownwnaddons.features;
 
-import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
@@ -13,7 +13,7 @@ public class CustomChat {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if (OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("") && OwnwnAddons.config.CUSTOM_CHAT_COLOUR.equals("")) {
+        if (NewConfig.CUSTOM_NAME_EDITOR.equals("") && NewConfig.CUSTOM_CHAT_COLOUR.equals("")) {
             return;
         }
 
@@ -25,8 +25,8 @@ public class CustomChat {
             return;
         }
 
-        String newCustomName = OwnwnAddons.config.CUSTOM_NAME_EDITOR.replace("&&", "§");
-        String newCustomChat = OwnwnAddons.config.CUSTOM_CHAT_COLOUR.replace("&&", "§");
+        String newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+        String newCustomChat = NewConfig.CUSTOM_CHAT_COLOUR.replace("&&", "§");
 
 
         Matcher rankMatcher = Pattern.compile("(§.\\[[^\\[\\]]+] ((§.)*" + player + "))").matcher(msg); // for players with vip/mvp
@@ -34,7 +34,7 @@ public class CustomChat {
         Matcher customChatMatcher = Pattern.compile(player + "((§.)+:( §.)*)").matcher(msg);
 
 
-        if (!OwnwnAddons.config.CUSTOM_NAME_EDITOR.equals("")) {
+        if (!NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
 
              if (defaultMatcher.find()) { // default rank
                 newMsg = msg.replace(defaultMatcher.group(1), newCustomName);
@@ -42,7 +42,7 @@ public class CustomChat {
             else if (rankMatcher.find()) { // has vip/mvp or another rank
 
 
-                if (OwnwnAddons.config.NAME_REPLACE_RANK) {
+                if (NewConfig.NAME_REPLACE_RANK) {
                     newMsg = msg.replace(rankMatcher.group(1), newCustomName); // include rank in replacement
                 } else {
                     newMsg = msg.replace(rankMatcher.group(2), newCustomName); // only replace name, not rank
@@ -58,7 +58,7 @@ public class CustomChat {
             newMsg = msg;
         }
 
-        if (!OwnwnAddons.config.CUSTOM_CHAT_COLOUR.equals("") && customChatMatcher.find()) {
+        if (!NewConfig.CUSTOM_CHAT_COLOUR.equals("") && customChatMatcher.find()) {
             newMsg = newMsg.replace(customChatMatcher.group(1), "§f:" + newCustomChat);
         }
 

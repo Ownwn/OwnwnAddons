@@ -1,11 +1,11 @@
 package com.ownwn.ownwnaddons.utils;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import gg.essential.universal.UChat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class HttpRequest {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("User-Agent", "OwnwnAddons");
 
-            if (OwnwnAddons.config.VERBOSE_CODE_SWITCH) { System.out.println("Response Code: " + conn.getResponseCode());}
+            if (NewConfig.VERBOSE_CODE_SWITCH) { System.out.println("Response Code: " + conn.getResponseCode());}
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -75,7 +75,7 @@ public class HttpRequest {
         }
 
         // Loop through profiles to find latest
-        if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("Looping through profiles...");}
+        if (NewConfig.VERBOSE_CODE_SWITCH){ System.out.println("Looping through profiles...");}
         String latestProfile = "";
         long latestSave = 0;
         JsonArray profilesArray = null;

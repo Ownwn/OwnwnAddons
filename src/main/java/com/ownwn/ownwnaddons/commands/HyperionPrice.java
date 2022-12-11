@@ -1,40 +1,20 @@
 package com.ownwn.ownwnaddons.commands;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.commands.annotations.Command;
+import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.Utils;
-import gg.essential.universal.UChat;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
 
 import static com.ownwn.ownwnaddons.utils.HttpRequest.bz;
 import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
 
-public class HyperionPrice extends CommandBase {
-    @Override
-    public String getCommandName() {
-        return "hyperionprice";
-    }
-
-    @Override
-    public String getCommandUsage(ICommandSender iCommandSender) {
-        return "/hyperionprice";
-    }
-
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
-    }
-
-    public static void sendResults(String hypPrice, int cleanHyperion, int scrollsCost) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + Utils.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + Utils.roundPrice(scrollsCost));
-
-    }
-
-
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) {
-
+@Command(value = "hyperionprice", aliases = "hypprice", description = "Calculate the price to craft a Hyperion.", customHelpMessage = OwnwnAddons.HELP)
+public class HyperionPrice {
+    @Main
+    private static void main() {
+        UChat.actionBar(OwnwnAddons.PREFIX + " &bFetching...");
         Thread T = new Thread(() -> {
             String hypPrice;
             int scrollsCost;
@@ -74,5 +54,10 @@ public class HyperionPrice extends CommandBase {
 
         });
         T.start();
+    }
+
+    public static void sendResults(String hypPrice, int cleanHyperion, int scrollsCost) {
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + Utils.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + Utils.roundPrice(scrollsCost));
+
     }
 }

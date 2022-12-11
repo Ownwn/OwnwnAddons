@@ -1,11 +1,12 @@
 package com.ownwn.ownwnaddons.features;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.HttpRequest;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import com.ownwn.ownwnaddons.utils.Utils;
-import gg.essential.universal.UChat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
@@ -26,7 +27,7 @@ public class PartyFinder {
     public void onChat(ClientChatReceivedEvent event) {
         if (event.message.getUnformattedText().contains("joined the dungeon group! (")) {
 
-            if (!OwnwnAddons.config.PARTY_FINDER_SWITCH) {
+            if (!NewConfig.PARTY_FINDER_SWITCH) {
                 return;
             }
             String message = event.message.getUnformattedText();
@@ -43,7 +44,7 @@ public class PartyFinder {
                 JsonObject goodProfile = null;
 
                 String profileUrl = "http://localhost:8000/FakeOwnwn.json"; // damn i better not forget to change this from localhost
-                if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("The profile api url is " + profileUrl);}
+                if (NewConfig.VERBOSE_CODE_SWITCH){ System.out.println("The profile api url is " + profileUrl);}
 
                 JsonObject profileResponse = HttpRequest.getResponse(profileUrl);
                 JsonObject profileList = profileResponse.get("profiles").getAsJsonObject();
@@ -69,7 +70,7 @@ public class PartyFinder {
                     return;
                 }
 
-                if (OwnwnAddons.config.VERBOSE_CODE_SWITCH){ System.out.println("The current profile cutename is " + goodProfile.get("cute_name").getAsString());}
+                if (NewConfig.VERBOSE_CODE_SWITCH){ System.out.println("The current profile cutename is " + goodProfile.get("cute_name").getAsString());}
 
                 JsonObject dungeons = goodProfile.get("data").getAsJsonObject().get("dungeons").getAsJsonObject();
                 JsonObject rawStats = goodProfile.get("raw").getAsJsonObject().get("stats").getAsJsonObject();
@@ -122,7 +123,7 @@ public class PartyFinder {
                 "\n &bBlood Mob Kills: &a" + bloodKills +
                 "\n &bSecrets Per Run: &a" + Utils.roundNum(dungeons.get("secrets_found").getAsDouble() / (double) totalTimesPlayed, 2)
                 );
-                if (OwnwnAddons.config.SECRET_PARTY_FINDER) {
+                if (NewConfig.SECRET_PARTY_FINDER) {
                     UChat.chat("\n &bAverage sex per day: &a0" +
                     "\n &bNumber of times wiped: &a" + (int) Utils.roundNum(Math.random() * (9)+2, 0) +
                     "\n &bNumber of bitches: &a0");

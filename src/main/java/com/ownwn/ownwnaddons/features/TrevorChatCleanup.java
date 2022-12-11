@@ -1,6 +1,6 @@
 package com.ownwn.ownwnaddons.features;
 
-import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -13,7 +13,7 @@ public class TrevorChatCleanup {
     public static long finishTime;
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if (!OwnwnAddons.config.TREVOR_CHAT_CLEANUP) {
+        if (!NewConfig.TREVOR_CHAT_CLEANUP) {
             return;
         }
 
