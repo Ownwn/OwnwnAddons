@@ -87,6 +87,13 @@ public class NewConfig extends Config {
     )
     public static boolean BANK_CHAT_CLEANUP = false;
 
+    @Switch(
+            name = "Chroma Chat",
+            description = "Colours certain chat messages with SBA chroma. This will not work without SkyblockAddons",
+            category = "Chat Replacers"
+    )
+    public static boolean SBA_CHROMA_CHAT = false;
+
     @HUD(
             name = "Frag Run Tracker",
             category = "Features"

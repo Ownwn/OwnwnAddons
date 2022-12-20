@@ -45,7 +45,7 @@ public class BazaarChatCleanup {
         Matcher setupOrder = Pattern.compile("§r§6\\[Bazaar] §r§7§r§e(Buy Order|Sell Offer) Setup! §r§a(.+)§r§7x §r§(.+) §r§7for §r§6(.+) coins§r§7.§r").matcher(msg);
         Matcher instaOrder = Pattern.compile("§r§6\\[Bazaar] §r§7(Bought|Sold) §r§a(.+)§r§7x §r§(.+) §r§7for §r§6(.+) coins§r§7!§r").matcher(msg);
         Matcher cancelOffer = Pattern.compile("§r§6\\[Bazaar] §r§7§r§cCancelled! §r§7Refunded §r§((.+)§r§7x §r§(.+)|6.+ coins) §r§7from cancelling (Sell Offer|Buy Order)!§r").matcher(msg);
-        Matcher sellFilled = Pattern.compile("§r§6\\[Bazaar] §r§7§r§eYour §r§6(Sell Offer|Buy Order) §r§efor §r§a(.+) §r(.+) §r§ewas filled!§r").matcher(msg);
+        Matcher sellFilled = Pattern.compile("§r§6\\[Bazaar] §r§7§r§eYour §r(§.Sell Offer|§.Buy Order) §r§efor §r§a(.+) §r(.+) §r§ewas filled!§r").matcher(msg);
 
         if (claimedCoin.find()) { // has vip/mvp
             newMsg = bazaarMsg + claimedCoin.group(1) + " coins §7(§6" + claimedCoin.group(4) + "§7 per)\n §7for §a" + claimedCoin.group(2) + "§7x §" + claimedCoin.group(3);
@@ -60,7 +60,7 @@ public class BazaarChatCleanup {
         } else if (cancelOffer.find()) {
             newMsg = bazaarMsg + cancelOffer.group(4).split(" ")[0] + " §ccancelled! §7Refunded §" + cancelOffer.group(1);
         } else if (sellFilled.find()) {
-            newMsg = bazaarMsg + sellFilled.group(1) + " filled! §a" + sellFilled.group(2) + " " + sellFilled.group(3);
+            newMsg = bazaarMsg + sellFilled.group(1) + "§7 filled! §a" + sellFilled.group(2) + " " + sellFilled.group(3);
         }
 
         else {
