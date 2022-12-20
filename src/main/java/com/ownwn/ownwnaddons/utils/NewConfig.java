@@ -30,6 +30,13 @@ public class NewConfig extends Config {
     public static boolean SECRET_PARTY_FINDER = false;
 
     @Switch(
+            name = "Island AFK Tracker",
+            description = "Tracks when you leave and enter your private island",
+            category = "Features"
+    )
+    public static boolean ISLAND_AFK_TRACKER = false;
+
+    @Switch(
             name = "Verbose Code",
             description = "Should the mod write things like HTTP responses to the log?",
             category = "Stuff"
@@ -72,6 +79,13 @@ public class NewConfig extends Config {
             category = "Chat Replacers"
     )
     public static boolean BAZAAR_CHAT_CLEANUP = false;
+
+    @Switch(
+            name = "Bank Chat Cleanup",
+            description = "Cleans up the chat messages sent by the Bank",
+            category = "Chat Replacers"
+    )
+    public static boolean BANK_CHAT_CLEANUP = false;
 
     @HUD(
             name = "Frag Run Tracker",

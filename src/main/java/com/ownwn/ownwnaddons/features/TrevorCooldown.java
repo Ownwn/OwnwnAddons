@@ -1,6 +1,7 @@
 package com.ownwn.ownwnaddons.features;
 
 import cc.polyfrost.oneconfig.hud.SingleTextHud;
+import com.ownwn.ownwnaddons.features.chat.TrevorChatCleanup;
 
 public class TrevorCooldown extends SingleTextHud {
 

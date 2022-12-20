@@ -24,15 +24,16 @@ public class ChatListener {
         Matcher leaveMatcher = Pattern.compile("§r§c ☠.+" + player + ".+ disconnected from the Dungeon and became a ghost§r§7.§r").matcher(msg);
 
 
-
-        if (msg.contains("§aYour active Potion Effects have been paused and stored.")) {
-            fragStartTime = System.currentTimeMillis();
-            toggleTimer = true;
-        }
-        else if (leaveMatcher.find()) {
-            fragEndTime = System.currentTimeMillis();
-            toggleTimer = false;
-            UChat.chat(OwnwnAddons.PREFIX + "&bThat frag run took &a" + (fragEndTime - fragStartTime) / 1000 + "s&b.");
+        if (NewConfig.fragRunTimer.isEnabled()) {
+            if (msg.contains("§aYour active Potion Effects have been paused and stored.")) {
+                fragStartTime = System.currentTimeMillis();
+                toggleTimer = true;
+            }
+            else if (leaveMatcher.find()) {
+                fragEndTime = System.currentTimeMillis();
+                toggleTimer = false;
+                UChat.chat(OwnwnAddons.PREFIX + "&bThat frag run took &a" + (fragEndTime - fragStartTime) / 1000 + "s&b.");
+            }
         }
     }
 }

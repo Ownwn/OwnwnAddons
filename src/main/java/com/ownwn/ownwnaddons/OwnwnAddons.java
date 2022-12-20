@@ -1,10 +1,16 @@
 package com.ownwn.ownwnaddons;
 
+import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
+import com.ownwn.ownwnaddons.commands.IslandAfkTimer;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.features.*;
+import com.ownwn.ownwnaddons.features.chat.BankChatCleanup;
+import com.ownwn.ownwnaddons.features.chat.BazaarChatCleanup;
+import com.ownwn.ownwnaddons.features.chat.CustomChat;
+import com.ownwn.ownwnaddons.features.chat.TrevorChatCleanup;
 import com.ownwn.ownwnaddons.utils.ChatListener;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import com.ownwn.ownwnaddons.utils.OverlayRenderer;
@@ -46,10 +52,15 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new FragRunTimer());
         MinecraftForge.EVENT_BUS.register(new OverlayRenderer());
         MinecraftForge.EVENT_BUS.register(new ChatListener());
+        MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
+
+        MinecraftForge.EVENT_BUS.register(new IslandAfk());
+        EventManager.INSTANCE.register(new IslandAfk());
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
+        CommandManager.INSTANCE.registerCommand(new IslandAfkTimer());
 
 
     }

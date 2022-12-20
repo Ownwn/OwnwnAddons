@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features.chat;
 
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.ChatComponentText;
@@ -30,10 +30,10 @@ public class TrevorChatCleanup {
         Matcher peltReward = Pattern.compile("§r§aKilling the animal rewarded you §r§5(\\d+) pelts§r§a.§r").matcher(msg);
         Matcher mobLocation = Pattern.compile("§e\\[NPC] Trevor The Trapper§f: §rYou can find your (.+) §fanimal near the (.+).§r").matcher(msg);
 
-        if (peltReward.find()) { // has vip/mvp
+        if (peltReward.find()) {
             newMsg = "§a+§5" + peltReward.group(1) + "§a pelts.";
         }
-        else if (mobLocation.find()) { // has vip/mvp
+        else if (mobLocation.find()) {
             newMsg = "§e[NPC] Trevor§f: " + mobLocation.group(1) + "§f -> " + mobLocation.group(2) + "§f.§r";
             finishTime = System.currentTimeMillis() + 30000;
         }

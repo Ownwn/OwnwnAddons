@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features.chat;
 
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.Minecraft;

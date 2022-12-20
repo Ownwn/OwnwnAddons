@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features.chat;
 
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.ChatComponentText;
@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BazaarChatCleanup {
+
+    public static String bazaarMsg = "§6[Bz] §7";
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
 
@@ -43,19 +45,22 @@ public class BazaarChatCleanup {
         Matcher setupOrder = Pattern.compile("§r§6\\[Bazaar] §r§7§r§e(Buy Order|Sell Offer) Setup! §r§a(.+)§r§7x §r§(.+) §r§7for §r§6(.+) coins§r§7.§r").matcher(msg);
         Matcher instaOrder = Pattern.compile("§r§6\\[Bazaar] §r§7(Bought|Sold) §r§a(.+)§r§7x §r§(.+) §r§7for §r§6(.+) coins§r§7!§r").matcher(msg);
         Matcher cancelOffer = Pattern.compile("§r§6\\[Bazaar] §r§7§r§cCancelled! §r§7Refunded §r§((.+)§r§7x §r§(.+)|6.+ coins) §r§7from cancelling (Sell Offer|Buy Order)!§r").matcher(msg);
+        Matcher sellFilled = Pattern.compile("§r§6\\[Bazaar] §r§7§r§eYour §r§6(Sell Offer|Buy Order) §r§efor §r§a(.+) §r(.+) §r§ewas filled!§r").matcher(msg);
 
         if (claimedCoin.find()) { // has vip/mvp
-            newMsg = "§6[Bz] §7Claimed §6" + claimedCoin.group(1) + " coins §7(§6" + claimedCoin.group(4) + "§7 per)\n §7for §a" + claimedCoin.group(2) + "§7x §" + claimedCoin.group(3);
+            newMsg = bazaarMsg + claimedCoin.group(1) + " coins §7(§6" + claimedCoin.group(4) + "§7 per)\n §7for §a" + claimedCoin.group(2) + "§7x §" + claimedCoin.group(3);
 
         } else if (setupOrder.find()) { // has vip/mvp
-            newMsg = "§6[Bz] §7" + setupOrder.group(1).split(" ")[0] + " -> §a" + setupOrder.group(2) + "§7x §" + setupOrder.group(3) + "\n §7for §6" + setupOrder.group(4) + " coins";
+            newMsg = bazaarMsg + setupOrder.group(1).split(" ")[0] + " -> §a" + setupOrder.group(2) + "§7x §" + setupOrder.group(3) + "\n §7for §6" + setupOrder.group(4) + " coins";
 
         } else if (claimedItem.find()) { // has vip/mvp
-            newMsg = "§6[Bz] §7Claimed §a" + claimedItem.group(1) + "§7x §" + claimedItem.group(2) + "\n §7for §6" + claimedItem.group(3) + " §7(§6" + claimedItem.group(4) + "§7 per)";
+            newMsg = bazaarMsg + "Claimed §a" + claimedItem.group(1) + "§7x §" + claimedItem.group(2) + "\n §7for §6" + claimedItem.group(3) + " §7(§6" + claimedItem.group(4) + "§7 per)";
         } else if (instaOrder.find()) {
-            newMsg = "§6[Bz] §7" + instaOrder.group(1) + " §a" + instaOrder.group(2) + "§7x §" + instaOrder.group(3) + " §7for §6" + instaOrder.group(4) + " coins";
+            newMsg = bazaarMsg + instaOrder.group(1) + " §a" + instaOrder.group(2) + "§7x §" + instaOrder.group(3) + " §7for §6" + instaOrder.group(4) + " coins";
         } else if (cancelOffer.find()) {
-            newMsg = "§6[Bz] §7" + cancelOffer.group(4).split(" ")[0] + " §ccancelled! §7Refunded §" + cancelOffer.group(1);
+            newMsg = bazaarMsg + cancelOffer.group(4).split(" ")[0] + " §ccancelled! §7Refunded §" + cancelOffer.group(1);
+        } else if (sellFilled.find()) {
+            newMsg = bazaarMsg + sellFilled.group(1) + " filled! §a" + sellFilled.group(2) + " " + sellFilled.group(3);
         }
 
         else {
