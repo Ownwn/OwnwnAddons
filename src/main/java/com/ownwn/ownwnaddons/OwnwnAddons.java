@@ -51,6 +51,9 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new ChatListener());
         MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SBAChromaReplacement());
+        //MinecraftForge.EVENT_BUS.register(new WarpChatCleanup());
+        // MinecraftForge.EVENT_BUS.register(new BazaarOrderTracker());
+        MinecraftForge.EVENT_BUS.register(new SylveoonDiscordChat());
 
         MinecraftForge.EVENT_BUS.register(new IslandAfk());
         EventManager.INSTANCE.register(new IslandAfk());

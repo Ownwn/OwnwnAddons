@@ -22,19 +22,74 @@ public class NewConfig extends Config {
     public static boolean PARTY_FINDER_SWITCH = false;
 
     @Switch(
-            name = "Secret Stats Display",
-            description = "Adds secret, very important stats display",
+            name = "Skills",
+            description = "Toggles the skills display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public static boolean PARTY_SKILLS_SWITCH = false;
+
+    @Switch(
+            name = "Weight & Networth",
+            description = "Toggles the weight and networth display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public static boolean PARTY_WEIGHT_SWITCH = false;
+
+    @Switch(
+            name = "Secrets",
+            description = "Toggles the dungeon secrets display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public static boolean PARTY_SECRETS_SWITCH = false;
+
+    @Switch(
+            name = "Blood Mob Kills",
+            description = "Toggles the blood kills display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public static boolean PARTY_BLOOD_SWITCH = false;
+
+    @Switch(
+            name = "Notable Items",
+            description = "Toggles the notable items display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public static boolean PARTY_ITEMS_SWITCH = false;
+
+    @Switch(
+            name = "Kick Button",
+            description = "Adds a kick button to the stats display",
+            category = "Features",
+            subcategory = "Party Finder"
+    )
+    public static boolean PARTY_KICK_SWITCH = false;
+
+    @Switch(
+            name = "Super Secret Stats Display",
+            description = "Adds cool, very important stats display",
             category = "Features",
             subcategory = "Party Finder"
     )
     public static boolean SECRET_PARTY_FINDER = false;
 
     @Switch(
-            name = "Island AFK Tracker",
+            name = "Island AFK Tracker (W.I.P)",
             description = "Tracks when you leave and enter your private island",
             category = "Features"
     )
     public static boolean ISLAND_AFK_TRACKER = false;
+
+    @Switch(
+            name = "Bazaar Order Tracker (N.Y.I)",
+            description = "Tracks your bazaar orders and their prices",
+            category = "Features"
+    )
+    public static boolean BAZAAR_ORDER_TRACKER = false;
 
     @Switch(
             name = "Verbose Code",
@@ -94,8 +149,15 @@ public class NewConfig extends Config {
     )
     public static boolean SBA_CHROMA_CHAT = false;
 
+    @Switch(
+            name = "Camoflaged Chat Shortener",
+            description = "Shortens chat messages sent by Camoflaged's bot Sylveoon",
+            category = "Chat Replacers"
+    )
+    public static boolean GUILD_MSG_PRETTY = false;
+
     @HUD(
-            name = "Frag Run Tracker",
+            name = "Frag Run Tracker (W.I.P)",
             category = "Features"
     )
     public static FragRunTimer fragRunTimer = new FragRunTimer();

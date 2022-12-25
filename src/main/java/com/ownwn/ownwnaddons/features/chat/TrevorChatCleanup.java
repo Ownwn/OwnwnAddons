@@ -3,6 +3,7 @@ package com.ownwn.ownwnaddons.features.chat;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.regex.Matcher;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
 public class TrevorChatCleanup {
 
     public static long finishTime;
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOW)
     public void onChat(ClientChatReceivedEvent event) {
         if (!NewConfig.TREVOR_CHAT_CLEANUP) {
             return;
