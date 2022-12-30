@@ -21,7 +21,7 @@ public class HttpRequest {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("User-Agent", "OwnwnAddons");
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
             if (NewConfig.VERBOSE_CODE_SWITCH) { System.out.println("Response Code: " + conn.getResponseCode());}
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
