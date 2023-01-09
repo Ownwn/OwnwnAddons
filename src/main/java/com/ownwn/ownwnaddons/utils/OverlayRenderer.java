@@ -2,8 +2,6 @@ package com.ownwn.ownwnaddons.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class OverlayRenderer {
 
@@ -28,10 +26,5 @@ public class OverlayRenderer {
         }
 
         renderer.drawString(text, x, y, 0);
-    }
-
-    @SubscribeEvent
-    public void onrender(RenderGameOverlayEvent event) {
-
     }
 }

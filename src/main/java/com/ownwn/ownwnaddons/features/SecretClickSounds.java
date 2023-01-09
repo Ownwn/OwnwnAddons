@@ -23,9 +23,15 @@ public class SecretClickSounds {
         if (NewConfig.SECRET_CLICK_SOUND.equals("")) {
             return;
         }
-        if (!HypixelUtils.INSTANCE.getPreviousLocraw().getGameMode().equals("dungeon")) {
+        try {
+            String location = HypixelUtils.INSTANCE.getPreviousLocraw().getGameMode();
+            if (!location.equals("dungeon")) {
+                return;
+            }
+        } catch (Exception ignored) {
             return;
         }
+
 
         Block blockType = null;
         try {
@@ -62,7 +68,7 @@ public class SecretClickSounds {
     }
     public void playSound() {
         if (System.currentTimeMillis() - lastSound > 50) { // don't kill ears
-            Minecraft.getMinecraft().thePlayer.playSound(NewConfig.SECRET_CLICK_SOUND, NewConfig.DUNGEONS_CLICK_VOLUME, 3);
+            Minecraft.getMinecraft().thePlayer.playSound(NewConfig.SECRET_CLICK_SOUND, NewConfig.SECRET_CLICK_VOLUME/10, NewConfig.SECRET_CLICK_PITCH/10);
             lastSound = System.currentTimeMillis();
         }
     }

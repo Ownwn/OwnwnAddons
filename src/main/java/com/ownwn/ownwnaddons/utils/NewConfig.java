@@ -8,24 +8,16 @@ import cc.polyfrost.oneconfig.config.annotations.Text;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.features.FragRunTimer;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 
 public class NewConfig extends Config {
 
-    @Switch(
-            name = "Island AFK Tracker (W.I.P)",
-            description = "Tracks when you leave and enter your private island",
-            category = "Features"
-    )
-    public static boolean ISLAND_AFK_TRACKER = false;
-
-    @Switch(
-            name = "Bazaar Order Tracker (N.Y.I)",
-            description = "Tracks your bazaar orders and their prices",
-            category = "Features"
-    )
-    public static boolean BAZAAR_ORDER_TRACKER = false;
+//    @Switch(
+//            name = "Island AFK Tracker (W.I.P)",
+//            description = "Tracks when you leave and enter your private island",
+//            category = "Features"
+//    )
+//    public static boolean ISLAND_AFK_TRACKER = false;
 
     @Text(
             name = "Dungeons Secret Click Sound",
@@ -38,10 +30,19 @@ public class NewConfig extends Config {
             name = "Click Sound Volume",
             description = "Change the volume of the dungeons secret click sound",
             category = "Features",
-            min = 10, max = 100,
-            step = 10
+            min = 1f, max = 10f,
+            step = 1
     )
-    public static float DUNGEONS_CLICK_VOLUME = 40; // default value
+    public static float SECRET_CLICK_VOLUME = 5f;
+
+    @Slider(
+            name = "Click Sound Pitch",
+            description = "Change the pitch of the dungeons secret click sound",
+            category = "Features",
+            min = 5f, max = 20f,
+            step = 1
+    )
+    public static float SECRET_CLICK_PITCH = 10f;
 
     @Switch(
             name = "Verbose Code",
@@ -119,11 +120,11 @@ public class NewConfig extends Config {
     )
     public static boolean CATA_CHAT_CLEANUP = false;
 
-    @HUD(
-            name = "Frag Run Tracker (W.I.P)",
-            category = "Features"
-    )
-    public static FragRunTimer fragRunTimer = new FragRunTimer();
+//    @HUD(
+//            name = "Frag Run Tracker (W.I.P)",
+//            category = "Features"
+//    )
+//    public static FragRunTimer fragRunTimer = new FragRunTimer();
     @HUD(
             name = "Trevor Cooldown",
             category = "Features",

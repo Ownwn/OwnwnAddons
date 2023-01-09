@@ -1,7 +1,6 @@
 package com.ownwn.ownwnaddons.features;
 
 import cc.polyfrost.oneconfig.hud.SingleTextHud;
-import com.ownwn.ownwnaddons.utils.ChatListener;
 
 public class FragRunTimer extends SingleTextHud {
     public FragRunTimer() {
@@ -10,9 +9,10 @@ public class FragRunTimer extends SingleTextHud {
 
     @Override
     protected String getText(boolean example) {
-        if (!ChatListener.toggleTimer) {
-            return "§cNot active!";
-        }
-        return String.valueOf((System.currentTimeMillis() - ChatListener.runStartTime) / 1000);
+//        if (!ChatListener.toggleTimer) {
+//            return "§cNot active!";
+//        }
+//        return String.valueOf((System.currentTimeMillis() - ChatListener.runStartTime) / 1000);
+        return null;
     }
 }
