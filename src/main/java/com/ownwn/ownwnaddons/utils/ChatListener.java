@@ -10,8 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatListener {
-    public static long fragStartTime;
-    public static long fragEndTime;
+    public static long runStartTime;
+    public static long runEndTime;
     public static boolean toggleTimer = false;
 
     @SubscribeEvent
@@ -26,13 +26,21 @@ public class ChatListener {
 
         if (NewConfig.fragRunTimer.isEnabled()) {
             if (msg.contains("§aYour active Potion Effects have been paused and stored.")) {
-                fragStartTime = System.currentTimeMillis();
+                if (System.currentTimeMillis() - runEndTime < 60000) {
+                    UChat.chat(OwnwnAddons.PREFIX + "&bFragrun Overview: " +
+                            "\n &aTotal time: " +
+                            (System.currentTimeMillis() - runStartTime) / 1000);
+//                    if (NewConfig.fragRunTimer.displayDungeonTime) {
+//                        UChat.chat("&aTime in dungeon: " + (runEndTime - runStartTime) / 1000);
+//                    }
+                }
+                runStartTime = System.currentTimeMillis();
                 toggleTimer = true;
+
             }
-            else if (leaveMatcher.find()) {
-                fragEndTime = System.currentTimeMillis();
-                toggleTimer = false;
-                UChat.chat(OwnwnAddons.PREFIX + "&bThat frag run took &a" + (fragEndTime - fragStartTime) / 1000 + "s&b.");
+            else if (toggleTimer && leaveMatcher.find()) {
+                runEndTime = System.currentTimeMillis();
+                // toggleTimer = false;
             }
         }
     }

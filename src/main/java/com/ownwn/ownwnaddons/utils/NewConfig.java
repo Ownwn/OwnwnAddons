@@ -2,6 +2,7 @@ package com.ownwn.ownwnaddons.utils;
 
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.HUD;
+import cc.polyfrost.oneconfig.config.annotations.Slider;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.annotations.Text;
 import cc.polyfrost.oneconfig.config.data.Mod;
@@ -11,71 +12,6 @@ import com.ownwn.ownwnaddons.features.FragRunTimer;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 
 public class NewConfig extends Config {
-
-
-    @Switch(
-            name = "Party Finder",
-            description = "Toggles the party finder stats display feature",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_FINDER_SWITCH = false;
-
-    @Switch(
-            name = "Skills",
-            description = "Toggles the skills display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_SKILLS_SWITCH = false;
-
-    @Switch(
-            name = "Weight & Networth",
-            description = "Toggles the weight and networth display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_WEIGHT_SWITCH = false;
-
-    @Switch(
-            name = "Secrets",
-            description = "Toggles the dungeon secrets display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_SECRETS_SWITCH = false;
-
-    @Switch(
-            name = "Blood Mob Kills",
-            description = "Toggles the blood kills display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_BLOOD_SWITCH = false;
-
-    @Switch(
-            name = "Notable Items",
-            description = "Toggles the notable items display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_ITEMS_SWITCH = false;
-
-    @Switch(
-            name = "Kick Button",
-            description = "Adds a kick button to the stats display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean PARTY_KICK_SWITCH = false;
-
-    @Switch(
-            name = "Super Secret Stats Display",
-            description = "Adds cool, very important stats display",
-            category = "Features",
-            subcategory = "Party Finder"
-    )
-    public static boolean SECRET_PARTY_FINDER = false;
 
     @Switch(
             name = "Island AFK Tracker (W.I.P)",
@@ -90,6 +26,22 @@ public class NewConfig extends Config {
             category = "Features"
     )
     public static boolean BAZAAR_ORDER_TRACKER = false;
+
+    @Text(
+            name = "Dungeons Secret Click Sound",
+            description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound, credit to AtonAddons for the idea",
+            category = "Features"
+    )
+    public static String SECRET_CLICK_SOUND = "random.successful_hit";
+
+    @Slider(
+            name = "Click Sound Volume",
+            description = "Change the volume of the dungeons secret click sound",
+            category = "Features",
+            min = 10, max = 100,
+            step = 10
+    )
+    public static float DUNGEONS_CLICK_VOLUME = 40; // default value
 
     @Switch(
             name = "Verbose Code",
@@ -124,21 +76,24 @@ public class NewConfig extends Config {
     @Switch(
             name = "Trevor Chat Cleanup",
             description = "Cleans up the chat messages sent by Trevor the Trapper",
-            category = "Chat Replacers"
+            category = "Chat Replacers",
+            subcategory = "Chat Cleanup"
     )
     public static boolean TREVOR_CHAT_CLEANUP = false;
 
     @Switch(
             name = "Bazaar Chat Cleanup",
             description = "Cleans up the chat messages sent by the Bazaar",
-            category = "Chat Replacers"
+            category = "Chat Replacers",
+            subcategory = "Chat Cleanup"
     )
     public static boolean BAZAAR_CHAT_CLEANUP = false;
 
     @Switch(
             name = "Bank Chat Cleanup",
             description = "Cleans up the chat messages sent by the Bank",
-            category = "Chat Replacers"
+            category = "Chat Replacers",
+            subcategory = "Chat Cleanup"
     )
     public static boolean BANK_CHAT_CLEANUP = false;
 
@@ -155,6 +110,14 @@ public class NewConfig extends Config {
             category = "Chat Replacers"
     )
     public static boolean GUILD_MSG_PRETTY = false;
+
+    @Switch(
+            name = "Dungeons Chat Cleanup",
+            description = "Hides some useless/spammy messages in dungeons",
+            category = "Chat Replacers",
+            subcategory = "Chat Cleanup"
+    )
+    public static boolean CATA_CHAT_CLEANUP = false;
 
     @HUD(
             name = "Frag Run Tracker (W.I.P)",

@@ -28,14 +28,14 @@ public class SBAChromaReplacement {
             case "§r§eWelcome to §r§aHypixel SkyBlock§r§e!§r":
                 newMsg = msg.replace("§aHypixel SkyBlock", "§zHypixel SkyBlock");
                 break;
-            case "§dParty Finder §r§f> §r§aYour party has been queued in the dungeon finder!§r":
-                newMsg = msg.replace("§dParty Finder", "§zParty Finder");
-                break;
             case "§r§5§lEXTRA! §r§dYou got §r§a§lDOUBLE §r§dsalvaged essence!§r":
                 newMsg = msg.replace("§5§lEXTRA", "§z§lEXTRA");
                 break;
             case "§d§lSOUL! §fYou found a §r§dFairy Soul§r§f!§r":
                 newMsg = msg.replace("§d§lSOUL!", "§z§lSOUL!");
+                break;
+            case "§r§6Second Wind Activated§r§a! §r§aYour Spirit Mask saved your life!§r":
+                newMsg = msg.replace("§6Second Wind Activated", "§zSecond Wind Activated");
                 break;
 
         }
@@ -51,6 +51,20 @@ public class SBAChromaReplacement {
                 newMsg = msg.replace("§6§lWelcome to SkyBlock Bingo!", "§z§lWelcome to SkyBlock Bingo!");
             } else if (msg.contains("§b§lSKILL LEVEL UP")) {
                 newMsg = msg.replace("§b§lSKILL LEVEL UP", "§z§lSKILL LEVEL UP");
+            } else if (msg.contains("§a§lPUZZLE SOLVED!")) {
+                newMsg = msg.replace("§a§lPUZZLE SOLVED!", "§z§lPUZZLE SOLVED!");
+            } else if (msg.contains("§r§3§lBESTIARY")) {
+                newMsg = msg.replace("§r§3§lBESTIARY", "§r§z§lBESTIARY");
+            } else if (msg.contains(" §r§cThe Catacombs")) {
+                newMsg = msg.replace("§cThe Catacombs", "§zThe Catacombs");
+            } else if (msg.contains("§dParty Finder §r§f> ")) {
+                newMsg = msg.replace("§dParty Finder", "§zParty Finder");
+            } else if (msg.contains("§6§lCOLLECTION LEVEL UP ")) {
+                newMsg = msg.replace("§6§lCOLLECTION LEVEL UP", "§z§lCOLLECTION LEVEL UP");
+            } else if (msg.contains("§aYour profile was changed to: §e")) {
+                newMsg = msg.replace("changed to: §e", "changed to: §z");
+            } else if (msg.contains("§6§lSkyBlock Bingo")) {
+                newMsg = msg.replace("§6§lSkyBlock Bingo", "§z§lSkyBlock Bingo");
             }
         }
 

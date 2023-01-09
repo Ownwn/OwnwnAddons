@@ -8,7 +8,6 @@ import com.ownwn.ownwnaddons.commands.IslandAfkTimer;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.features.*;
 import com.ownwn.ownwnaddons.features.chat.*;
-import com.ownwn.ownwnaddons.utils.ChatListener;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import com.ownwn.ownwnaddons.utils.OverlayRenderer;
 import net.minecraft.util.EnumChatFormatting;
@@ -41,22 +40,22 @@ public class OwnwnAddons
         config = new NewConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new PartyFinder());
         MinecraftForge.EVENT_BUS.register(new CustomChat());
         MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
         MinecraftForge.EVENT_BUS.register(new BazaarChatCleanup());
         MinecraftForge.EVENT_BUS.register(new TrevorCooldown());
-        MinecraftForge.EVENT_BUS.register(new FragRunTimer());
         MinecraftForge.EVENT_BUS.register(new OverlayRenderer());
-        MinecraftForge.EVENT_BUS.register(new ChatListener());
+        // MinecraftForge.EVENT_BUS.register(new ChatListener());
         MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SBAChromaReplacement());
         //MinecraftForge.EVENT_BUS.register(new WarpChatCleanup());
         // MinecraftForge.EVENT_BUS.register(new BazaarOrderTracker());
         MinecraftForge.EVENT_BUS.register(new SylveoonDiscordChat());
-
+        MinecraftForge.EVENT_BUS.register(new DungeonsChatCleanup());
         MinecraftForge.EVENT_BUS.register(new IslandAfk());
+        MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
         EventManager.INSTANCE.register(new IslandAfk());
+        EventManager.INSTANCE.register(new FragRunLocraw());
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
