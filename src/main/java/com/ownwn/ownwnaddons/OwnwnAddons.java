@@ -43,16 +43,12 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
         MinecraftForge.EVENT_BUS.register(new BazaarChatCleanup());
         MinecraftForge.EVENT_BUS.register(new TrevorCooldown());
-        // MinecraftForge.EVENT_BUS.register(new ChatListener());
         MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SBAChromaReplacement());
-        //MinecraftForge.EVENT_BUS.register(new WarpChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SylveoonDiscordChat());
         MinecraftForge.EVENT_BUS.register(new DungeonsChatCleanup());
-        //MinecraftForge.EVENT_BUS.register(new IslandAfk());
         MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
-        //EventManager.INSTANCE.register(new IslandAfk());
-        //EventManager.INSTANCE.register(new FragRunLocraw());
+
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());

@@ -9,6 +9,7 @@ import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
+import com.ownwn.ownwnaddons.features.chat.TrevorLootTracker;
 
 public class NewConfig extends Config {
 
@@ -120,17 +121,19 @@ public class NewConfig extends Config {
     )
     public static boolean CATA_CHAT_CLEANUP = false;
 
-//    @HUD(
-//            name = "Frag Run Tracker (W.I.P)",
-//            category = "Features"
-//    )
-//    public static FragRunTimer fragRunTimer = new FragRunTimer();
     @HUD(
-            name = "Trevor Cooldown",
+            name = "Trevor Cooldown (Requires Trevor Chat Cleanup)",
             category = "Features",
-            subcategory = "Trevor Cooldown"
+            subcategory = "Trevor"
     )
     public static TrevorCooldown trevorCooldown = new TrevorCooldown();
+
+    @HUD(
+            name = "Trevor Loot Tracker (Requires Trevor Chat Cleanup)",
+            category = "Features",
+            subcategory = "Trevor"
+    )
+    public static TrevorLootTracker trevorLootTracker = new TrevorLootTracker();
 
 
     public NewConfig() {

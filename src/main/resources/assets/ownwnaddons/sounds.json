@@ -1,0 +1,10 @@
+{
+  "trevorready": {
+    "sounds": [{
+      "name": "ownwnaddons:trevorready",
+      "stream": true,
+      "category": "hostile"
+    }
+    ]
+  }
+}
