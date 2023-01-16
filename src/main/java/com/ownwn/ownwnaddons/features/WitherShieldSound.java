@@ -33,7 +33,6 @@ public class WitherShieldSound {
 
             Minecraft.getMinecraft().thePlayer.playSound(NewConfig.WITHER_IMPLODE_SOUND, NewConfig.WITHER_IMPLODE_VOLUME/10, NewConfig.WITHER_IMPLODE_PITCH/10);
             lastImplode = System.currentTimeMillis();
-            return;
         }
 
 
