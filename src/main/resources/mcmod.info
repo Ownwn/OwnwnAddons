@@ -1,18 +1,18 @@
 [
   {
-	"modid": "ownwnaddons",
-	"name": "Ownwn Addons",
-	"description": "A QOL mod for Hypixel Skyblock",
-	"version": "1.2.2",
-	"mcversion": "${mcversion}",
-	"url": "https://github.com/Ownwn/OwnwnAddons",
-	"updateUrl": "",
-	"authorList": [
-	  "Ownwn"
-	],
-	"credits": "",
-	"logoFile": "",
-	"screenshots": [],
-	"dependencies": []
+    "modid": "${id}",
+    "name": "${name}",
+    "description": "A QOL mod for Hypixel Skyblock",
+    "version": "${version}",
+    "mcversion": "1.8.9",
+    "url": "https://github.com/Ownwn/OwnwnAddons",
+    "updateUrl": "",
+    "authorList": [
+      "Ownwn"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
   }
 ]

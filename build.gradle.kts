@@ -1,126 +1,166 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import gg.essential.gradle.util.noServerRunConfigs
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    idea
+    id("gg.essential.multi-version")
+    id("gg.essential.defaults.repo")
+    id("gg.essential.defaults.java")
+    id("gg.essential.defaults.loom")
+    id("com.github.johnrengelman.shadow")
+    id("net.kyori.blossom") version "1.3.0"
+    id("io.github.juuxel.loom-quiltflower-mini")
+    id("signing")
     java
-    id("gg.essential.loom") version "0.10.0.+"
-    id("dev.architectury.architectury-pack200") version "0.1.3"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm") version "1.6.21"
 }
 
-group = "com.ownwn.archloomtemplate"
+val mod_name: String by project
+val mod_version: String by project
+val mod_id: String by project
 
-version = "1.2.2"
-
-
-// Toolchains:
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+preprocess {
+    vars.put("MODERN", if (project.platform.mcMinor >= 16) 1 else 0)
 }
 
-// Minecraft configuration:
+blossom {
+    replaceToken("@VER@", mod_version)
+    replaceToken("@NAME@", mod_name)
+    replaceToken("@ID@", mod_id)
+}
+
+version = mod_version
+group = "cc.polyfrost"
+base {
+    archivesName.set("$mod_name ($platform)")
+}
 loom {
-    log4jConfigs.from(file("log4j2.xml"))
-    launchConfigs {
-        "client" {
-            // If you don't want mixins, remove these lines
-            /* property("mixin.debug", "true")
-            property("asmhelper.verbose", "true")
-            arg("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
-            arg("--mixin", "mixins.ownwnaddons.json") */
+    noServerRunConfigs()
+    if (project.platform.isLegacyForge) {
+        launchConfigs.named("client") {
+            arg("--tweakClass", "cc.polyfrost.oneconfigwrapper.OneConfigWrapper")
+            property("mixin.debug.export", "true")
         }
     }
-    forge {
-        pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
-        // If you don't want mixins, remove this lines
-        // mixinConfig("mixins.ownwnaddons.json")
+    if (project.platform.isForge) {
+        forge {
+            mixinConfig("mixins.${mod_id}.json")
+        }
     }
-    // If you don't want mixins, remove these lines
-    /* mixin {
-        defaultRefmapName.set("mixins.ownwnaddons.refmap.json")
-    } */
+    mixin.defaultRefmapName.set("mixins.${mod_id}.refmap.json")
 }
 
-sourceSets.main {
-    output.setResourcesDir(file("$buildDir/classes/java/main"))
-}
-
-// Dependencies:
-
-repositories {
-    mavenCentral()
-    maven("https://repo.spongepowered.org/maven/")
-    // If you don't want to log in with your real minecraft account, remove this line
-    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
-    maven(url = "https://repo.essential.gg/repository/maven-public")
-}
-
-val shadowImpl: Configuration by configurations.creating {
+val shade: Configuration by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
 }
 
+sourceSets {
+    main {
+        output.setResourcesDir(java.classesDirectory)
+    }
+}
+
+repositories {
+    maven("https://repo.polyfrost.cc/releases")
+    mavenCentral()
+}
+
 dependencies {
-    minecraft("com.mojang:minecraft:1.8.9")
-    mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
-    forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
+    modCompileOnly("cc.polyfrost:oneconfig-$platform:0.1.0-alpha+")
 
-    // If you don't want mixins, remove these lines
-    /* shadowImpl("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        isTransitive = false
+    if (platform.isLegacyForge) {
+        compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
+        shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-alpha+")
     }
-    annotationProcessor("org.spongepowered:mixin:0.8.4-SNAPSHOT") */
-
-    // If you don't want to log in with your real minecraft account, remove this line
-    runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.1.0")
-
     implementation(kotlin("stdlib-jdk8"))
-    shadowImpl("gg.essential:loader-launchwrapper:1.1.3")
-    implementation("gg.essential:vigilance-1.8.9-forge:195")
-    implementation("gg.essential:essential-1.8.9-forge:3662")
-
 }
 
-// Tasks:
-
-tasks.withType(JavaCompile::class) {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType(Jar::class) {
-    archiveBaseName.set("ownwnaddons")
-    manifest.attributes.run {
-        this["FMLCorePluginContainsFMLMod"] = "true"
-        this["ForceLoadAsMod"] = "true"
-
-        // If you don't want mixins, remove these lines
-        /* this["TweakClass"] = "org.spongepowered.asm.launch.MixinTweaker"
-        this["MixinConfigs"] = "mixins.ownwnaddons.json" */
+tasks.processResources {
+    inputs.property("id", mod_id)
+    inputs.property("name", mod_name)
+    val java = if (project.platform.mcMinor >= 18) {
+        17
+    } else {
+        if (project.platform.mcMinor == 17) 16 else 8
+    }
+    val compatLevel = "JAVA_${java}"
+    inputs.property("java", java)
+    inputs.property("java_level", compatLevel)
+    inputs.property("version", mod_version)
+    inputs.property("mcVersionStr", project.platform.mcVersionStr)
+    filesMatching(listOf("mcmod.info", "mixins.${mod_id}.json", "mods.toml")) {
+        expand(
+                mapOf(
+                        "id" to mod_id,
+                        "name" to mod_name,
+                        "java" to java,
+                        "java_level" to compatLevel,
+                        "version" to mod_version,
+                        "mcVersionStr" to project.platform.mcVersionStr
+                )
+        )
+    }
+    filesMatching("fabric.mod.json") {
+        expand(
+                mapOf(
+                        "id" to mod_id,
+                        "name" to mod_name,
+                        "java" to java,
+                        "java_level" to compatLevel,
+                        "version" to mod_version,
+                        "mcVersionStr" to project.platform.mcVersionStr.substringBeforeLast(".") + ".x"
+                )
+        )
     }
 }
 
-
-val remapJar by tasks.named<net.fabricmc.loom.task.RemapJarTask>("remapJar") {
-    archiveClassifier.set("all")
-    from(tasks.shadowJar)
-    input.set(tasks.shadowJar.get().archiveFile)
+afterEvaluate {
+    if (rootProject.file("LICENSE-TEMPLATE").exists()) {
+        logger.error("-------------------------------------------------------")
+        logger.error("PLEASE REPLACE THE `LICENSE-TEMPLATE` FILE WITH YOUR OWN LICENSE")
+        logger.error("-------------------------------------------------------")
+    }
 }
 
-tasks.shadowJar {
-    archiveClassifier.set("all-dev")
-    configurations = listOf(shadowImpl)
-    doLast {
-        configurations.forEach {
-            println("Config: ${it.files}")
+tasks {
+    withType(Jar::class.java) {
+        if (project.platform.isFabric) {
+            exclude("mcmod.info", "mods.toml")
+        } else {
+            exclude("fabric.mod.json")
+            if (project.platform.isLegacyForge) {
+                exclude("mods.toml")
+            } else {
+                exclude("mcmod.info")
+            }
         }
     }
-
-    // If you want to include other dependencies and shadow them, you can relocate them in here
-    fun relocate(name: String) = relocate(name, "com.ownwnaddons.deps.$name")
+    named<ShadowJar>("shadowJar") {
+        archiveClassifier.set("dev")
+        configurations = listOf(shade)
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+    remapJar {
+        input.set(shadowJar.get().archiveFile)
+        archiveClassifier.set("")
+    }
+    jar {
+        manifest {
+            attributes(
+                    mapOf(
+                            "ModSide" to "CLIENT",
+                            "ForceLoadAsMod" to true,
+                            "TweakOrder" to "0",
+                            "MixinConfigs" to "mixins.${mod_id}.json",
+                            "TweakClass" to "cc.polyfrost.oneconfigwrapper.OneConfigWrapper"
+                    )
+            )
+        }
+        dependsOn(shadowJar)
+        archiveClassifier.set("")
+        enabled = false
+    }
 }
-
-tasks.assemble.get().dependsOn(tasks.remapJar)
-
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "1.8"

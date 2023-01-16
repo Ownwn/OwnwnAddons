@@ -1,88 +1,133 @@
 package com.ownwn.ownwnaddons.commands;
 
+import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.NetworkUtils;
+import cc.polyfrost.oneconfig.utils.commands.annotations.*;
+import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.utils.PriceRound;
-import gg.essential.api.EssentialAPI;
-import gg.essential.universal.UChat;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
+import com.ownwn.ownwnaddons.utils.HttpRequest;
+import com.ownwn.ownwnaddons.utils.NewConfig;
+import com.ownwn.ownwnaddons.utils.Utils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.HoverEvent;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.common.MinecraftForge;
 
-import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
-
-
-public class Owa extends CommandBase {
-    @Override
-    public String getCommandName() {
-        return "owa";
+@Command(value = "owa", description = "Access the " + OwnwnAddons.NAME + " GUI.", customHelpMessage = OwnwnAddons.HELP)
+public class Owa {
+    public String rank = "";
+    @Main
+    private static void main() {
+        OwnwnAddons.INSTANCE.config.openGui();
     }
 
-    @Override
-    public String getCommandUsage(ICommandSender iCommandSender) {
-        return "/owa [subcommand]";
-    }
+    @SubCommand(description = "Gets the lowest BIN price for any item.")
+    @SuppressWarnings("SameParameterValue")
+    private void lbin(@Description("ItemID") @Greedy String id) {
+        if (id.equals("")) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
+            return;
+        }
+        UChat.actionBar(OwnwnAddons.PREFIX + " &bFetching...");
+        Thread T = new Thread(() -> {
+            try {
+                int itemPrice = HttpRequest.lbin().get(id.toUpperCase()).getAsInt();
+                String roundPrice = Utils.roundPrice(itemPrice);
 
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender)
-    {
-        return true;
-    }
-
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) {
-
-
-        if (args.length >= 1 && args[0].equalsIgnoreCase("lbin")) {
-            if (args.length >= 2) {
-
-                Thread T = new Thread(() -> {
-                    try {
-                        int itemPrice = lbin().get(args[1].toUpperCase()).getAsInt();
-                        String roundPrice = PriceRound.roundPrice(itemPrice);
-
-                        UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + args[1].toUpperCase() + "&a is: &b" + roundPrice);
-                    } catch (Exception e) {
-                        UChat.chat(OwnwnAddons.PREFIX + "&cInvalid ItemID!");
-                    }
-
-                });
-                T.start();
-
-            } else {
-                UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
+                UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + id.toUpperCase() + "&a is: &b" + roundPrice);
+            } catch (Exception e) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cInvalid ItemID!");
             }
+        });
+        T.start();
+    }
+
+
+    @SubCommand(description = "Displays a customizable, formatted chat message in your chat. \"&\"s will be replaced with formatting codes.")
+    @SuppressWarnings("SameParameterValue")
+    private void preview(@Description("message") @Greedy String message) {
+        if (message.equals("")) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
+            return;
         }
 
-        else if (args.length >= 1 && args[0].equalsIgnoreCase("preview")) {
-            if (args.length >= 2) {
+        UChat.chat(message);
+    }
 
-                StringBuilder mm = new StringBuilder();
-                for (int i = 1; i < args.length; i++) {
-                    mm.append(args[i]).append(" ");
+
+    @SubCommand(description = "OwnwnAddons dev test")
+    @SuppressWarnings("SameParameterValue")
+    private void devtest(@Description("message") @Greedy String message) {
+        //MinecraftForge.EVENT_BUS.post()
+        IChatComponent hoverTest = new ChatComponentText(EnumChatFormatting.DARK_GREEN + (EnumChatFormatting.BOLD + "Hover test"));
+        IChatComponent messagea = new ChatComponentText(EnumChatFormatting.DARK_GREEN + (EnumChatFormatting.BOLD + message.replace("&", "§")))
+                .setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help")).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverTest)));
+        ClientChatReceivedEvent aaaasd = new ClientChatReceivedEvent((byte) 1, messagea);
+        MinecraftForge.EVENT_BUS.post(aaaasd);
+    }
+
+    @SubCommand(description = "Gets the player's Hypixel rank")
+    @SuppressWarnings("SameParameterValue")
+    private void getrank() {
+        UChat.chat(OwnwnAddons.PREFIX + "&bFetching rank...");
+            if (NewConfig.HYPIXEL_API_KEY.equals("")) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cYour Hypixel API key isn't set! For now you need to manually set it in &b/owa");
+                return;
+            }
+            Thread T = new Thread(() -> {
+                JsonObject playerData;
+                try {
+
+
+                    playerData = NetworkUtils.getJsonElement("https://api.hypixel.net/player?uuid=" + Minecraft.getMinecraft().thePlayer.getUniqueID() + "&key=" + NewConfig.HYPIXEL_API_KEY).getAsJsonObject().get("player").getAsJsonObject();
+
+                    playerData.get("playername").getAsString();
+
+                } catch (NullPointerException noData) {
+                    UChat.chat(OwnwnAddons.PREFIX + "&cError getting player data! Perhaps the Hypixel API is down?");
+                    noData.printStackTrace();
+                    return;
                 }
 
-                String formattedMsg = mm.toString().replace("&", "\u00A7");
-                UChat.chat(formattedMsg);
+                try { // check if has a rank
+                    playerData.get("newPackageRank").getAsString();
+                } catch (NullPointerException defaultRank) {
+                    setRank(1);
+                    return;
+                }
 
-            } else {
-                UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
-            }
-        }
+                if (playerData.get("monthlyPackageRank").getAsString().equals("SUPERSTAR")) { // check if has mvp++
+                    setRank(6);
+                } else {
+                     // just get the rank
+                    rank = playerData.get("newPackageRank").getAsString();
+                    switch (rank) {
+                        case "VIP":
+                            setRank(2);
+                            break;
+                        case "VIP_PLUS":
+                            setRank(3);
+                            break;
+                        case "MVP":
+                            setRank(4);
+                            break;
+                        case "MVP_PLUS":
+                            setRank(5);
+                            break;
+                    }
+                }
 
-        else if (args.length >= 1) {
-            UChat.chat(
-                    "&9&l\u279C OwnwnAddons Help\n"
+            });
+            T.start();
+    }
 
-                    + "&9/owa \u27A1 &bOpens the GUI\n"
-
-                    + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)\n"
-
-                    + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes"
-            );
-        }
-
-        else {
-            EssentialAPI.getGuiUtil().openScreen(OwnwnAddons.config.gui());
-        }
-
+    public void setRank(int rank) {
+        NewConfig.PLAYER_HYPIXEL_RANK = rank;
+        UChat.chat(OwnwnAddons.PREFIX + "&bSuccessfully set rank!");
     }
 }
