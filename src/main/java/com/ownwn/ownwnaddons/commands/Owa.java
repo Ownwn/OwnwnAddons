@@ -75,7 +75,10 @@ public class Owa {
     @SuppressWarnings("SameParameterValue")
     private void getrank() {
         UChat.chat(OwnwnAddons.PREFIX + "&bFetching rank...");
-
+            if (NewConfig.HYPIXEL_API_KEY.equals("")) {
+                UChat.chat(OwnwnAddons.PREFIX + "&cYour Hypixel API key isn't set! For now you need to manually set it in &b/owa");
+                return;
+            }
             Thread T = new Thread(() -> {
                 JsonObject playerData;
                 try {

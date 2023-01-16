@@ -33,7 +33,7 @@ public class CustomChat {
 
         Matcher noPlusMatcher = Pattern.compile("(§b\\[MVP]|§a\\[VIP]) (" + player + ")").matcher(msg); // for vip or mvp
         Matcher defaultMatcher = Pattern.compile("((§7)+" + player + ")").matcher(msg); // for players without a rank (grey name)
-        Matcher rankMatcher = Pattern.compile("((§b|§6)\\[MVP§.\\+{1,2}(§b|§6)]|§a\\[VIP§6\\+§a]) (" + player + ")").matcher(msg); // for players with vip+/mvp+/mvp++
+        Matcher rankMatcher = Pattern.compile("((§b|§6)\\[MVP(§r)*§.\\+{1,2}(§r)*(§b|§6)]|§a\\[VIP(§r)*§6\\+(§r)*§a]) (" + player + ")").matcher(msg); // for players with vip+/mvp+/mvp++
 
         if (NewConfig.PLAYER_HYPIXEL_RANK == 1) { // default rank
             if (defaultMatcher.find()) {
@@ -55,7 +55,7 @@ public class CustomChat {
                 if (NewConfig.NAME_REPLACE_RANK) {
                     newMsg = msg.replace(rankMatcher.group(0), newCustomName);
                 } else {
-                    newMsg = msg.replace(rankMatcher.group(4), newCustomName);
+                    newMsg = msg.replace(rankMatcher.group(8), newCustomName);
                 }
             }
         }
