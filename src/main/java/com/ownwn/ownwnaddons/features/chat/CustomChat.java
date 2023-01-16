@@ -13,56 +13,55 @@ public class CustomChat {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if (NewConfig.CUSTOM_NAME_EDITOR.equals("") && NewConfig.CUSTOM_CHAT_COLOUR.equals("")) {
+
+        if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
+            return;
+        }
+        if (NewConfig.PLAYER_HYPIXEL_RANK == 0) { // no rank set
             return;
         }
 
         String player = Minecraft.getMinecraft().thePlayer.getName();
         String msg = event.message.getFormattedText();
-        String newMsg;
+        String newMsg = "";
 
         if (!msg.contains(player)) {
             return;
         }
 
         String newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
-        String newCustomChat = NewConfig.CUSTOM_CHAT_COLOUR.replace("&&", "§");
 
-
-        Matcher rankMatcher = Pattern.compile("(§.\\[[^\\[\\]]+] ((§.)*" + player + "))").matcher(msg); // for players with vip/mvp
+        Matcher noPlusMatcher = Pattern.compile("(§b\\[MVP]|§a\\[VIP]) (" + player + ")").matcher(msg); // for vip or mvp
         Matcher defaultMatcher = Pattern.compile("((§7)+" + player + ")").matcher(msg); // for players without a rank (grey name)
-        Matcher customChatMatcher = Pattern.compile(player + "((§.)+:( §.)*)").matcher(msg);
+        Matcher rankMatcher = Pattern.compile("((§b|§6)\\[MVP§.\\+{1,2}(§b|§6)]|§a\\[VIP§6\\+§a]) (" + player + ")").matcher(msg); // for players with vip+/mvp+/mvp++
 
-
-        if (!NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
-
-             if (defaultMatcher.find()) { // default rank
+        if (NewConfig.PLAYER_HYPIXEL_RANK == 1) { // default rank
+            if (defaultMatcher.find()) {
                 newMsg = msg.replace(defaultMatcher.group(1), newCustomName);
             }
-            else if (rankMatcher.find()) { // has vip/mvp or another rank
 
 
+        } else if (NewConfig.PLAYER_HYPIXEL_RANK == 2 || NewConfig.PLAYER_HYPIXEL_RANK == 4) { // MVP/VIP
+            if (noPlusMatcher.find()) {
                 if (NewConfig.NAME_REPLACE_RANK) {
-                    newMsg = msg.replace(rankMatcher.group(1), newCustomName); // include rank in replacement
+                    newMsg = msg.replace(noPlusMatcher.group(0), newCustomName);
                 } else {
-                    newMsg = msg.replace(rankMatcher.group(2), newCustomName); // only replace name, not rank
+                    newMsg = msg.replace(noPlusMatcher.group(2), newCustomName);
                 }
 
             }
-
-
-             else {
-                newMsg = msg;
+        } else { // VIP+/MVP+/MVP++
+            if (rankMatcher.find()) {
+                if (NewConfig.NAME_REPLACE_RANK) {
+                    newMsg = msg.replace(rankMatcher.group(0), newCustomName);
+                } else {
+                    newMsg = msg.replace(rankMatcher.group(4), newCustomName);
+                }
             }
-        } else {
-            newMsg = msg;
         }
 
-        if (!NewConfig.CUSTOM_CHAT_COLOUR.equals("") && customChatMatcher.find()) {
-            newMsg = newMsg.replace(customChatMatcher.group(1), "§f:" + newCustomChat);
-        }
 
-        if (newMsg.equals(msg)) { // avoid screwing with other messages e.g. removing click prompts
+        if (newMsg.equals("")) {
             return;
         }
 

@@ -30,7 +30,7 @@ public class TrevorChatCleanup {
                 return;
             }
         } catch (Exception ignored) {
-            return;
+            // return;
         }
 
         String msg = event.message.getFormattedText();

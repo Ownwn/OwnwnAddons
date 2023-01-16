@@ -7,7 +7,9 @@ import com.ownwn.ownwnaddons.commands.IslandAfkTimer;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.features.SecretClickSounds;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
+import com.ownwn.ownwnaddons.features.WitherShieldSound;
 import com.ownwn.ownwnaddons.features.chat.*;
+import com.ownwn.ownwnaddons.utils.FetchRank;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,6 +50,8 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new SylveoonDiscordChat());
         MinecraftForge.EVENT_BUS.register(new DungeonsChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
+        MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
+        MinecraftForge.EVENT_BUS.register(new FetchRank());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());

@@ -17,6 +17,7 @@ public class DungeonsChatCleanup {
             return;
         }
 
+
         String msg = event.message.getFormattedText();
 
         Matcher hideMsg = Pattern.compile("§r§5A shiver runs down your spine...§r|" +

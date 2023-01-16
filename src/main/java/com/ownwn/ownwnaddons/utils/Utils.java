@@ -2,9 +2,6 @@ package com.ownwn.ownwnaddons.utils;
 
 import com.google.gson.JsonObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Utils {
     public static int JsonInt(JsonObject source, String key) {
         int returnNum = 0;

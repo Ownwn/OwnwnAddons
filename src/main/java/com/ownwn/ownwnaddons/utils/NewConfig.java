@@ -1,10 +1,8 @@
 package com.ownwn.ownwnaddons.utils;
 
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.HUD;
-import cc.polyfrost.oneconfig.config.annotations.Slider;
-import cc.polyfrost.oneconfig.config.annotations.Switch;
-import cc.polyfrost.oneconfig.config.annotations.Text;
+import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import com.ownwn.ownwnaddons.OwnwnAddons;
@@ -13,12 +11,27 @@ import com.ownwn.ownwnaddons.features.chat.TrevorLootTracker;
 
 public class NewConfig extends Config {
 
-//    @Switch(
-//            name = "Island AFK Tracker (W.I.P)",
-//            description = "Tracks when you leave and enter your private island",
-//            category = "Features"
-//    )
-//    public static boolean ISLAND_AFK_TRACKER = false;
+    @Number(
+            name = "Maximum average ping (ms)",
+            description = "Can be obtained with /skytils ping. Set this to the highest that your ping will reasonably reach. Used for features such as the wither blade sounds.",
+            min = 10, max = 1000,
+            step = 10
+    )
+    public static int MAX_PING_NUM = 100;
+
+    @Text(
+            name = "Hypixel API key",
+            description = "Your hypixel api key, used for getting your rank.",
+            secure = true
+    )
+    public static String HYPIXEL_API_KEY = "";
+
+    @Dropdown(
+            name = "Hypixel Rank",
+            options = {"Set using /owa getrank", "Default", "VIP", "VIP+", "MVP", "MVP+", "MVP++"},
+            description = "Your hypixel rank. Automatically set by running /owa getrank"
+    )
+    public static int PLAYER_HYPIXEL_RANK = 0;
 
     @Text(
             name = "Dungeons Secret Click Sound",
@@ -46,19 +59,11 @@ public class NewConfig extends Config {
     public static float SECRET_CLICK_PITCH = 10f;
 
     @Switch(
-            name = "Verbose Code",
-            description = "Should the mod write things like HTTP responses to the log?",
-            category = "Stuff"
+            name = "Debug Mode",
+            description = "Should the mod write things like HTTP responses to the log?"
     )
     public static boolean VERBOSE_CODE_SWITCH = false;
 
-    @Text(
-            name = "Custom Chat Colour",
-            description = "Customize the colour of your chat messages. Leave blank for default colour. Use \"&&\" for colour codes, Credit to NEU for the idea.",
-            category = "Chat Replacers",
-            subcategory = "Custom Chat"
-    )
-    public static String CUSTOM_CHAT_COLOUR = "";
     @Text(
             name = "Custom Name",
             description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes, Credit to NEU for the idea.",
@@ -134,6 +139,62 @@ public class NewConfig extends Config {
             subcategory = "Trevor"
     )
     public static TrevorLootTracker trevorLootTracker = new TrevorLootTracker();
+
+    @Text(
+            name = "Wither Shield Sound",
+            description = "Plays a sound when wither shield activates. It's recommended to set \"Mob Zombie Remedy\" in Patcher sounds to 0.",
+            category = "Sound",
+            subcategory = "Wither Blades"
+    )
+    public static String WITHER_SHIELD_SOUND = "";
+
+    @Slider(
+            name = "Wither Shield Volume",
+            description = "Change the volume of the wither shield sound",
+            category = "Sound",
+            subcategory = "Wither Blades",
+            min = 1f, max = 10f,
+            step = 1
+    )
+    public static float WITHER_SHIELD_VOLUME = 5f;
+
+    @Slider(
+            name = "Wither Shield Pitch",
+            description = "Change the pitch of the wither shield sound",
+            category = "Sound",
+            subcategory = "Wither Blades",
+            min = 5f, max = 20f,
+            step = 1
+    )
+    public static float WITHER_SHIELD_PITCH = 10f;
+
+    @Text(
+            name = "Implosion sound",
+            description = "Plays a sound when you implode. It's recommended to set \"Random Explode\" in Patcher sounds to 0.",
+            category = "Sound",
+            subcategory = "Wither Blades"
+    )
+    public static String WITHER_IMPLODE_SOUND = "";
+
+    @Slider(
+            name = "Implosion Volume",
+            description = "Change the volume of the implosion sound",
+            category = "Sound",
+            subcategory = "Wither Blades",
+            min = 1f, max = 10f,
+            step = 1
+    )
+    public static float WITHER_IMPLODE_VOLUME = 5f;
+
+    @Slider(
+            name = "Implosion Pitch",
+            description = "Change the pitch of the implosion sound",
+            category = "Sound",
+            subcategory = "Wither Blades",
+            min = 5f, max = 20f,
+            step = 1
+    )
+    public static float WITHER_IMPLODE_PITCH = 10f;
 
 
     public NewConfig() {
