@@ -1,11 +1,22 @@
 # A QOL mod for Hypickle Cornblock
-If you have any questions or concerns you can message me on Discord at Ownwn#3723 or join my discord server
-https://discord.gg/rTx7fqZhUw
+If you have any questions you can message me on Discord at Ownwn#3723
 
-## Complete Features
+## Features
 - Hyperion craft price calculator
 - F7 frag run profit calculator
-- Party finder stats display (Somewhat unfinished)
+
+- Dungeon Secret click sounds
+- Wither blade sounds
+
+- Trevor the trapper cooldown display
+- Trevor the trapper pelt highlighter
+
 - Custom name editor, supports default MC formatting codes (§a-f, §1-9)
 
-The config is managed using Essential's Elementa and Vigilance
+- Various chat cleanup toggles
+- Option to chroma-fy some messages using SBA's chroma
+- Prettier chat messages from Camoflagued's bridge bot
+
+#### For more information about features, check out the latest release
+
+The config is managed using OneConfig (https://github.com/Polyfrost/OneConfig)
