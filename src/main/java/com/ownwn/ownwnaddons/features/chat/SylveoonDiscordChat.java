@@ -30,6 +30,9 @@ public class SylveoonDiscordChat {
         } else if (shortPrefix.find()) {
             newMsg = "§1Discord > §3" + shortPrefix.group(1) + "§f: " + shortPrefix.group(2);
         }
+        if (newMsg.equals("")) {
+            return;
+        }
 
         event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle());
 

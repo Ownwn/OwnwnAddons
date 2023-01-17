@@ -31,6 +31,12 @@ public class CustomChat {
 
         String newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
 
+        if (NewConfig.CUSTOM_NAME_MODE) {
+            newMsg = msg.replace(player, newCustomName);
+            event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle());
+            return;
+        }
+
         Matcher noPlusMatcher = Pattern.compile("(§b\\[MVP]|§a\\[VIP]) (" + player + ")").matcher(msg); // for vip or mvp
         Matcher defaultMatcher = Pattern.compile("((§7)+" + player + ")").matcher(msg); // for players without a rank (grey name)
         Matcher rankMatcher = Pattern.compile("((§b|§6)\\[MVP(§r)*§.\\+{1,2}(§r)*(§b|§6)]|§a\\[VIP(§r)*§6\\+(§r)*§a]) (" + player + ")").matcher(msg); // for players with vip+/mvp+/mvp++

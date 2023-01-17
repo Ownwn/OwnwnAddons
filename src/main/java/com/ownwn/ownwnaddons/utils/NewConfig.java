@@ -33,18 +33,24 @@ public class NewConfig extends Config {
     )
     public static int PLAYER_HYPIXEL_RANK = 0;
 
+    @Switch(
+            name = "Check for updates",
+            description = "Should the mod check for updates when you join Hypixel?"
+    )
+    public static boolean CHECK_FOR_UPDATES = true;
+
     @Text(
             name = "Dungeons Secret Click Sound",
             description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound, credit to AtonAddons for the idea",
             category = "Features"
     )
-    public static String SECRET_CLICK_SOUND = "random.successful_hit";
+    public static String SECRET_CLICK_SOUND = "random.break";
 
     @Slider(
             name = "Click Sound Volume",
             description = "Change the volume of the dungeons secret click sound",
             category = "Features",
-            min = 1f, max = 10f,
+            min = 1f, max = 10.01f,
             step = 1
     )
     public static float SECRET_CLICK_VOLUME = 5f;
@@ -79,6 +85,17 @@ public class NewConfig extends Config {
             subcategory = "Custom Chat"
     )
     public static boolean NAME_REPLACE_RANK = false;
+
+    @DualOption(
+            name = "Custom name mode",
+            description = "Aggressive mode will replace any text with your name, but will break often.",
+            category = "Chat Replacers",
+            subcategory = "Custom Chat",
+            left = "Standard",
+            right = "Aggressive"
+    )
+    public static boolean CUSTOM_NAME_MODE = false;
+
 
     @Switch(
             name = "Trevor Chat Cleanup",
