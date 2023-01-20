@@ -37,6 +37,10 @@ public class SBAChromaReplacement {
             case "§r§6Second Wind Activated§r§a! §r§aYour Spirit Mask saved your life!§r":
                 newMsg = msg.replace("§6Second Wind Activated", "§zSecond Wind Activated");
                 break;
+            case "§r§eYou consumed a §r§6Booster Cookie§r§e! §r§dDelicious!§r":
+                newMsg = msg.replace("§dDelicious!", "§zDelicious!");
+                break;
+
 
         }
 

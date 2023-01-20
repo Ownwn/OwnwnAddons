@@ -1,11 +1,14 @@
 package com.ownwn.ownwnaddons.utils;
 
 import cc.polyfrost.oneconfig.config.Config;
-import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.annotations.Number;
+import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.features.CreateGhostPick;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.chat.TrevorLootTracker;
 
@@ -24,6 +27,7 @@ public class NewConfig extends Config {
             description = "Your hypixel api key, used for getting your rank.",
             secure = true
     )
+    @HypixelKey
     public static String HYPIXEL_API_KEY = "";
 
     @Dropdown(
@@ -38,6 +42,13 @@ public class NewConfig extends Config {
             description = "Should the mod check for updates when you join Hypixel?"
     )
     public static boolean CHECK_FOR_UPDATES = true;
+
+    @KeyBind(
+            name = "Create Ghost Pickaxe",
+            description = "Duplicates your current pickaxe client-side",
+            category = "Features"
+    )
+    public static OneKeyBind GHOST_PICK_KEY = new OneKeyBind(UKeyboard.KEY_NONE);
 
     @Text(
             name = "Dungeons Secret Click Sound",
@@ -216,7 +227,9 @@ public class NewConfig extends Config {
 
     public NewConfig() {
         super(new Mod(OwnwnAddons.NAME, ModType.UTIL_QOL), OwnwnAddons.MODID + ".json");
+
         initialize();
+        registerKeyBind(GHOST_PICK_KEY, () -> CreateGhostPick.runnable.run());
     }
 }
 

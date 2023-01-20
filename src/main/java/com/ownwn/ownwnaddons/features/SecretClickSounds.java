@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features;
 
 import cc.polyfrost.oneconfig.libs.universal.UChat;
-import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils;
+import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.block.Block;
@@ -24,7 +24,7 @@ public class SecretClickSounds {
             return;
         }
         try {
-            String location = HypixelUtils.INSTANCE.getPreviousLocraw().getGameMode();
+            String location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
             if (!location.equals("dungeon")) {
                 return;
             }
@@ -44,7 +44,7 @@ public class SecretClickSounds {
         if (blockType == null) {
             return;
         }
-        if (blockType != Blocks.chest && blockType != Blocks.trapped_chest && blockType != Blocks.skull) {
+        if (blockType != Blocks.chest && blockType != Blocks.trapped_chest && blockType != Blocks.skull && blockType != Blocks.lever) {
             return;
         }
 

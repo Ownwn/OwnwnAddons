@@ -5,6 +5,7 @@ import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.IslandAfkTimer;
 import com.ownwn.ownwnaddons.commands.Owa;
+import com.ownwn.ownwnaddons.features.CreateGhostPick;
 import com.ownwn.ownwnaddons.features.SecretClickSounds;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.WitherShieldSound;
@@ -30,7 +31,9 @@ public class OwnwnAddons
 
             + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)\n"
 
-            + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes";
+            + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes\n"
+
+            + "&9/owa getrank \u27A1 &bFetches and sets your Hypixel rank.";
 
     @net.minecraftforge.fml.common.Mod.Instance(MODID)
     public static OwnwnAddons INSTANCE;
@@ -52,12 +55,14 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
         MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
         MinecraftForge.EVENT_BUS.register(new FetchOnServerJoin());
+        MinecraftForge.EVENT_BUS.register(new CreateGhostPick());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
         CommandManager.INSTANCE.registerCommand(new IslandAfkTimer());
+        //EventManager.INSTANCE.register(new OwaDevMode());
 
 
     }

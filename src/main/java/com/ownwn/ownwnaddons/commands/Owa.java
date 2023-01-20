@@ -9,18 +9,11 @@ import com.ownwn.ownwnaddons.utils.HttpRequest;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.event.ClickEvent;
-import net.minecraft.event.HoverEvent;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 @Command(value = "owa", description = "Access the " + OwnwnAddons.NAME + " GUI.", customHelpMessage = OwnwnAddons.HELP)
 public class Owa {
     public String rank = "";
+    public static boolean devMode = false;
     @Main
     private static void main() {
         OwnwnAddons.INSTANCE.config.openGui();
@@ -60,15 +53,17 @@ public class Owa {
     }
 
 
-    @SubCommand(description = "OwnwnAddons dev test")
+    @SubCommand(description = "OwnwnAddons dev mode")
     @SuppressWarnings("SameParameterValue")
-    private void devtest(@Description("message") @Greedy String message) {
-        //MinecraftForge.EVENT_BUS.post()
-        IChatComponent hoverTest = new ChatComponentText(EnumChatFormatting.DARK_GREEN + (EnumChatFormatting.BOLD + "Hover test"));
-        IChatComponent messagea = new ChatComponentText(EnumChatFormatting.DARK_GREEN + (EnumChatFormatting.BOLD + message.replace("&", "§")))
-                .setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help")).setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverTest)));
-        ClientChatReceivedEvent aaaasd = new ClientChatReceivedEvent((byte) 1, messagea);
-        MinecraftForge.EVENT_BUS.post(aaaasd);
+    private void devtest() {
+        if (devMode) {
+            devMode = false;
+            UChat.chat(OwnwnAddons.PREFIX + "&cDisabled &adev mode");
+            return;
+
+        }
+        devMode = true;
+        UChat.chat(OwnwnAddons.PREFIX + "&bEnabled &adev mode");
     }
 
     @SubCommand(description = "Gets the player's Hypixel rank")

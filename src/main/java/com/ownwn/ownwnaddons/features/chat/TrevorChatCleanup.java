@@ -1,6 +1,6 @@
 package com.ownwn.ownwnaddons.features.chat;
 
-import cc.polyfrost.oneconfig.utils.hypixel.HypixelUtils;
+import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
@@ -25,7 +25,8 @@ public class TrevorChatCleanup {
         }
 
         try {
-            String map = HypixelUtils.INSTANCE.getPreviousLocraw().getMapName();
+            String map = LocrawUtil.INSTANCE.getLocrawInfo().getMapName();
+
             if (!map.equals("The Farming Islands")) {
                 return;
             }
