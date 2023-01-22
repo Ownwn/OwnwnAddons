@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 public class TrevorCooldown extends SingleTextHud {
 
     public TrevorCooldown() {
-        super("Trevor Cooldown", true);
+        super("Trevor Cooldown", false);
     }
 
     @Override

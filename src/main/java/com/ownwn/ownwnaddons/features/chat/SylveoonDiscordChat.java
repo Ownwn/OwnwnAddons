@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class SylveoonDiscordChat {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onChat(ClientChatReceivedEvent event) {
-        if (!NewConfig.GUILD_MSG_PRETTY) {
+        if (!NewConfig.GUILD_MSG_PRETTY.contains("NAME") || !NewConfig.GUILD_MSG_PRETTY.contains("MSG")) {
             return;
         }
 
@@ -22,15 +22,14 @@ public class SylveoonDiscordChat {
         if (!msg.contains("Sylveoon")) {
             return;
         }
-        Matcher shortPrefix = Pattern.compile("§r§r§r§2G > §7Sylveoon §3\\[ADMIN]§f: §r(.+): (.+)§r").matcher(msg);
-        Matcher standardPrefix = Pattern.compile("§r§2Guild > §7Sylveoon §3\\[ADMIN]§f: §r(.+): (.+)§r").matcher(msg);
 
-        if (standardPrefix.find()) {
-            newMsg = "§1Discord > §3" + standardPrefix.group(1) + "§f: " + standardPrefix.group(2);
-        } else if (shortPrefix.find()) {
-            newMsg = "§1Discord > §3" + shortPrefix.group(1) + "§f: " + shortPrefix.group(2);
-        }
-        if (newMsg.equals("")) {
+        String msgReplace = NewConfig.GUILD_MSG_PRETTY.replace("&&", "§");
+        Matcher discordPrefix = Pattern.compile("§r§2Guild > §7Sylveoon §3\\[ADMIN]§f: §r(.+?): (.+)§r").matcher(msg);
+
+        if (discordPrefix.find()) {
+            //newMsg = "§1Discord > §3" + standardPrefix.group(1) + "§f: " + standardPrefix.group(2);
+            newMsg = msgReplace.replace("NAME", discordPrefix.group(1)).replace("MSG", discordPrefix.group(2));
+        } else {
             return;
         }
 

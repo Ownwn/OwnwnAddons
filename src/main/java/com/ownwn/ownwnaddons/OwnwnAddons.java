@@ -5,10 +5,7 @@ import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.IslandAfkTimer;
 import com.ownwn.ownwnaddons.commands.Owa;
-import com.ownwn.ownwnaddons.features.CreateGhostPick;
-import com.ownwn.ownwnaddons.features.SecretClickSounds;
-import com.ownwn.ownwnaddons.features.TrevorCooldown;
-import com.ownwn.ownwnaddons.features.WitherShieldSound;
+import com.ownwn.ownwnaddons.features.*;
 import com.ownwn.ownwnaddons.features.chat.*;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
@@ -44,7 +41,7 @@ public class OwnwnAddons
         config = new NewConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new CustomChat());
+        MinecraftForge.EVENT_BUS.register(new CustomName());
         MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
         MinecraftForge.EVENT_BUS.register(new BazaarChatCleanup());
         MinecraftForge.EVENT_BUS.register(new TrevorCooldown());
@@ -55,7 +52,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
         MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
         MinecraftForge.EVENT_BUS.register(new FetchOnServerJoin());
-        MinecraftForge.EVENT_BUS.register(new CreateGhostPick());
+        MinecraftForge.EVENT_BUS.register(new DungeonsTerminalDisplay());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());

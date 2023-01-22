@@ -1,13 +1,14 @@
-package com.ownwn.ownwnaddons.features.chat;
+package com.ownwn.ownwnaddons.features;
 
 import cc.polyfrost.oneconfig.hud.TextHud;
+import com.ownwn.ownwnaddons.features.chat.TrevorChatCleanup;
 
 import java.util.List;
 
 public class TrevorLootTracker extends TextHud {
 
     public TrevorLootTracker() {
-        super(true);
+        super(false);
     }
 
     @Override

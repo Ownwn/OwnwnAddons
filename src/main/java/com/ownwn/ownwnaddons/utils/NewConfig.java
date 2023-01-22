@@ -4,13 +4,15 @@ import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneKeyBind;
+import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.features.CreateGhostPick;
+import com.ownwn.ownwnaddons.features.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
-import com.ownwn.ownwnaddons.features.chat.TrevorLootTracker;
+import com.ownwn.ownwnaddons.features.TrevorLootTracker;
 
 public class NewConfig extends Config {
 
@@ -22,17 +24,9 @@ public class NewConfig extends Config {
     )
     public static int MAX_PING_NUM = 100;
 
-    @Text(
-            name = "Hypixel API key",
-            description = "Your hypixel api key, used for getting your rank.",
-            secure = true
-    )
-    @HypixelKey
-    public static String HYPIXEL_API_KEY = "";
-
     @Dropdown(
             name = "Hypixel Rank",
-            options = {"Set using /owa getrank", "Default", "VIP", "VIP+", "MVP", "MVP+", "MVP++"},
+            options = {"Select your rank!", "Default", "VIP", "VIP+", "MVP", "MVP+", "MVP++"},
             description = "Your hypixel rank. Automatically set by running /owa getrank"
     )
     public static int PLAYER_HYPIXEL_RANK = 0;
@@ -46,14 +40,16 @@ public class NewConfig extends Config {
     @KeyBind(
             name = "Create Ghost Pickaxe",
             description = "Duplicates your current pickaxe client-side",
-            category = "Features"
+            category = "Features",
+            subcategory = "Dungeons"
     )
     public static OneKeyBind GHOST_PICK_KEY = new OneKeyBind(UKeyboard.KEY_NONE);
 
     @Text(
             name = "Dungeons Secret Click Sound",
             description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound, credit to AtonAddons for the idea",
-            category = "Features"
+            category = "Features",
+            subcategory = "Dungeons"
     )
     public static String SECRET_CLICK_SOUND = "random.break";
 
@@ -61,6 +57,7 @@ public class NewConfig extends Config {
             name = "Click Sound Volume",
             description = "Change the volume of the dungeons secret click sound",
             category = "Features",
+            subcategory = "Dungeons",
             min = 1f, max = 10.01f,
             step = 1
     )
@@ -70,6 +67,7 @@ public class NewConfig extends Config {
             name = "Click Sound Pitch",
             description = "Change the pitch of the dungeons secret click sound",
             category = "Features",
+            subcategory = "Dungeons",
             min = 5f, max = 20f,
             step = 1
     )
@@ -83,30 +81,45 @@ public class NewConfig extends Config {
 
     @Text(
             name = "Custom Name",
-            description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes, Credit to NEU for the idea.",
-            category = "Chat Replacers",
-            subcategory = "Custom Chat"
+            description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes.",
+            category = "Custom Name"
     )
     public static String CUSTOM_NAME_EDITOR = "";
+
+    @Text(
+            name = "Custom Rank",
+            description = "Allows you to customize your rank. Leave blank for default name. Use \"&&\" for colour codes.",
+            category = "Custom Name"
+    )
+    public static String CUSTOM_RANK_EDITOR = "";
 
     @Switch(
             name = "Replace Rank",
             description = "Should your rank be replaced with the custom name?",
-            category = "Chat Replacers",
-            subcategory = "Custom Chat"
+            category = "Custom Name"
     )
     public static boolean NAME_REPLACE_RANK = false;
 
-    @DualOption(
-            name = "Custom name mode",
-            description = "Aggressive mode will replace any text with your name, but will break often.",
-            category = "Chat Replacers",
-            subcategory = "Custom Chat",
-            left = "Standard",
-            right = "Aggressive"
+    @Switch(
+            name = "Aggressive Name Replacement",
+            description = "Aggressive mode will replace any text with your name, but may break often.",
+            category = "Custom Name"
     )
-    public static boolean CUSTOM_NAME_MODE = false;
+    public static boolean CUSTOM_NAME_AGGRO = false;
 
+    @Switch(
+            name = "Render in Tooltips",
+            description = "Should your custom name be rendered in item tooltips?",
+            category = "Custom Name"
+    )
+    public static boolean CUSTOM_NAME_TOOLTIPS = false;
+
+    @Info(
+            text = "Aggressive Name Replacement may break some chat messages",
+            type = InfoType.WARNING,
+            category = "Custom Name",
+            size = 2
+    )
 
     @Switch(
             name = "Trevor Chat Cleanup",
@@ -139,13 +152,21 @@ public class NewConfig extends Config {
     )
     public static boolean SBA_CHROMA_CHAT = false;
 
-    @Switch(
+    @Text(
             name = "Camoflaged Chat Shortener",
-            description = "Shortens chat messages sent by Camoflaged's bot Sylveoon",
+            description = "Customize chat messages sent by Camoflagued's bridge bot",
             category = "Chat Replacers"
     )
-    public static boolean GUILD_MSG_PRETTY = false;
+    public static String GUILD_MSG_PRETTY = "false";
 
+    @Info(
+            text = "Add \"NAME\" for the users name and \"MSG\" for the users message",
+            type = InfoType.INFO,
+            category = "Chat Replacers",
+            size = 2
+
+    )
+    public static boolean ignored;
     @Switch(
             name = "Dungeons Chat Cleanup",
             description = "Hides some useless/spammy messages in dungeons",
@@ -153,6 +174,13 @@ public class NewConfig extends Config {
             subcategory = "Chat Cleanup"
     )
     public static boolean CATA_CHAT_CLEANUP = false;
+
+    @HUD(
+            name = "F7 Terminal Display",
+            category = "Features",
+            subcategory = "Dungeons"
+    )
+    public static DungeonsTerminalDisplay dungeonsTerminalDisplay = new DungeonsTerminalDisplay();
 
     @HUD(
             name = "Trevor Cooldown (Requires Trevor Chat Cleanup)",

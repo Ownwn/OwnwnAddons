@@ -45,7 +45,7 @@ public class FetchOnServerJoin {
         if (Minecraft.getMinecraft().thePlayer == null) {
             return;
         }
-        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + "§aYour Hypixel rank isn't set! set it by §eclicking here §aor with §b/owa getrank").setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/owa getrank"))));
+        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom name thingo will not work without it.\n &aSet it in &b/owa");
         getRankTime = 0;
     }
 
