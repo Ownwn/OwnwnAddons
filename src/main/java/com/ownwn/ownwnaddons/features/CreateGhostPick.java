@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons.features;
 
+import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.inventory.Slot;
@@ -12,6 +13,15 @@ public class CreateGhostPick {
             return;
         }
         if (Minecraft.getMinecraft().thePlayer == null) {
+            return;
+        }
+
+        try {
+            String location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
+            if (!location.equals("dungeon")) {
+                return;
+            }
+        } catch (Exception ignored) {
             return;
         }
 

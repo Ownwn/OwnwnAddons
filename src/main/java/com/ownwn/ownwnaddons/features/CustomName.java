@@ -1,10 +1,12 @@
-package com.ownwn.ownwnaddons.features.chat;
+package com.ownwn.ownwnaddons.features;
 
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.regex.Matcher;
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class CustomName {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOW)
     public void onChat(ClientChatReceivedEvent event) {
 
         if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
@@ -78,9 +80,12 @@ public class CustomName {
 
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOW)
     public void renderTooltip(ItemTooltipEvent event) {
     if (!NewConfig.CUSTOM_NAME_TOOLTIPS) {
+        return;
+    }
+    if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
         return;
     }
     if (event.toolTip.isEmpty()) {
@@ -95,7 +100,24 @@ public class CustomName {
             return;
         }
     }
+    }
+    @SubscribeEvent
+    public void RenderName(PlayerEvent.NameFormat event) {
+        if (!NewConfig.CUSTOM_NAME_NAMETAG) {
+            return;
+        }
 
+        if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
+            return;
+        }
+        if (Minecraft.getMinecraft().thePlayer == null) {
+            return;
+        }
+        String name = Minecraft.getMinecraft().thePlayer.getName();
+        if (!event.displayname.contains(name)) {
+            return;
+        }
 
+        event.displayname = event.displayname.replace(name, NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§"));
     }
 }

@@ -45,6 +45,14 @@ public class NewConfig extends Config {
     )
     public static OneKeyBind GHOST_PICK_KEY = new OneKeyBind(UKeyboard.KEY_NONE);
 
+    @Switch(
+            name = "Mimic Alert",
+            description = "Alerts you when a mimic spawns in dungeons.",
+            category = "Features",
+            subcategory = "Dungeons"
+    )
+    public static boolean MIMIC_SPAWN_ALERT = false;
+
     @Text(
             name = "Dungeons Secret Click Sound",
             description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound, credit to AtonAddons for the idea",
@@ -114,12 +122,20 @@ public class NewConfig extends Config {
     )
     public static boolean CUSTOM_NAME_TOOLTIPS = false;
 
+    @Switch(
+            name = "Render in Nametag",
+            description = "Should your nametag be changed to your custom name?",
+            category = "Custom Name"
+    )
+    public static boolean CUSTOM_NAME_NAMETAG = false;
+
     @Info(
             text = "Aggressive Name Replacement may break some chat messages",
             type = InfoType.WARNING,
             category = "Custom Name",
             size = 2
     )
+    public static boolean ignored2;
 
     @Switch(
             name = "Trevor Chat Cleanup",
@@ -157,7 +173,14 @@ public class NewConfig extends Config {
             description = "Customize chat messages sent by Camoflagued's bridge bot",
             category = "Chat Replacers"
     )
-    public static String GUILD_MSG_PRETTY = "false";
+    public static String GUILD_MSG_PRETTY = "&&3&&lDiscord &&e> &&aNAME&&f: MSG";
+
+    @Text(
+            name = "Chat Shortener Name",
+            description = "The name of the bridge bot",
+            category = "Chat Replacers"
+    )
+    public static String GUILD_MSG_NAME = "Pikaaahhh";
 
     @Info(
             text = "Add \"NAME\" for the users name and \"MSG\" for the users message",
@@ -174,6 +197,35 @@ public class NewConfig extends Config {
             subcategory = "Chat Cleanup"
     )
     public static boolean CATA_CHAT_CLEANUP = false;
+
+    @Switch(
+            name = "Third Person FOV changer",
+            description = "Changes your FOV when you enter third person",
+            category = "Features",
+            subcategory = "Perspective"
+    )
+    public static boolean THIRD_PERSON_FOV = false;
+
+    @Slider(
+            name = "Third Person FOV modifier",
+            category = "Features",
+            subcategory = "Perspective",
+            min = 30,
+            max = 140,
+            step = 1
+    )
+    public static int THIRD_PERSON_MODIFIER = 70;
+
+    @Slider(
+            name = "Normal FOV",
+            description = "Set this to the standard FOV that you use",
+            category = "Features",
+            subcategory = "Perspective",
+            min = 30,
+            max = 140,
+            step = 1
+    )
+    public static int STANDARD_VIEW_MODIFIER = 70;
 
     @HUD(
             name = "F7 Terminal Display",
@@ -251,6 +303,13 @@ public class NewConfig extends Config {
             step = 1
     )
     public static float WITHER_IMPLODE_PITCH = 10f;
+
+    @Switch(
+            name = "Click Join Messages to Add Friend",
+            description = "Makes Skywars/Bedwars player join messages clickable to add them as friends",
+            category = "Non-Skyblock"
+    )
+    public static boolean CLICK_SKYWARS_FRIENDS = false;
 
 
     public NewConfig() {

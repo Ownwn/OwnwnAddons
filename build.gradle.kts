@@ -38,7 +38,7 @@ loom {
     noServerRunConfigs()
     if (project.platform.isLegacyForge) {
         launchConfigs.named("client") {
-            arg("--tweakClass", "cc.polyfrost.oneconfigwrapper.OneConfigWrapper")
+            arg("--tweakClass", "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker")
             property("mixin.debug.export", "true")
         }
     }
@@ -70,7 +70,7 @@ dependencies {
 
     if (platform.isLegacyForge) {
         compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
-        shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-alpha+")
+        shade("cc.polyfrost:oneconfig-wrapper-launchwrapper:1.0.0-beta+")
     }
     implementation(kotlin("stdlib-jdk8"))
 }

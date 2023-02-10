@@ -18,13 +18,13 @@ public class SylveoonDiscordChat {
 
 
         String msg = event.message.getFormattedText();
-        String newMsg = "";
-        if (!msg.contains("Sylveoon")) {
+        String newMsg;
+        if (!msg.contains(NewConfig.GUILD_MSG_NAME)) {
             return;
         }
 
         String msgReplace = NewConfig.GUILD_MSG_PRETTY.replace("&&", "§");
-        Matcher discordPrefix = Pattern.compile("§r§2Guild > §7Sylveoon §3\\[ADMIN]§f: §r(.+?): (.+)§r").matcher(msg);
+        Matcher discordPrefix = Pattern.compile("§r§2Guild > §7" + NewConfig.GUILD_MSG_NAME + " §3\\[ADMIN]§f: §r(.+?): (.+)§r").matcher(msg);
 
         if (discordPrefix.find()) {
             //newMsg = "§1Discord > §3" + standardPrefix.group(1) + "§f: " + standardPrefix.group(2);

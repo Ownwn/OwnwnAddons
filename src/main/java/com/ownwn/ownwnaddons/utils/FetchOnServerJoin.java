@@ -45,7 +45,7 @@ public class FetchOnServerJoin {
         if (Minecraft.getMinecraft().thePlayer == null) {
             return;
         }
-        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom name thingo will not work without it.\n &aSet it in &b/owa");
+        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom name thingo will not work without it. &aSet it in &b/owa");
         getRankTime = 0;
     }
 
@@ -62,6 +62,7 @@ public class FetchOnServerJoin {
         }
         Thread T = new Thread(() -> {
             String latestVersion;
+
             try {
                 latestVersion = NetworkUtils.getJsonElement("https://api.github.com/repos/ownwn/ownwnaddons/releases/latest").getAsJsonObject().get("tag_name").getAsString().substring(1);
             } catch (Exception e) {

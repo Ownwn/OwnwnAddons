@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons;
 
+import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
 import com.ownwn.ownwnaddons.commands.FragRunCalc;
 import com.ownwn.ownwnaddons.commands.HyperionPrice;
@@ -28,9 +29,7 @@ public class OwnwnAddons
 
             + "&9/owa lbin <item> \u27A1 &bFind the lowest bin for any item (uses moulberry.codes)\n"
 
-            + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes\n"
-
-            + "&9/owa getrank \u27A1 &bFetches and sets your Hypixel rank.";
+            + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes";
 
     @net.minecraftforge.fml.common.Mod.Instance(MODID)
     public static OwnwnAddons INSTANCE;
@@ -53,13 +52,18 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
         MinecraftForge.EVENT_BUS.register(new FetchOnServerJoin());
         MinecraftForge.EVENT_BUS.register(new DungeonsTerminalDisplay());
+        MinecraftForge.EVENT_BUS.register(new SkywarsClickFriend());
+        MinecraftForge.EVENT_BUS.register(new DungeonsMimicAlert());
+        //MinecraftForge.EVENT_BUS.register(new OwaDevMode());
+        MinecraftForge.EVENT_BUS.register(new ThirdPersonFOV());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
         CommandManager.INSTANCE.registerCommand(new IslandAfkTimer());
-        //EventManager.INSTANCE.register(new OwaDevMode());
+        EventManager.INSTANCE.register(new SkywarsClickFriend());
+
 
 
     }
