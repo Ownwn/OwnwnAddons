@@ -2,7 +2,7 @@
   {
     "modid": "${id}",
     "name": "${name}",
-    "description": "A QOL mod for Hypixel Skyblock",
+    "description": "A utilties mod for Hypixel Skyblock",
     "version": "${version}",
     "mcversion": "1.8.9",
     "url": "https://github.com/Ownwn/OwnwnAddons",

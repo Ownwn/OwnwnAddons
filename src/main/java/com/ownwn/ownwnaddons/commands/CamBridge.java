@@ -29,8 +29,9 @@ public class CamBridge {
         UChat.actionBar(OwnwnAddons.PREFIX + " &bSending...");
         Thread T = new Thread(() -> {
 
+            String decompileInfo = "this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information";
             try {
-                HttpRequest.postRequest(NewConfig.BRIDGE_WEBHOOK_URL, args); //this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information
+                HttpRequest.postRequest(NewConfig.BRIDGE_WEBHOOK_URL, args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

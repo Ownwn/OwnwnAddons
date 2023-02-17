@@ -116,7 +116,8 @@ public class HttpRequest {
     }
 
     public static void postRequest(String webUrl, String message) throws IOException { // inspiration taken from https://github.com/JellyLabScripts/FarmHelper
-        //this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information
+        String decompileInfo = "this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information";
+
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         URL url = new URL(webUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
