@@ -2,6 +2,8 @@ package com.ownwn.ownwnaddons.utils;
 
 import com.google.gson.JsonObject;
 
+import java.util.regex.Pattern;
+
 public class Utils {
     public static int JsonInt(JsonObject source, String key) {
         int returnNum = 0;
@@ -58,5 +60,9 @@ public class Utils {
     public static double roundNum (double value, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;
+    }
+
+    public static String stripFormatting(String text) { // taken from https://github.com/BiscuitDevelopment/SkyblockAddons
+        return Pattern.compile("(?i)§[0-9A-FK-ORZ]").matcher(text).replaceAll("");
     }
 }

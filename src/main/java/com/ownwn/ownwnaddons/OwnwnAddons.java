@@ -2,12 +2,12 @@ package com.ownwn.ownwnaddons;
 
 import cc.polyfrost.oneconfig.events.EventManager;
 import cc.polyfrost.oneconfig.utils.commands.CommandManager;
-import com.ownwn.ownwnaddons.commands.FragRunCalc;
-import com.ownwn.ownwnaddons.commands.HyperionPrice;
-import com.ownwn.ownwnaddons.commands.IslandAfkTimer;
-import com.ownwn.ownwnaddons.commands.Owa;
+import com.ownwn.ownwnaddons.commands.*;
 import com.ownwn.ownwnaddons.features.*;
 import com.ownwn.ownwnaddons.features.chat.*;
+import com.ownwn.ownwnaddons.features.dungeons.DungeonsMimicAlert;
+import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
+import com.ownwn.ownwnaddons.features.dungeons.SecretClickSounds;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.util.EnumChatFormatting;
@@ -56,12 +56,16 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new DungeonsMimicAlert());
         //MinecraftForge.EVENT_BUS.register(new OwaDevMode());
         MinecraftForge.EVENT_BUS.register(new ThirdPersonFOV());
+        //MinecraftForge.EVENT_BUS.register(new LoreCustomiser());
+        MinecraftForge.EVENT_BUS.register(new SecretStuff());
+        MinecraftForge.EVENT_BUS.register(new GardenMilestoneMsg());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
         CommandManager.INSTANCE.registerCommand(new IslandAfkTimer());
+        CommandManager.INSTANCE.registerCommand(new CamBridge());
         EventManager.INSTANCE.register(new SkywarsClickFriend());
 
 

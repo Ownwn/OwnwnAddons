@@ -9,8 +9,8 @@ import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.features.CreateGhostPick;
-import com.ownwn.ownwnaddons.features.DungeonsTerminalDisplay;
+import com.ownwn.ownwnaddons.features.dungeons.CreateGhostPick;
+import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.TrevorLootTracker;
 
@@ -81,11 +81,25 @@ public class NewConfig extends Config {
     )
     public static float SECRET_CLICK_PITCH = 10f;
 
+//    @Text(
+//            name = "Lore Customiser",
+//            description = "Allows you to customise how the lore looks on items",
+//            multiline = true,
+//            category = "Features",
+//            subcategory = "Items"
+//    )
+//    public static String CUSTOM_TEXT_LORE = "";
+
     @Switch(
             name = "Debug Mode",
             description = "Should the mod write things like HTTP responses to the log?"
     )
     public static boolean VERBOSE_CODE_SWITCH = false;
+
+    @Switch(
+            name = "Funny Stuff"
+    )
+    public static boolean FUNNY_STUFF_SECRET = true;
 
     @Text(
             name = "Custom Name",
@@ -182,6 +196,13 @@ public class NewConfig extends Config {
     )
     public static String GUILD_MSG_NAME = "Pikaaahhh";
 
+    @Text(
+            name = "Bridge Webhook Url",
+            description = "The url of the webhook. Used for /cam",
+            category = "Chat Replacers"
+    )
+    public static String BRIDGE_WEBHOOK_URL = "https://discord.com/api/webhooks/<ID>/<Webhook Token>"; //this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information
+
     @Info(
             text = "Add \"NAME\" for the users name and \"MSG\" for the users message",
             type = InfoType.INFO,
@@ -227,23 +248,31 @@ public class NewConfig extends Config {
     )
     public static int STANDARD_VIEW_MODIFIER = 70;
 
+    @Switch(
+            name = "Send Garden Milestones to Guild Chat",
+            description = "When you achieve a new milestone, a button will appear to send to guild chat",
+            category = "Features",
+            subcategory = "Garden"
+    )
+    public static boolean GARDEN_MILESTONE_MSG = false;
+
     @HUD(
             name = "F7 Terminal Display",
-            category = "Features",
+            category = "HUDS",
             subcategory = "Dungeons"
     )
     public static DungeonsTerminalDisplay dungeonsTerminalDisplay = new DungeonsTerminalDisplay();
 
     @HUD(
             name = "Trevor Cooldown (Requires Trevor Chat Cleanup)",
-            category = "Features",
+            category = "HUDS",
             subcategory = "Trevor"
     )
     public static TrevorCooldown trevorCooldown = new TrevorCooldown();
 
     @HUD(
             name = "Trevor Loot Tracker (Requires Trevor Chat Cleanup)",
-            category = "Features",
+            category = "HUDS",
             subcategory = "Trevor"
     )
     public static TrevorLootTracker trevorLootTracker = new TrevorLootTracker();

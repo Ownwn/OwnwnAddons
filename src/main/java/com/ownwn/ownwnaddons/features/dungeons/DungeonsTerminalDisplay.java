@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features.dungeons;
 
 import cc.polyfrost.oneconfig.hud.SingleTextHud;
 import com.ownwn.ownwnaddons.utils.NewConfig;

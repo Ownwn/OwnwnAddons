@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features.chat;
 
 import cc.polyfrost.oneconfig.events.event.ChatSendEvent;
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;

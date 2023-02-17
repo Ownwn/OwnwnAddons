@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features.dungeons;
 
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
