@@ -1,4 +1,4 @@
-# A QOL mod for Hypickle Cornblock
+# A utilities mod for Hypickle Cornblock
 If you have any questions you can message me on Discord at Ownwn#3723
 
 ## Features
