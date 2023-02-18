@@ -64,7 +64,6 @@ public class OwnwnAddons
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
-        CommandManager.INSTANCE.registerCommand(new IslandAfkTimer());
         CommandManager.INSTANCE.registerCommand(new CamBridge());
         EventManager.INSTANCE.register(new SkywarsClickFriend());
 
