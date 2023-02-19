@@ -8,7 +8,7 @@ plugins {
     id("gg.essential.defaults.java")
     id("gg.essential.defaults.loom")
     id("com.github.johnrengelman.shadow")
-    id("net.kyori.blossom") version "1.3.0"
+    id("net.kyori.blossom") version "1.3.1"
     id("io.github.juuxel.loom-quiltflower-mini")
     id("signing")
     java
@@ -152,7 +152,7 @@ tasks {
                             "ForceLoadAsMod" to true,
                             "TweakOrder" to "0",
                             "MixinConfigs" to "mixins.${mod_id}.json",
-                            "TweakClass" to "cc.polyfrost.oneconfigwrapper.OneConfigWrapper"
+                            "TweakClass" to "cc.polyfrost.oneconfig.loader.stage0.LaunchWrapperTweaker"
                     )
             )
         }

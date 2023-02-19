@@ -6,7 +6,7 @@ pluginManagement {
         maven("https://maven.architectury.dev/")
     }
     plugins {
-        val egtVersion = "0.1.11"
+        val egtVersion = "0.1.18"
         id("gg.essential.multi-version.root") version egtVersion
     }
     resolutionStrategy {
