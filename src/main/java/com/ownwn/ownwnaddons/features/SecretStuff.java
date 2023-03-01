@@ -33,10 +33,10 @@ public class SecretStuff {
         try {
             location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
         } catch (Exception ignored) {
-//            return;
+            return;
         }
 
-        if (location.equals("")) {
+        if (location.equals("garden")) {
 
             if (msg.contains("§e[NPC] §9Bartender§f: §rI want to make some new brews, do you think you can give me some ingredients to work with?§r")) {
                 newMsg = msg.replace("make some new brews", "cook some new drugs");
@@ -67,17 +67,22 @@ public class SecretStuff {
 
 
         } else if (location.equals("hub")) {
-            if (!msg.contains("vote")) {
-                return;
-            }
 
-            Matcher voteMatcher = Pattern.compile("§r§.(.+) §r§enow has §r§..+% §r§eof votes with §r§..+ votes§r§e!§r").matcher(msg);
-            Matcher secondVoteMatcher = Pattern.compile("§r§eYou voted for §r§.(.+) §r§ein the §r§bYear \\d+ Elections§r§e!§r").matcher(msg);
 
-            if (voteMatcher.find()) {
-                newMsg = msg.replace(voteMatcher.group(1), "§6Ownwn");
-            } else if (secondVoteMatcher.find()) {
-                newMsg = msg.replace(secondVoteMatcher.group(1), "§6Ownwn");
+            if (msg.equals("§e[NPC] Baker§f: §rI've recently added a §dNew Year Cake Bag §rto my inventory. Sadly, it's not free! Click me again to open my shop!§r")) {
+                newMsg = "§e[NPC] Baker§f: Let him cook.";
+
+            } else if (msg.contains("vote")) {
+                Matcher voteMatcher = Pattern.compile("§r§.(.+) §r§enow has §r§..+% §r§eof votes with §r§..+ votes§r§e!§r").matcher(msg);
+                Matcher secondVoteMatcher = Pattern.compile("§r§eYou voted for §r§.(.+) §r§ein the §r§bYear \\d+ Elections§r§e!§r").matcher(msg);
+                if (voteMatcher.find()) {
+                    newMsg = msg.replace(voteMatcher.group(1), "§6Ownwn");
+                } else if (secondVoteMatcher.find()) {
+                    newMsg = msg.replace(secondVoteMatcher.group(1), "§6Ownwn");
+                }
+
+            } else if (msg.equals("§e[NPC] Librarian§f: §rGreetings! Welcome to the Library!§r")) {
+                newMsg = "§e[NPC] Librarian§f: §rDon't google the scientific name for pig...§r";
             }
         }
 
@@ -111,10 +116,33 @@ public class SecretStuff {
 
             String name = event.entity.getCustomNameTag();
 
-            if (name.equals("§bSam")) {
-                event.entity.setCustomNameTag("§cWaltuh");
-            } else if (name.equals("§aVisitor's Logbook")) {
-                event.entity.setCustomNameTag("§aChemistry Notebook");
+            switch (name) {
+                case "§bSam":
+                    event.entity.setCustomNameTag("§cWaltuh");
+                    break;
+                case "§aVisitor's Logbook":
+                    event.entity.setCustomNameTag("§aChemistry Notebook");
+                    break;
+                case "Anita":
+                    event.entity.setCustomNameTag("§cLydia");
+                    break;
+                case "Jacob":
+                    event.entity.setCustomNameTag("§cJesse");
+                    break;
+                case "§aLynn":
+                    event.entity.setCustomNameTag("§aHank");
+                    break;
+                case "§aFear Mongerer":
+                    event.entity.setCustomNameTag("§aGustavo");
+                    break;
+                case "§aLiam":
+                    event.entity.setCustomNameTag("§aSaul");
+                    break;
+                case "§aRyu":
+                    event.entity.setCustomNameTag("§aGomez");
+                    break;
+                case "§aWeaponsmith":
+                    event.entity.setCustomNameTag("§aMike");
             }
 
 
@@ -149,8 +177,6 @@ public class SecretStuff {
                     break;
             }
         }
-
-
     }
 
     public static Runnable thingo = () -> {

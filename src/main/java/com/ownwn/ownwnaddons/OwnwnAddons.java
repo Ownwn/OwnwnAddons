@@ -54,7 +54,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new DungeonsTerminalDisplay());
         MinecraftForge.EVENT_BUS.register(new SkywarsClickFriend());
         MinecraftForge.EVENT_BUS.register(new DungeonsMimicAlert());
-        //MinecraftForge.EVENT_BUS.register(new OwaDevMode());
+        MinecraftForge.EVENT_BUS.register(new OwaDevMode());
         MinecraftForge.EVENT_BUS.register(new ThirdPersonFOV());
         //MinecraftForge.EVENT_BUS.register(new LoreCustomiser());
         MinecraftForge.EVENT_BUS.register(new SecretStuff());

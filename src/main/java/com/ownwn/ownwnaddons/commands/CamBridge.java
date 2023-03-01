@@ -25,13 +25,16 @@ public class CamBridge {
             UChat.chat(OwnwnAddons.PREFIX + "&cYou need to set a webhook url! Set it in /owa");
             return;
         }
+
         msgContent = args;
+        msgContent = msgContent.replace("@", "\"at symbol\"");
+        msgContent = msgContent.replace("http", "url thingo");
         UChat.actionBar(OwnwnAddons.PREFIX + " &bSending...");
         Thread T = new Thread(() -> {
 
             String decompileInfo = "this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information";
             try {
-                HttpRequest.postRequest(NewConfig.BRIDGE_WEBHOOK_URL, args);
+                HttpRequest.postRequest(NewConfig.BRIDGE_WEBHOOK_URL, msgContent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

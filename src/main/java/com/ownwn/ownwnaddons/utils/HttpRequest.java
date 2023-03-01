@@ -140,7 +140,7 @@ public class HttpRequest {
         stream.flush();
         stream.close();
 
-        conn.getInputStream().close(); //I'm not sure why but it doesn't work without getting the InputStream
+        conn.getInputStream().close(); //I'm not sure why, but it doesn't work without getting the InputStream
         conn.disconnect();
 
     }

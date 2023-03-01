@@ -2,8 +2,11 @@ package com.ownwn.ownwnaddons.features;
 
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -92,7 +95,12 @@ public class CustomName {
         return;
     }
     String name = Minecraft.getMinecraft().thePlayer.getName();
-    String newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+    String newCustomName;
+    if (!NewConfig.CUSTOM_RANK_EDITOR.equals("") && NewConfig.NAME_REPLACE_RANK) {
+        newCustomName = NewConfig.CUSTOM_RANK_EDITOR.replace("&&", "§") + " " + NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+    } else {
+        newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+    }
 
     for (int i = 0; i < event.toolTip.size(); i++) {
         if (event.toolTip.get(i).contains(name)) {
@@ -119,5 +127,40 @@ public class CustomName {
         }
 
         event.displayname = event.displayname.replace(name, NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§"));
+    }
+
+    @SubscribeEvent
+    public void renderNameTag(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
+
+        if (!NewConfig.CUSTOM_NAME_NAMETAG) {
+            return;
+        }
+
+        if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
+            return;
+        }
+        if (Minecraft.getMinecraft().thePlayer == null) {
+            return;
+        }
+
+        if (!(event.entity instanceof EntityArmorStand)) {
+            return;
+        }
+        if (event.entity.getCustomNameTag() == null) {
+            return;
+        }
+
+        String name = event.entity.getCustomNameTag();
+        String playerName = Minecraft.getMinecraft().thePlayer.getName();
+        if (!name.contains(playerName)) {
+            return;
+        }
+
+        String newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+
+
+        event.entity.setCustomNameTag(name.replace(playerName, newCustomName));
+
+
     }
 }
