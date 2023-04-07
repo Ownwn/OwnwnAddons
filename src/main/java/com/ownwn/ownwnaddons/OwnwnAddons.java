@@ -10,6 +10,7 @@ import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.dungeons.SecretClickSounds;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
+import com.ownwn.ownwnaddons.utils.TickUtils;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -59,6 +60,7 @@ public class OwnwnAddons
         //MinecraftForge.EVENT_BUS.register(new LoreCustomiser());
         MinecraftForge.EVENT_BUS.register(new SecretStuff());
         MinecraftForge.EVENT_BUS.register(new GardenMilestoneMsg());
+        MinecraftForge.EVENT_BUS.register(new TickUtils());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());

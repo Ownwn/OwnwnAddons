@@ -101,6 +101,14 @@ public class NewConfig extends Config {
     )
     public static boolean FUNNY_STUFF_SECRET = true;
 
+    @Dropdown(
+            name = "Custom Name Mode",
+            description = "Select which custom name mode to use.",
+            category = "Custom Name",
+            options = {"Custom", "SBA Chroma", "Scuffed Chroma"}
+    )
+    public static int CUSTOM_NAME_MODE = 2;
+
     @Text(
             name = "Custom Name",
             description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes.",
@@ -122,34 +130,24 @@ public class NewConfig extends Config {
     )
     public static boolean NAME_REPLACE_RANK = false;
 
-    @Switch(
-            name = "Aggressive Name Replacement",
-            description = "Aggressive mode will replace any text with your name, but may break often.",
-            category = "Custom Name"
-    )
-    public static boolean CUSTOM_NAME_AGGRO = false;
-
-    @Switch(
-            name = "Render in Tooltips",
-            description = "Should your custom name be rendered in item tooltips?",
-            category = "Custom Name"
-    )
-    public static boolean CUSTOM_NAME_TOOLTIPS = false;
-
-    @Switch(
-            name = "Render in Nametag",
-            description = "Should your nametag be changed to your custom name?",
-            category = "Custom Name"
-    )
-    public static boolean CUSTOM_NAME_NAMETAG = false;
-
     @Info(
-            text = "Aggressive Name Replacement may break some chat messages",
-            type = InfoType.WARNING,
+            text = "\"Custom\" lets you edit your name, while the other two options only change the colour",
+            type = InfoType.INFO,
             category = "Custom Name",
             size = 2
     )
     public static boolean ignored2;
+
+    @Slider(
+            name = "Scuffed Chroma Speed (ms)",
+            description = "Change the speed of the scuffed chroma.",
+            min = 0,
+            max = 500,
+            step = 50,
+            category = "Custom Name"
+
+    )
+    public static int SCUFFED_CHROMA_SPEED = 100;
 
     @Switch(
             name = "Trevor Chat Cleanup",
@@ -346,6 +344,15 @@ public class NewConfig extends Config {
 
         initialize();
         registerKeyBind(GHOST_PICK_KEY, () -> CreateGhostPick.runnable.run());
+
+        addDependency("CUSTOM_RANK_EDITOR", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
+        addDependency("CUSTOM_NAME_EDITOR", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
+        addDependency("NAME_REPLACE_RANK", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
+        addDependency("SCUFFED_CHROMA_SPEED", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 2);
+
+//        addDependency("CUSTOM_NAME_NAMETAG, CUSTOM_RANK_EDITOR, NAME_REPLACE_RANK, CUSTOM_NAME_TOOLTIPS", "CUSTOM_NAME_MODE == 0 || CUSTOM_NAME_MODE == 1");
+//        addDependency("CHROMA_SPEED", "CUSTOM_NAME_MODE == 0 || CUSTOM_NAME_MODE == 1");
+
     }
 }
 

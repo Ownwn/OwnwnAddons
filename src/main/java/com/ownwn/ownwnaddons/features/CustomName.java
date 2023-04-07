@@ -1,12 +1,10 @@
 package com.ownwn.ownwnaddons.features;
 
+import com.ownwn.ownwnaddons.utils.ColourUtils;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -24,6 +22,9 @@ public class CustomName {
             return;
         }
         if (NewConfig.PLAYER_HYPIXEL_RANK == 0) { // no rank set
+            return;
+        }
+        if (NewConfig.CUSTOM_NAME_MODE != 0) {
             return;
         }
 
@@ -71,7 +72,7 @@ public class CustomName {
 
 
         if (newMsg.equals("")) {
-            if (missingRankMatcher.find() && NewConfig.CUSTOM_NAME_AGGRO) {
+            if (missingRankMatcher.find() && NewConfig.CUSTOM_NAME_MODE == 0) {
                 newMsg = msg.replace(missingRankMatcher.group(1), newCustomName + "§r");
             }
         }
@@ -85,82 +86,63 @@ public class CustomName {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void renderTooltip(ItemTooltipEvent event) {
-    if (!NewConfig.CUSTOM_NAME_TOOLTIPS) {
-        return;
-    }
-    if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
-        return;
-    }
-    if (event.toolTip.isEmpty()) {
-        return;
-    }
-    String name = Minecraft.getMinecraft().thePlayer.getName();
-    String newCustomName;
-    if (!NewConfig.CUSTOM_RANK_EDITOR.equals("") && NewConfig.NAME_REPLACE_RANK) {
-        newCustomName = NewConfig.CUSTOM_RANK_EDITOR.replace("&&", "§") + " " + NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
-    } else {
-        newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
-    }
-
-    for (int i = 0; i < event.toolTip.size(); i++) {
-        if (event.toolTip.get(i).contains(name)) {
-            event.toolTip.replaceAll(s -> s.replace(name, newCustomName + "§r"));
-            return;
-        }
-    }
-    }
-    @SubscribeEvent
-    public void RenderName(PlayerEvent.NameFormat event) {
-        if (!NewConfig.CUSTOM_NAME_NAMETAG) {
-            return;
-        }
 
         if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
             return;
         }
-        if (Minecraft.getMinecraft().thePlayer == null) {
+        if (NewConfig.CUSTOM_NAME_MODE != 0) {
+            return;
+        }
+
+        if (event.toolTip.isEmpty()) {
             return;
         }
         String name = Minecraft.getMinecraft().thePlayer.getName();
-        if (!event.displayname.contains(name)) {
-            return;
+        String newCustomName;
+        if (!NewConfig.CUSTOM_RANK_EDITOR.equals("") && NewConfig.NAME_REPLACE_RANK) {
+            newCustomName = NewConfig.CUSTOM_RANK_EDITOR.replace("&&", "§") + " " + NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+        } else {
+            newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
         }
 
-        event.displayname = event.displayname.replace(name, NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§"));
+        for (int i = 0; i < event.toolTip.size(); i++) {
+            if (event.toolTip.get(i).contains(name)) {
+                event.toolTip.replaceAll(s -> s.replace(name, newCustomName + "§r"));
+                return;
+            }
+        }
     }
-
     @SubscribeEvent
-    public void renderNameTag(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
+    public void RenderName(PlayerEvent.NameFormat event) {
 
-        if (!NewConfig.CUSTOM_NAME_NAMETAG) {
+        if (NewConfig.CUSTOM_NAME_EDITOR.equals("") && NewConfig.CUSTOM_NAME_MODE == 0) {
             return;
         }
 
-        if (NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
-            return;
-        }
         if (Minecraft.getMinecraft().thePlayer == null) {
             return;
         }
 
-        if (!(event.entity instanceof EntityArmorStand)) {
-            return;
-        }
-        if (event.entity.getCustomNameTag() == null) {
-            return;
-        }
 
-        String name = event.entity.getCustomNameTag();
+        String newCustomName = "";
+        String name = event.displayname;
         String playerName = Minecraft.getMinecraft().thePlayer.getName();
+
         if (!name.contains(playerName)) {
             return;
         }
 
-        String newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+        if (NewConfig.CUSTOM_NAME_MODE == 0) {
+            newCustomName = NewConfig.CUSTOM_NAME_EDITOR.replace("&&", "§");
+
+        } else if (NewConfig.CUSTOM_NAME_MODE == 1) {
+            newCustomName = "§z" + playerName;
+
+        } else {
+            newCustomName = "§" + ColourUtils.getColour() + playerName;
+        }
 
 
-        event.entity.setCustomNameTag(name.replace(playerName, newCustomName));
-
-
+        event.displayname = event.displayname.replace(name, newCustomName);
     }
 }
