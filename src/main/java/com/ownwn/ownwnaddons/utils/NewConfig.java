@@ -181,31 +181,27 @@ public class NewConfig extends Config {
     public static boolean SBA_CHROMA_CHAT = false;
 
     @Text(
-            name = "Camoflaged Chat Shortener",
-            description = "Customize chat messages sent by Camoflagued's bridge bot",
-            category = "Chat Replacers"
+            name = "Chroma Text",
+            description = "Allows you to colour specific text with chroma.",
+            category = "Chat Replacers",
+            multiline = true
     )
-    public static String GUILD_MSG_PRETTY = "&&3&&lDiscord &&e> &&aNAME&&f: MSG";
+    public static String CHROMA_TEXT_REPLACE = "";
 
-    @Text(
-            name = "Chat Shortener Name",
-            description = "The name of the bridge bot",
-            category = "Chat Replacers"
+    @DualOption(
+            name = "Chroma Type",
+            description = "Change the type of chroma that the mod uses.",
+            category = "Chat Replacers",
+            left = "SBA Chroma",
+            right = "Scuffed Chroma"
     )
-    public static String GUILD_MSG_NAME = "Pikaaahhh";
-
-    @Text(
-            name = "Bridge Webhook Url",
-            description = "The url of the webhook. Used for /cam",
-            category = "Chat Replacers"
-    )
-    public static String BRIDGE_WEBHOOK_URL = "https://discord.com/api/webhooks/<ID>/<Webhook Token>"; //this features sends a customisable message to a customisable webhook, intended to replace bridge bots. It does not send any confidential information
+    public static boolean CHROMA_TYPE = false;
 
     @Info(
-            text = "Add \"NAME\" for the users name and \"MSG\" for the users message",
+            text = "Seperate the text to be replaced with commas. Use && for colour.",
             type = InfoType.INFO,
             category = "Chat Replacers",
-            size = 2
+            size = 1
 
     )
     public static boolean ignored;

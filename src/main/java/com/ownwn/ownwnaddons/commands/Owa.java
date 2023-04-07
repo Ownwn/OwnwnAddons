@@ -43,8 +43,7 @@ public class Owa {
             UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
             return;
         }
-
-        UChat.chat(message);
+        UChat.chat(message.replace("&", "§"));
     }
 
 

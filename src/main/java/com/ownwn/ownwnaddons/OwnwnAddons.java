@@ -47,7 +47,6 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new TrevorCooldown());
         MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SBAChromaReplacement());
-        MinecraftForge.EVENT_BUS.register(new SylveoonDiscordChat());
         MinecraftForge.EVENT_BUS.register(new DungeonsChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
         MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
@@ -66,7 +65,6 @@ public class OwnwnAddons
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
-        CommandManager.INSTANCE.registerCommand(new CamBridge());
         EventManager.INSTANCE.register(new SkywarsClickFriend());
 
 
