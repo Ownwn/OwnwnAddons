@@ -3,16 +3,13 @@ package com.ownwn.ownwnaddons.utils;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.*;
-import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
-import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.features.dungeons.CreateGhostPick;
-import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.TrevorLootTracker;
+import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 
 public class NewConfig extends Config {
 
@@ -36,14 +33,6 @@ public class NewConfig extends Config {
             description = "Should the mod check for updates when you join Hypixel?"
     )
     public static boolean CHECK_FOR_UPDATES = true;
-
-    @KeyBind(
-            name = "Create Ghost Pickaxe",
-            description = "Duplicates your current pickaxe client-side",
-            category = "Features",
-            subcategory = "Dungeons"
-    )
-    public static OneKeyBind GHOST_PICK_KEY = new OneKeyBind(UKeyboard.KEY_NONE);
 
     @Switch(
             name = "Mimic Alert",
@@ -80,15 +69,6 @@ public class NewConfig extends Config {
             step = 1
     )
     public static float SECRET_CLICK_PITCH = 10f;
-
-//    @Text(
-//            name = "Lore Customiser",
-//            description = "Allows you to customise how the lore looks on items",
-//            multiline = true,
-//            category = "Features",
-//            subcategory = "Items"
-//    )
-//    public static String CUSTOM_TEXT_LORE = "";
 
     @Switch(
             name = "Debug Mode",
@@ -339,7 +319,6 @@ public class NewConfig extends Config {
         super(new Mod(OwnwnAddons.NAME, ModType.UTIL_QOL), OwnwnAddons.MODID + ".json");
 
         initialize();
-        registerKeyBind(GHOST_PICK_KEY, () -> CreateGhostPick.runnable.run());
 
         addDependency("CUSTOM_RANK_EDITOR", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
         addDependency("CUSTOM_NAME_EDITOR", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);

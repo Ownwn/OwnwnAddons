@@ -7,7 +7,7 @@
     "maxShiftBy": 5
   },
   "client": [
-    "MinecraftMixin"
+    "DrawStringMixin"
   ],
   "verbose": true
 }

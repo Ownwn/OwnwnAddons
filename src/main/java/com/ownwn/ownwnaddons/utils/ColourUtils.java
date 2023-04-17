@@ -84,23 +84,32 @@ public class ColourUtils {
     }
 
     public static String replaceChromaMessages(String text) {
+
+
+
         if (Minecraft.getMinecraft().thePlayer == null) {
             return text;
         }
         if (NewConfig.CHROMA_TEXT_REPLACE.equals("")) {
             return text;
         }
-        String newColour;
+        String newColour = "§"; // no im not using a stringbuilder
 
         if (NewConfig.CHROMA_TYPE) {
-            newColour = ColourUtils.getColour();
+            newColour += ColourUtils.getColour();
         } else {
-            newColour = "z";
+            newColour += "z";
         }
 
         for (String replacementText: NewConfig.CHROMA_TEXT_REPLACE.replace("&&", "§").split(", ")) {
-            text = text.replace(replacementText, "§" + newColour + replacementText + "§r");
+            if (replacementText.startsWith("§l") || replacementText.startsWith("§l", 2)) {
+                newColour = newColour.replace("§l", "") + "§l";
+            } else {
+                newColour = newColour.replace("§l", "");
+            }
+            text = text.replace(replacementText, newColour + Utils.stripFormatting(replacementText) + "§r");
         }
+
         return text;
     }
 }
