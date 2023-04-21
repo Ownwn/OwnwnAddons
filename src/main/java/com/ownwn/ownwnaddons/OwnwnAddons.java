@@ -8,6 +8,7 @@ import com.ownwn.ownwnaddons.features.chat.*;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsMimicAlert;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.dungeons.SecretClickSounds;
+import com.ownwn.ownwnaddons.utils.CheckSlot;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import com.ownwn.ownwnaddons.utils.TickUtils;
@@ -59,6 +60,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new SecretStuff());
         MinecraftForge.EVENT_BUS.register(new GardenMilestoneMsg());
         MinecraftForge.EVENT_BUS.register(new TickUtils());
+        MinecraftForge.EVENT_BUS.register(new CheckSlot());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());

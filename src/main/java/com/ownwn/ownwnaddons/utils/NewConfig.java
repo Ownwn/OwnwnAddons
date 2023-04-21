@@ -230,6 +230,22 @@ public class NewConfig extends Config {
     )
     public static boolean GARDEN_MILESTONE_MSG = false;
 
+    @Switch(
+            name = "Prevent Insta-selling Kismets to Bazaar",
+            description = "Stops you clicking the insta-sell button when you have kismets in your inventory",
+            category = "Features",
+            subcategory = "Misc"
+    )
+    public static boolean STOP_INSTA_SELL = false;
+
+    @Switch(
+            name = "Prevent Deleting Souls from Necro-Sword",
+            description = "Stops you removing souls from the necromancer sword",
+            category = "Features",
+            subcategory = "Misc"
+    )
+    public static boolean STOP_NECROMANCER_REMOVE = false;
+
     @HUD(
             name = "F7 Terminal Display",
             category = "HUDS",
