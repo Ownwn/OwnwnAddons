@@ -12,6 +12,7 @@ public class DrawStringMixin {
     public String drawText(String text) {
 
         text = ColourUtils.replacePlayerName(text);
+        text = ColourUtils.replaceOtherNames(text);
         text = ColourUtils.replaceChromaMessages(text);
         text = text.replace("§x", "§" + ColourUtils.getColour());
 

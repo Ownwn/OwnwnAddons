@@ -7,9 +7,10 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Greedy;
 import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.utils.ApiUtils;
 import com.ownwn.ownwnaddons.utils.Utils;
 
-import static com.ownwn.ownwnaddons.utils.HttpRequest.lbin;
+import static com.ownwn.ownwnaddons.utils.ApiUtils.bz;
 
 @Command(value = "calcfragrun", aliases = "cfr", description = "Calculate profit per hour while F7 frag-running.", customHelpMessage = OwnwnAddons.HELP)
 public class FragRunCalc {
@@ -36,10 +37,11 @@ public class FragRunCalc {
         UChat.actionBar(OwnwnAddons.PREFIX + " &bFetching...");
         Thread T = new Thread(() -> {
 
-            JsonObject lbins = lbin();
-            int diamante = lbins.get("GIANT_FRAGMENT_DIAMOND").getAsInt();
+            JsonObject bzs = bz();
 
-            int averagePrice = lbins.get("GIANT_FRAGMENT_LASER").getAsInt() + lbins.get("GIANT_FRAGMENT_BOULDER").getAsInt() + lbins.get("GIANT_FRAGMENT_BIGFOOT").getAsInt() + lbins.get("GIANT_FRAGMENT_DIAMOND").getAsInt();
+            int diamante = ApiUtils.parseBz("GIANT_FRAGMENT_DIAMOND", bzs); // get diamante seperately to show to user
+            int averagePrice = ApiUtils.parseBz("GIANT_FRAGMENT_LASER", bzs) + ApiUtils.parseBz("GIANT_FRAGMENT_BOULDER", bzs) + ApiUtils.parseBz("GIANT_FRAGMENT_BIGFOOT", bzs) + diamante;
+
             averagePrice /= 4;
 
             // IDK if looting affects precursor loot, so I'm going to assume that it does
@@ -64,5 +66,4 @@ public class FragRunCalc {
     public static void sendResults(String profitPerHour, int diamante) {
         UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + Utils.roundPrice(diamante));
     }
-
 }

@@ -1,10 +1,14 @@
 package com.ownwn.ownwnaddons.commands;
 
 import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.Multithreading;
 import cc.polyfrost.oneconfig.utils.commands.annotations.*;
 import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.utils.HttpRequest;
+import com.ownwn.ownwnaddons.utils.ApiUtils;
+import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.Utils;
+
+import java.util.concurrent.TimeUnit;
 
 @Command(value = "owa", description = "Access the " + OwnwnAddons.NAME + " GUI.", customHelpMessage = OwnwnAddons.HELP)
 public class Owa {
@@ -24,7 +28,7 @@ public class Owa {
         UChat.actionBar(OwnwnAddons.PREFIX + " &bFetching...");
         Thread T = new Thread(() -> {
             try {
-                int itemPrice = HttpRequest.lbin().get(id.toUpperCase()).getAsInt();
+                int itemPrice = ApiUtils.lbin().get(id.toUpperCase()).getAsInt();
                 String roundPrice = Utils.roundPrice(itemPrice);
 
                 UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + id.toUpperCase() + "&a is: &b" + roundPrice);
@@ -58,5 +62,13 @@ public class Owa {
         }
         devMode = true;
         UChat.chat(OwnwnAddons.PREFIX + "&bEnabled &adev mode");
+    }
+
+    @SubCommand(description = "Refreshes custom names without rejoining")
+    @SuppressWarnings("SameParameterValue")
+    private void fetchnames() {
+        UChat.chat(OwnwnAddons.PREFIX + "&aRefreshing names...");
+        FetchOnServerJoin.fetchNameTime = System.currentTimeMillis();
+        Multithreading.schedule(FetchOnServerJoin.fetchotherNames, 2, TimeUnit.SECONDS);
     }
 }

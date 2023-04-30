@@ -100,16 +100,6 @@ public class HttpRequest {
 
         return latestProfile;
     }
-
-
-    public static JsonObject lbin() {
-        return HttpRequest.getResponse("https://moulberry.codes/lowestbin.json");
-    }
-
-    public static JsonObject bz() {
-
-            return HttpRequest.getResponse("https://api.hypixel.net/skyblock/bazaar").getAsJsonObject("products");
-    }
 }
 
 

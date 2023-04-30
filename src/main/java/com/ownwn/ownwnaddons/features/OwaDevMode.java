@@ -1,12 +1,11 @@
 package com.ownwn.ownwnaddons.features;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import cc.polyfrost.oneconfig.events.event.ReceivePacketEvent;
+import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 
 public class OwaDevMode {
-    @SubscribeEvent
-    public void entityThingo(RenderLivingEvent.Specials.Pre<EntityLivingBase> event) {
+    @Subscribe
+    public void entityThingo(ReceivePacketEvent event) {
 
     }
 }

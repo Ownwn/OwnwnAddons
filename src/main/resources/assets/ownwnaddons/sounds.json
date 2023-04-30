@@ -14,5 +14,13 @@
       "category": "master"
     }
     ]
+  },
+  "bidenupdate": {
+    "sounds": [{
+      "name": "ownwnaddons:bidenupdate",
+      "stream": true,
+      "category": "master"
+    }
+    ]
   }
 }

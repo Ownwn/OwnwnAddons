@@ -83,6 +83,37 @@ public class ColourUtils {
         return text.replace(playerName, newName);
     }
 
+    public static String replaceOtherNames(String text) {
+        if (Minecraft.getMinecraft().thePlayer == null) {
+            return text;
+        }
+        if (!NewConfig.SHARED_RAINBOW_NAMES) {
+            return text;
+        }
+        if (FetchOnServerJoin.nameList == null || FetchOnServerJoin.nameList.size() == 0) {
+            return text;
+        }
+
+        for (String name : FetchOnServerJoin.nameList) {
+
+            if (name.equals(Minecraft.getMinecraft().thePlayer.getName())) {
+                continue;
+            }
+
+            String newName = "§";
+            if (NewConfig.CUSTOM_NAME_MODE == 1) {
+                newName += "z" + name;
+
+            } else {
+                newName += ColourUtils.getColour() + name;
+            }
+
+
+            text = text.replace(name, newName + "§r");
+        }
+        return text;
+    }
+
     public static String replaceChromaMessages(String text) {
 
 

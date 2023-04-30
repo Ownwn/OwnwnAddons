@@ -34,14 +34,6 @@ public class NewConfig extends Config {
     )
     public static boolean CHECK_FOR_UPDATES = true;
 
-    @Switch(
-            name = "Mimic Alert",
-            description = "Alerts you when a mimic spawns in dungeons.",
-            category = "Features",
-            subcategory = "Dungeons"
-    )
-    public static boolean MIMIC_SPAWN_ALERT = false;
-
     @Text(
             name = "Dungeons Secret Click Sound",
             description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound, credit to AtonAddons for the idea",
@@ -79,7 +71,12 @@ public class NewConfig extends Config {
     @Switch(
             name = "Funny Stuff"
     )
-    public static boolean FUNNY_STUFF_SECRET = true;
+    public static boolean FUNNY_STUFF_SECRET = false;
+
+    @Switch(
+            name = "Onboarding"
+    )
+    public static boolean ONBOARDING_FIRST_TIME = true;
 
     @Dropdown(
             name = "Custom Name Mode",
@@ -87,7 +84,7 @@ public class NewConfig extends Config {
             category = "Custom Name",
             options = {"Custom", "SBA Chroma", "Scuffed Chroma"}
     )
-    public static int CUSTOM_NAME_MODE = 2;
+    public static int CUSTOM_NAME_MODE = 1;
 
     @Text(
             name = "Custom Name",
@@ -128,6 +125,13 @@ public class NewConfig extends Config {
 
     )
     public static int SCUFFED_CHROMA_SPEED = 100;
+
+    @Switch(
+            name = "Turn other user's names rainbow",
+            description = "Makes the names of other mod users rainbow.",
+            category = "Custom Name"
+    )
+    public static boolean SHARED_RAINBOW_NAMES = true;
 
     @Switch(
             name = "Trevor Chat Cleanup",

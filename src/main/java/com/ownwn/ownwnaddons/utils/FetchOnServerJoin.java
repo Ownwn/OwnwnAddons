@@ -1,7 +1,9 @@
 package com.ownwn.ownwnaddons.utils;
 
 import cc.polyfrost.oneconfig.libs.universal.UChat;
+import cc.polyfrost.oneconfig.utils.Multithreading;
 import cc.polyfrost.oneconfig.utils.NetworkUtils;
+import com.google.gson.JsonElement;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.event.ClickEvent;
@@ -10,80 +12,120 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 public class FetchOnServerJoin {
-    long getRankTime = 0;
-    long checkUpdateTime = 0;
+    public static long bumpRankTime = 0;
+    public static long checkUpdateTime = 0;
+    public static long fetchNameTime = 0;
+//    public static JsonArray rainbowNames = new JsonArray();
+    public static List<String> nameList = new ArrayList<>();
 
     @SubscribeEvent
     public void JoinServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
 
-        if (NewConfig.PLAYER_HYPIXEL_RANK == 0 && System.currentTimeMillis() - getRankTime > 10000) {
-            getRankTime = System.currentTimeMillis();
+        if (NewConfig.ONBOARDING_FIRST_TIME) {
+            Multithreading.schedule(onboarding, 2, TimeUnit.SECONDS);
+        }
+
+
+        if (NewConfig.PLAYER_HYPIXEL_RANK == 0 && System.currentTimeMillis() - bumpRankTime > 10000) {
+            bumpRankTime = System.currentTimeMillis();
+            Multithreading.schedule(bumpHypixelRank, 3, TimeUnit.SECONDS);
         }
 
         if (NewConfig.CHECK_FOR_UPDATES && System.currentTimeMillis() - checkUpdateTime > 10000) {
             checkUpdateTime = System.currentTimeMillis();
+            Multithreading.schedule(checkforUpdates, 1, TimeUnit.SECONDS);
+
         }
 
+        if (NewConfig.SHARED_RAINBOW_NAMES && System.currentTimeMillis() - fetchNameTime > 10000) {
+            fetchNameTime = System.currentTimeMillis();
+            Multithreading.schedule(fetchotherNames, 2, TimeUnit.SECONDS);
 
-
-
-
+        }
 
     }
-    @SubscribeEvent
-    public void getHypixelRank(TickEvent.ClientTickEvent event) {
-        if (getRankTime == 0) {
-            return;
-        }
-        if (System.currentTimeMillis() < (getRankTime + 6000)) {
-            return;
-        }
+
+    public static Runnable bumpHypixelRank = () -> {
         if (Minecraft.getMinecraft().thePlayer == null) {
             return;
         }
-        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom name thingo will not work without it. &aSet it in &b/owa");
-        getRankTime = 0;
-    }
+        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom name thingo &a&lmay &anot work without it. &aSet it in &b/owa");
+    };
 
-    @SubscribeEvent
-    public void checkForUpdates(TickEvent.ClientTickEvent event) {
-        if (checkUpdateTime == 0) {
-            return;
-        }
-        if (System.currentTimeMillis() < (checkUpdateTime + 5000)) {
-            return;
-        }
+    public static Runnable checkforUpdates = () -> {
         if (Minecraft.getMinecraft().thePlayer == null) {
             return;
         }
-        Thread T = new Thread(() -> {
-            String latestVersion;
+        String latestVersion;
 
-            try {
-                latestVersion = NetworkUtils.getJsonElement("https://api.github.com/repos/ownwn/ownwnaddons/releases/latest").getAsJsonObject().get("tag_name").getAsString().substring(1);
-            } catch (Exception e) {
-                UChat.chat(OwnwnAddons.PREFIX + "&cError checking for updates! Please check the logs for more information");
-                e.printStackTrace();
-                return;
+        try {
+            latestVersion = NetworkUtils.getJsonElement("https://api.github.com/repos/ownwn/ownwnaddons/releases/latest").getAsJsonObject().get("tag_name").getAsString().substring(1);
+        } catch (Exception e) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cError checking for updates! Please check the logs for more information");
+            e.printStackTrace();
+            return;
+        }
+        String currentVersion = OwnwnAddons.VERSION;
+        if (latestVersion.equals(currentVersion)) {
+            return;
+        }
+        IChatComponent githubLink = new ChatComponentText("\n§b§l[GITHUB]")
+                .setChatStyle(new ChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("§aOpen the §bOwnwnAddons §aGithub")))
+                        .setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Ownwn/OwnwnAddons/releases/latest")));
+
+        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + "§aNew version of §bOwnwnAddons §aavailable!" +
+                "\n §aYou are using §b" + currentVersion + " §aand the latest version is §b" + latestVersion +
+                "\n §aDisable this message in §b/owa").appendSibling(githubLink));
+        if (NewConfig.FUNNY_STUFF_SECRET) {
+            Minecraft.getMinecraft().thePlayer.playSound("ownwnaddons:bidenupdate", 1f, 1f);
+        }
+    };
+
+    public static Runnable fetchotherNames = () -> {
+        if (Minecraft.getMinecraft().thePlayer == null) {
+            return;
+        }
+
+
+        nameList.clear();
+        nameList.add("OwnwnAddons");
+        try {
+            for (JsonElement element : NetworkUtils.getJsonElement("https://raw.githubusercontent.com/Ownwn/OwaData/main/rainbownames.json", "OneConfig/1.0.0", 5000, false).getAsJsonObject().get("usernames").getAsJsonArray()) {
+                nameList.add(element.getAsString());
             }
-            String currentVersion = OwnwnAddons.VERSION;
-            if (latestVersion.equals(currentVersion)) {
-                return;
+
+            if (nameList.size() == 0) {
+                throw new Exception();
             }
+        } catch (Exception e) {
+            UChat.chat(OwnwnAddons.PREFIX + "&cSomething went wrong fetching rainbow names! Please check your logs.");
+            return;
+        }
 
-            IChatComponent githubLink = new ChatComponentText("\n§b§l[GITHUB]")
-                    .setChatStyle(new ChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("§aOpen the §bOwnwnAddons §aGithub")))
-                            .setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Ownwn/OwnwnAddons/releases/latest")));
+        if (!NewConfig.VERBOSE_CODE_SWITCH) {
+            return;
+        }
+        System.out.println("OwnwnAddons: Successfully fetched rainbow names.");
 
-            Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + "§aNew version of §bOwnwnAddons §aavailable!" +
-                    "\n §aYou are using §b" + currentVersion + " §aand the latest version is §b" + latestVersion +
-                    "\n §aDisable this message in §b/owa").appendSibling(githubLink));
-        });
-        T.start();
-        checkUpdateTime = 0;
-    }
+    };
+
+    public static Runnable onboarding = () -> {
+        if (Minecraft.getMinecraft().thePlayer == null) {
+            return;
+        }
+        UChat.chat(OwnwnAddons.PREFIX + "&aThanks for downloading &bOw&bnwnAddons!" +
+                "\n &aYou can access the config with &b/owa" +
+                "\n &aIf you want your chroma name to be visible" +
+                "\n &ato other users, message me on Hypixel" +
+                "\n &aor on Discord at &bOw&bnwn#3723");
+        NewConfig.ONBOARDING_FIRST_TIME = false;
+    };
+
 }
