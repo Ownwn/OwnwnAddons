@@ -8,7 +8,8 @@ import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.features.*;
 import com.ownwn.ownwnaddons.features.chat.*;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
-import com.ownwn.ownwnaddons.features.dungeons.SecretClickSounds;
+import com.ownwn.ownwnaddons.features.dungeons.PartyFinderHighlight;
+import com.ownwn.ownwnaddons.features.dungeons.SinSeekerCooldown;
 import com.ownwn.ownwnaddons.utils.CheckSlot;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
@@ -45,31 +46,33 @@ public class OwnwnAddons
         config = new NewConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new CustomName());
         MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
         MinecraftForge.EVENT_BUS.register(new BazaarChatCleanup());
         MinecraftForge.EVENT_BUS.register(new TrevorCooldown());
         MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
         MinecraftForge.EVENT_BUS.register(new SBAChromaReplacement());
         MinecraftForge.EVENT_BUS.register(new DungeonsChatCleanup());
-        MinecraftForge.EVENT_BUS.register(new SecretClickSounds());
         MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
         MinecraftForge.EVENT_BUS.register(new FetchOnServerJoin());
         MinecraftForge.EVENT_BUS.register(new DungeonsTerminalDisplay());
-        MinecraftForge.EVENT_BUS.register(new SkywarsClickFriend());
+        MinecraftForge.EVENT_BUS.register(new MinigameClickFriend());
 
         MinecraftForge.EVENT_BUS.register(new ThirdPersonFOV());
         MinecraftForge.EVENT_BUS.register(new SecretStuff());
         MinecraftForge.EVENT_BUS.register(new GardenMilestoneMsg());
         MinecraftForge.EVENT_BUS.register(new TickUtils());
         MinecraftForge.EVENT_BUS.register(new CheckSlot());
+        MinecraftForge.EVENT_BUS.register(new SinSeekerCooldown());
+        MinecraftForge.EVENT_BUS.register(new PartyFinderHighlight());
+//        MinecraftForge.EVENT_BUS.register(new OwaDevMode());
+        MinecraftForge.EVENT_BUS.register(new CustomNames());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());
         CommandManager.INSTANCE.registerCommand(new HyperionPrice());
         CommandManager.INSTANCE.registerCommand(new FragRunCalc());
-        EventManager.INSTANCE.register(new SkywarsClickFriend());
-        EventManager.INSTANCE.register(new OwaDevMode());
+        EventManager.INSTANCE.register(new MinigameClickFriend());
+//        EventManager.INSTANCE.register(new OwaDevMode());
 
 
 

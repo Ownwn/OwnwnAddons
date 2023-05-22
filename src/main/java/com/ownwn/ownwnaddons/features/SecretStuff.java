@@ -25,10 +25,10 @@ public class SecretStuff {
         String msg = event.message.getFormattedText();
         String newMsg = "";
 
-        String location = "";
+        String location;
         try {
             location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
-        } catch (Exception ignored) {
+        } catch (NullPointerException ignored) {
             return;
         }
 
@@ -55,7 +55,9 @@ public class SecretStuff {
         if (newMsg.equals("")) {
             return;
         }
+
         event.message = new ChatComponentText(newMsg).setChatStyle(event.message.getChatStyle());
+        System.out.println("OwnwnAddons: Edited chat message");
 
     }
 
@@ -65,10 +67,10 @@ public class SecretStuff {
             return;
         }
 
-        String location = "";
+        String location;
         try {
             location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
-        } catch (Exception ignored) {
+        } catch (NullPointerException ignored) {
             return;
         }
 

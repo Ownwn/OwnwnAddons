@@ -3,8 +3,6 @@ package com.ownwn.ownwnaddons.features.chat;
 import cc.polyfrost.oneconfig.events.event.ChatSendEvent;
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
-import cc.polyfrost.oneconfig.utils.hypixel.LocrawInfo;
-import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.Minecraft;
@@ -19,23 +17,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SkywarsClickFriend {
+public class MinigameClickFriend {
     public static boolean onCooldown = false;
     public static List<String> requestList = new ArrayList< >();
+
+    // The list of people you've friended resets when you restart your game, but that's fine IMO
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-        if (!NewConfig.CLICK_SKYWARS_FRIENDS) {
+        if (!NewConfig.CLICK_MINIGAME_FRIENDS) {
             return;
         }
 
-        try {
-            LocrawInfo.GameType gameType = LocrawUtil.INSTANCE.getLocrawInfo().getGameType();
-            if (!gameType.equals(LocrawInfo.GameType.SKYWARS) && !gameType.equals(LocrawInfo.GameType.BEDWARS)) {
-                return;
-            }
-        } catch (Exception ignored) {
-            return;
-        }
         String msg = event.message.getFormattedText();
         if (msg.contains("§cYou can only have 10 active requests simultaneously!§r")) {
             onCooldown = true;
@@ -63,7 +55,7 @@ public class SkywarsClickFriend {
 
     @Subscribe
     public void onSpeak(ChatSendEvent event) {
-        if (!NewConfig.CLICK_SKYWARS_FRIENDS) {
+        if (!NewConfig.CLICK_MINIGAME_FRIENDS) {
             return;
         }
         if (!event.message.contains("/f add ")) {

@@ -9,11 +9,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DungeonsTerminalDisplay extends SingleTextHud {
+public class DungeonsTerminalDisplay extends SingleTextHud { // this is trash but fixing it is effort
 
     public static String returnText = "";
     public static String completedTerms = "(§r§c???§a)";
     public static boolean deviceDone = false;
+    public static boolean shouldDisplay = false;
 
 
 
@@ -23,18 +24,20 @@ public class DungeonsTerminalDisplay extends SingleTextHud {
 
     @Override
     public String getText(boolean example) {
-        if (example) return "§b" + "(5/7)§aDevice: §aYES";
+        if (example) return "§b" + "(5/7) §aDevice: §aYES";
         return returnText;
     }
 
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
-
+        if (!NewConfig.dungeonsTerminalDisplay.isEnabled()) {
+            return;
+        }
 
         String msg = event.message.getFormattedText();
 
-        switch (msg) {
+        switch (msg) { // messages sent when a gate is destroyed
             case "§r§4[BOSS] Goldor§r§c: §r§cThe little ants have a brain it seems.§r":
             case "§r§4[BOSS] Goldor§r§c: §r§cI will replace that gate with a stronger one!§r":
             case "§r§4[BOSS] Goldor§r§c: §r§cYOUR END IS NEAR!!§r":
@@ -43,7 +46,7 @@ public class DungeonsTerminalDisplay extends SingleTextHud {
                 break;
             case "§r§aThe Core entrance is opening!§r": // p3 over
                 deviceDone = false;
-                NewConfig.dungeonsTerminalDisplay.enabled = false;
+                shouldDisplay = false;
                 break;
 
         }
@@ -79,15 +82,18 @@ public class DungeonsTerminalDisplay extends SingleTextHud {
 
     @SubscribeEvent
     public void onWorldLoad(WorldEvent.Load event) {
-        if (NewConfig.dungeonsTerminalDisplay.isEnabled()) {
-            NewConfig.dungeonsTerminalDisplay.enabled = false;
-        }
+        shouldDisplay = false;
 
     }
     public void reset() {
-        NewConfig.dungeonsTerminalDisplay.enabled = true;
+        shouldDisplay = true;
         completedTerms = "(§r§c???§a)";
         deviceDone = false;
+    }
+
+    @Override
+    public boolean shouldShow() {
+        return super.shouldShow() && shouldDisplay;
     }
 
 }

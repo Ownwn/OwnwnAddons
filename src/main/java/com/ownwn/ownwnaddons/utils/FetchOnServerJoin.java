@@ -14,16 +14,20 @@ import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class FetchOnServerJoin {
     public static long bumpRankTime = 0;
     public static long checkUpdateTime = 0;
     public static long fetchNameTime = 0;
-//    public static JsonArray rainbowNames = new JsonArray();
-    public static List<String> nameList = new ArrayList<>();
+    public static final String RAINBOW_NAMES_URL = "https://raw.githubusercontent.com/Ownwn/OwaData/main/rainbownames.json";
+    public static final String RELEASES_URL = "https://github.com/Ownwn/OwnwnAddons/releases/latest";
+    public static final String UPDATE_CHECK_URL = "https://api.github.com/repos/ownwn/ownwnaddons/releases/latest";
+    public static List<String> nameList = new CopyOnWriteArrayList<>();
+    // use copyonwritearraylist to avoid the game crashing if the array list is read whilst it's being written to
+
 
     @SubscribeEvent
     public void JoinServer(FMLNetworkEvent.ClientConnectedToServerEvent event) {
@@ -56,7 +60,7 @@ public class FetchOnServerJoin {
         if (Minecraft.getMinecraft().thePlayer == null) {
             return;
         }
-        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom name thingo &a&lmay &anot work without it. &aSet it in &b/owa");
+        UChat.chat(OwnwnAddons.PREFIX + "&aYour Hypixel rank isn't set! The custom rank feature will not work without it. &aSet it in &b/owa");
     };
 
     public static Runnable checkforUpdates = () -> {
@@ -66,7 +70,7 @@ public class FetchOnServerJoin {
         String latestVersion;
 
         try {
-            latestVersion = NetworkUtils.getJsonElement("https://api.github.com/repos/ownwn/ownwnaddons/releases/latest").getAsJsonObject().get("tag_name").getAsString().substring(1);
+            latestVersion = NetworkUtils.getJsonElement(UPDATE_CHECK_URL).getAsJsonObject().get("tag_name").getAsString().substring(1);
         } catch (Exception e) {
             UChat.chat(OwnwnAddons.PREFIX + "&cError checking for updates! Please check the logs for more information");
             e.printStackTrace();
@@ -78,13 +82,14 @@ public class FetchOnServerJoin {
         }
         IChatComponent githubLink = new ChatComponentText("\n§b§l[GITHUB]")
                 .setChatStyle(new ChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("§aOpen the §bOwnwnAddons §aGithub")))
-                        .setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Ownwn/OwnwnAddons/releases/latest")));
+                        .setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, RELEASES_URL)));
 
-        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + "§aNew version of §bOwnwnAddons §aavailable!" +
+        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(OwnwnAddons.PREFIX + "§aNew version of §bOwn§bwnAddons §aavailable!" +
                 "\n §aYou are using §b" + currentVersion + " §aand the latest version is §b" + latestVersion +
                 "\n §aDisable this message in §b/owa").appendSibling(githubLink));
         if (NewConfig.FUNNY_STUFF_SECRET) {
             Minecraft.getMinecraft().thePlayer.playSound("ownwnaddons:bidenupdate", 1f, 1f);
+            System.out.println("OwnwnAddons: Playing update reminder");
         }
     };
 
@@ -97,7 +102,7 @@ public class FetchOnServerJoin {
         nameList.clear();
         nameList.add("OwnwnAddons");
         try {
-            for (JsonElement element : NetworkUtils.getJsonElement("https://raw.githubusercontent.com/Ownwn/OwaData/main/rainbownames.json", "OneConfig/1.0.0", 5000, false).getAsJsonObject().get("usernames").getAsJsonArray()) {
+            for (JsonElement element : NetworkUtils.getJsonElement(RAINBOW_NAMES_URL).getAsJsonObject().get("usernames").getAsJsonArray()) {
                 nameList.add(element.getAsString());
             }
 
@@ -106,6 +111,7 @@ public class FetchOnServerJoin {
             }
         } catch (Exception e) {
             UChat.chat(OwnwnAddons.PREFIX + "&cSomething went wrong fetching rainbow names! Please check your logs.");
+            e.printStackTrace();
             return;
         }
 

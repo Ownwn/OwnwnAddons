@@ -10,21 +10,22 @@ import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.TrevorLootTracker;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
+import com.ownwn.ownwnaddons.features.dungeons.SinSeekerHUD;
 
 public class NewConfig extends Config {
 
     @Number(
-            name = "Maximum average ping (ms)",
-            description = "Can be obtained with /skytils ping. Set this to the highest that your ping will reasonably reach. Used for features such as the wither blade sounds.",
+            name = "Average Ping (ms)",
+            description = "Can be obtained with /skytils ping. Used for features such as the wither blade sounds.",
             min = 10, max = 1000,
             step = 10
     )
-    public static int MAX_PING_NUM = 100;
+    public static int AVERAGE_PING_NUM = 100;
 
     @Dropdown(
             name = "Hypixel Rank",
-            options = {"Select your rank!", "Default", "VIP", "VIP+", "MVP", "MVP+", "MVP++"},
-            description = "Your hypixel rank. Automatically set by running /owa getrank"
+            options = {"Default", "VIP", "VIP+", "MVP", "MVP+", "MVP++"},
+            description = "Your hypixel rank."
     )
     public static int PLAYER_HYPIXEL_RANK = 0;
 
@@ -35,41 +36,33 @@ public class NewConfig extends Config {
     public static boolean CHECK_FOR_UPDATES = true;
 
     @Text(
-            name = "Dungeons Secret Click Sound",
-            description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound, credit to AtonAddons for the idea",
-            category = "Features",
-            subcategory = "Dungeons"
-    )
-    public static String SECRET_CLICK_SOUND = "random.break";
-
-    @Slider(
-            name = "Click Sound Volume",
-            description = "Change the volume of the dungeons secret click sound",
+            name = "Party-Finder Highlight (Warn ⚠)",
+            description = "Highlights specific names in Mort's Party Finder. Seperate names with \", \"",
             category = "Features",
             subcategory = "Dungeons",
-            min = 1f, max = 10.01f,
-            step = 1
+            multiline = true
     )
-    public static float SECRET_CLICK_VOLUME = 5f;
+    public static String PF_NAME_HIGHLIGHT = "";
 
-    @Slider(
-            name = "Click Sound Pitch",
-            description = "Change the pitch of the dungeons secret click sound",
+    @Text(
+            name = "Party-Finder Highlight (Good ★)",
+            description = "Highlights specific names in Mort's Party Finder. Seperate names with \", \"",
             category = "Features",
             subcategory = "Dungeons",
-            min = 5f, max = 20f,
-            step = 1
+            multiline = true
     )
-    public static float SECRET_CLICK_PITCH = 10f;
+    public static String PF_NAME_GOOD = "";
 
     @Switch(
             name = "Debug Mode",
-            description = "Should the mod write things like HTTP responses to the log?"
+            description = "Should the mod send helpful messages to the log? Also allows onboarding toggle"
+            // include this in the config in case the user wants to see the message again
     )
     public static boolean VERBOSE_CODE_SWITCH = false;
 
     @Switch(
-            name = "Funny Stuff"
+            name = "Funny Stuff",
+            description = "Changes some text and adds a couple of jokes to the mod (nothing malicious)"
     )
     public static boolean FUNNY_STUFF_SECRET = false;
 
@@ -78,37 +71,35 @@ public class NewConfig extends Config {
     )
     public static boolean ONBOARDING_FIRST_TIME = true;
 
-    @Dropdown(
-            name = "Custom Name Mode",
-            description = "Select which custom name mode to use.",
-            category = "Custom Name",
-            options = {"Custom", "SBA Chroma", "Scuffed Chroma"}
-    )
-    public static int CUSTOM_NAME_MODE = 1;
+   @Switch(
+           name = "Custom Name Toggle",
+           category = "Custom Name"
+   )
+   public static boolean CUSTOM_NAME_TOGGLE = false;
 
     @Text(
             name = "Custom Name",
-            description = "Allows you to customize your name. Leave blank for default name. Use \"&&\" for colour codes.",
+            description = "Allows you to customize your name. Leave blank for default name.",
             category = "Custom Name"
     )
-    public static String CUSTOM_NAME_EDITOR = "";
+    public static String CUSTOM_NAME_EDITOR = "&&cJoe";
+
+    @Switch(
+            name = "Custom Rank Toggle",
+            category = "Custom Name"
+    )
+    public static boolean CUSTOM_RANK_TOGGLE = false;
 
     @Text(
             name = "Custom Rank",
-            description = "Allows you to customize your rank. Leave blank for default name. Use \"&&\" for colour codes.",
+            description = "Allows you to customize your rank. Leave blank for default name.",
             category = "Custom Name"
     )
-    public static String CUSTOM_RANK_EDITOR = "";
+    public static String CUSTOM_RANK_EDITOR = "&&9[Rank]";
 
-    @Switch(
-            name = "Replace Rank",
-            description = "Should your rank be replaced with the custom name?",
-            category = "Custom Name"
-    )
-    public static boolean NAME_REPLACE_RANK = false;
 
     @Info(
-            text = "\"Custom\" lets you edit your name, while the other two options only change the colour",
+            text = "Use \"&&\" for colour codes. Also try out &&x",
             type = InfoType.INFO,
             category = "Custom Name",
             size = 2
@@ -116,12 +107,11 @@ public class NewConfig extends Config {
     public static boolean ignored2;
 
     @Slider(
-            name = "Scuffed Chroma Speed (ms)",
+            name = "Scuffed Chroma Delay (ms)",
             description = "Change the speed of the scuffed chroma.",
             min = 0,
             max = 500,
-            step = 50,
-            category = "Custom Name"
+            step = 50
 
     )
     public static int SCUFFED_CHROMA_SPEED = 100;
@@ -170,22 +160,21 @@ public class NewConfig extends Config {
             category = "Chat Replacers",
             multiline = true
     )
-    public static String CHROMA_TEXT_REPLACE = "";
+    public static String CHROMA_TEXT_REPLACE = "Bits:, Piggy:";
 
     @DualOption(
             name = "Chroma Type",
             description = "Change the type of chroma that the mod uses.",
-            category = "Chat Replacers",
             left = "SBA Chroma",
             right = "Scuffed Chroma"
     )
     public static boolean CHROMA_TYPE = false;
 
     @Info(
-            text = "Seperate the text to be replaced with commas. Use && for colour.",
+            text = "Seperate the text to be replaced with commas. Use && for colour codes.",
             type = InfoType.INFO,
             category = "Chat Replacers",
-            size = 1
+            size = 2
 
     )
     public static boolean ignored;
@@ -258,6 +247,13 @@ public class NewConfig extends Config {
     public static DungeonsTerminalDisplay dungeonsTerminalDisplay = new DungeonsTerminalDisplay();
 
     @HUD(
+            name = "SinSeeker Cooldown",
+            category = "HUDS",
+            subcategory = "Dungeons"
+    )
+    public static SinSeekerHUD sinSeekerHUD = new SinSeekerHUD();
+
+    @HUD(
             name = "Trevor Cooldown (Requires Trevor Chat Cleanup)",
             category = "HUDS",
             subcategory = "Trevor"
@@ -277,7 +273,7 @@ public class NewConfig extends Config {
             category = "Sound",
             subcategory = "Wither Blades"
     )
-    public static String WITHER_SHIELD_SOUND = "";
+    public static String WITHER_SHIELD_SOUND = "note.pling";
 
     @Slider(
             name = "Wither Shield Volume",
@@ -305,7 +301,7 @@ public class NewConfig extends Config {
             category = "Sound",
             subcategory = "Wither Blades"
     )
-    public static String WITHER_IMPLODE_SOUND = "";
+    public static String WITHER_IMPLODE_SOUND = "random.break";
 
     @Slider(
             name = "Implosion Volume",
@@ -332,21 +328,34 @@ public class NewConfig extends Config {
             description = "Makes Skywars/Bedwars player join messages clickable to add them as friends",
             category = "Non-Skyblock"
     )
-    public static boolean CLICK_SKYWARS_FRIENDS = false;
+    public static boolean CLICK_MINIGAME_FRIENDS = false;
+
 
 
     public NewConfig() {
-        super(new Mod(OwnwnAddons.NAME, ModType.UTIL_QOL), OwnwnAddons.MODID + ".json");
+        super(new Mod(OwnwnAddons.NAME, ModType.UTIL_QOL, "/ownwn.png"), OwnwnAddons.MODID + ".json");
 
         initialize();
 
-        addDependency("CUSTOM_RANK_EDITOR", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
-        addDependency("CUSTOM_NAME_EDITOR", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
-        addDependency("NAME_REPLACE_RANK", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 0);
-        addDependency("SCUFFED_CHROMA_SPEED", "CUSTOM_NAME_MODE", () -> CUSTOM_NAME_MODE == 2);
+        addDependency("CUSTOM_NAME_EDITOR", "CUSTOM_NAME_TOGGLE");
+        addDependency("CUSTOM_RANK_EDITOR", "CUSTOM_RANK_TOGGLE");
+        addDependency("CUSTOM_RANK_TOGGLE", "CUSTOM_NAME_TOGGLE");
+        addDependency("CUSTOM_RANK_TOGGLE", "PLAYER_HYPIXEL_RANK", () -> PLAYER_HYPIXEL_RANK != 0);
 
-//        addDependency("CUSTOM_NAME_NAMETAG, CUSTOM_RANK_EDITOR, NAME_REPLACE_RANK, CUSTOM_NAME_TOOLTIPS", "CUSTOM_NAME_MODE == 0 || CUSTOM_NAME_MODE == 1");
-//        addDependency("CHROMA_SPEED", "CUSTOM_NAME_MODE == 0 || CUSTOM_NAME_MODE == 1");
+        addDependency("STANDARD_VIEW_MODIFIER", "THIRD_PERSON_FOV");
+        addDependency("THIRD_PERSON_MODIFIER", "THIRD_PERSON_FOV");
+
+
+        addDependency("WITHER_IMPLODE_VOLUME", "WITHER_IMPLODE_SOUND", () -> !WITHER_IMPLODE_SOUND.equals(""));
+        addDependency("WITHER_IMPLODE_PITCH", "WITHER_IMPLODE_SOUND", () -> !WITHER_IMPLODE_SOUND.equals(""));
+
+
+        addDependency("WITHER_SHIELD_VOLUME", "WITHER_SHIELD_SOUND", () -> !WITHER_SHIELD_SOUND.equals(""));
+        addDependency("WITHER_SHIELD_PITCH", "WITHER_SHIELD_SOUND", () -> !WITHER_SHIELD_SOUND.equals(""));
+
+        addDependency("ONBOARDING_FIRST_TIME", "VERBOSE_CODE_SWITCH");
+
+
 
     }
 }

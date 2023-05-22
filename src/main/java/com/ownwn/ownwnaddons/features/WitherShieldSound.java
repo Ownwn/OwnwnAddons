@@ -19,7 +19,7 @@ public class WitherShieldSound {
         }
 
         if (event.name.equals("mob.zombie.remedy")) {
-            if (System.currentTimeMillis() - hypUseTime > NewConfig.MAX_PING_NUM || System.currentTimeMillis() - lastShield < 3000) {
+            if (System.currentTimeMillis() - hypUseTime > NewConfig.AVERAGE_PING_NUM + 200 || System.currentTimeMillis() - lastShield < 3000) {
                 return;
             }
 
@@ -27,7 +27,7 @@ public class WitherShieldSound {
             lastShield = System.currentTimeMillis();
 
         } else if (event.name.equals("random.explode")) {
-            if (System.currentTimeMillis() - hypUseTime > NewConfig.MAX_PING_NUM || System.currentTimeMillis() - lastImplode < 50) {
+            if (System.currentTimeMillis() - hypUseTime > NewConfig.AVERAGE_PING_NUM + 200 || System.currentTimeMillis() - lastImplode < 50) {
                 return;
             }
 
