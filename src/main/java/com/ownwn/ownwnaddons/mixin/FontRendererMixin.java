@@ -2,6 +2,7 @@
 
 import com.ownwn.ownwnaddons.features.CustomNames;
 import com.ownwn.ownwnaddons.utils.ColourUtils;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import net.minecraft.client.gui.FontRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,6 +32,11 @@ public class FontRendererMixin {
         text = CustomNames.replaceChromaMessages(text);
         text = text.replace("§x", "§" + ColourUtils.scuffedChroma());
 
+        if (!NewConfig.CUSTOM_SIDEBAR_URL.equals("")) {
+            // kinda dirty text replacement, would be better practice to edit the scoreboard itself. oh well
+            text = text.replace("§ewww.hypixel.ne\uD83C\uDF82§et", NewConfig.CUSTOM_SIDEBAR_URL.replace("&&", "§"));
+            // yes, the hypixel url has a birthday cake unicode character. who knows???
+        }
         return text;
     }
 }

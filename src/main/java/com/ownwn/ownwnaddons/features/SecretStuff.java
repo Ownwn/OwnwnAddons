@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features;
 
-import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import com.ownwn.ownwnaddons.utils.NewConfig;
+import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ChatComponentText;
@@ -25,16 +25,8 @@ public class SecretStuff {
         String msg = event.message.getFormattedText();
         String newMsg = "";
 
-        String location;
-        try {
-            location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
-        } catch (NullPointerException ignored) {
-            return;
-        }
 
-        if (location.equals("hub")) {
-
-
+        if (Utils.checkLocMap("Hub")) {
             if (msg.equals("§e[NPC] Baker§f: §rI've recently added a §dNew Year Cake Bag §rto my inventory. Sadly, it's not free! Click me again to open my shop!§r")) {
                 newMsg = "§e[NPC] Baker§f: Let him cook.";
 
@@ -67,14 +59,7 @@ public class SecretStuff {
             return;
         }
 
-        String location;
-        try {
-            location = LocrawUtil.INSTANCE.getLocrawInfo().getGameMode();
-        } catch (NullPointerException ignored) {
-            return;
-        }
-
-        if (location.equals("garden")) {
+        if (Utils.checkLocMap("Garden")) {
             if (!(event.entity instanceof EntityArmorStand)) {
                 return;
             }
@@ -92,9 +77,7 @@ public class SecretStuff {
                     event.entity.setCustomNameTag("§aChemistry Notebook");
                     break;
             }
-
-
-        } else if (location.equals("hub")) {
+        } else if (Utils.checkLocMap("Hub")) {
             if (!(event.entity instanceof EntityArmorStand)) {
                 return;
             }

@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class HandleMouseClickMixin {
 
     private static final String[] DUNGEON_ITEMS = {"Kismet", "Spirit Leap", "Superboom TNT"};
+    // this should probably be user-adjustable, but it works for now
 
     @Inject(method = "handleMouseClick", at = @At(value = "HEAD"), cancellable = true)
     public void handleMouseClick(Slot slotIn, int slotId, int mouseButtonClicked, int clickType, CallbackInfo ci) {
@@ -27,9 +28,6 @@ public class HandleMouseClickMixin {
         if (slotIn == null || slotIn.getStack() == null) {
             return;
         }
-//        if (!slotIn.getStack().hasDisplayName()) {
-//            return;
-//        }
 
 
         if (NewConfig.STOP_INSTA_SELL) {

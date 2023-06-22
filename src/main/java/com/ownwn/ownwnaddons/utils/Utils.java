@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons.utils;
 
+import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import com.google.gson.JsonObject;
 
 import java.util.regex.Pattern;
@@ -64,5 +65,19 @@ public class Utils {
 
     public static String stripFormatting(String text) { // taken from https://github.com/BiscuitDevelopment/SkyblockAddons
         return Pattern.compile("(?i)§[0-9A-FK-ORZ]").matcher(text).replaceAll("");
+    }
+
+    public static boolean checkLocMap(String location) {
+
+        if (LocrawUtil.INSTANCE.getLocrawInfo() == null) {
+            return false;
+        }
+
+        String map = LocrawUtil.INSTANCE.getLocrawInfo().getMapName();
+        if (map == null) {
+            return false;
+        }
+
+        return map.equals(location);
     }
 }

@@ -8,7 +8,10 @@
   },
   "client": [
     "FontRendererMixin",
-    "HandleMouseClickMixin"
+    "HandleMouseClickMixin",
+    "BlockRendererDispatcherMixin",
+    "MixinItemPriceInformation",
+    "MixinFontRendererHook"
   ],
   "verbose": true
 }

@@ -35,7 +35,9 @@ public class OwnwnAddons
 
             + "&9/owa preview <message> \u27A1 &bDisplays any message in chat, supports formatting codes"
 
-            + "&9/owa fetchnames \u27A1 &bRefreshes custom names without rejoining the server";
+            + "&9/owa fetchnames \u27A1 &bRefreshes custom names without rejoining the server"
+
+            + "&9/owa friends \u27A1 &bDisplays total number of friend requests";
 
     @net.minecraftforge.fml.common.Mod.Instance(MODID)
     public static OwnwnAddons INSTANCE;
@@ -64,8 +66,10 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new CheckSlot());
         MinecraftForge.EVENT_BUS.register(new SinSeekerCooldown());
         MinecraftForge.EVENT_BUS.register(new PartyFinderHighlight());
-//        MinecraftForge.EVENT_BUS.register(new OwaDevMode());
+        MinecraftForge.EVENT_BUS.register(new OwaDevMode());
         MinecraftForge.EVENT_BUS.register(new CustomNames());
+        MinecraftForge.EVENT_BUS.register(new OnScreenTimer());
+        MinecraftForge.EVENT_BUS.register(new HarpFailWarning());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());

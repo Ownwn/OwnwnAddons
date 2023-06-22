@@ -3,10 +3,13 @@ package com.ownwn.ownwnaddons.utils;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.Number;
 import cc.polyfrost.oneconfig.config.annotations.*;
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.InfoType;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import com.ownwn.ownwnaddons.OwnwnAddons;
+import com.ownwn.ownwnaddons.features.OnScreenTimer;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.TrevorLootTracker;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
@@ -170,6 +173,12 @@ public class NewConfig extends Config {
     )
     public static boolean CHROMA_TYPE = false;
 
+    @Switch(
+            name = "Always Render SBA Chroma",
+            description = "Makes SBA chroma render everywhere, not just on Skyblock"
+    )
+    public static boolean FORCE_SBA_CHROMA = false;
+
     @Info(
             text = "Seperate the text to be replaced with commas. Use && for colour codes.",
             type = InfoType.INFO,
@@ -178,6 +187,14 @@ public class NewConfig extends Config {
 
     )
     public static boolean ignored;
+
+    @Text(
+            name = "Custom Sidebar URL",
+            description = "Replaces the hypixel URL with something else",
+            category = "Chat Replacers"
+    )
+    public static String CUSTOM_SIDEBAR_URL = "";
+
     @Switch(
             name = "Dungeons Chat Cleanup",
             description = "Hides some useless/spammy messages in dungeons",
@@ -239,6 +256,22 @@ public class NewConfig extends Config {
     )
     public static boolean STOP_NECROMANCER_REMOVE = false;
 
+    @KeyBind(
+            name = "Toggle Timer",
+            description = "Toggles an on-screen timer. Make sure the HUD is enabled",
+            category = "Features",
+            subcategory = "Misc"
+    )
+    public static OneKeyBind START_TIMER_KEY = new OneKeyBind(UKeyboard.KEY_NONE);
+
+    @Button(
+            name = "Reset Timer",
+            text = "Reset",
+            category = "Features",
+            subcategory = "Misc"
+    )
+    Runnable resetTimer = OnScreenTimer::resetTimer;
+
     @HUD(
             name = "F7 Terminal Display",
             category = "HUDS",
@@ -266,6 +299,12 @@ public class NewConfig extends Config {
             subcategory = "Trevor"
     )
     public static TrevorLootTracker trevorLootTracker = new TrevorLootTracker();
+
+    @HUD(
+            name = "On Screen Timer",
+            category = "HUDS"
+    )
+    public static OnScreenTimer onScreenTimer = new OnScreenTimer();
 
     @Text(
             name = "Wither Shield Sound",
@@ -324,6 +363,40 @@ public class NewConfig extends Config {
     public static float WITHER_IMPLODE_PITCH = 10f;
 
     @Switch(
+            name = "Harp Misclick Warning",
+            description = "Warns you when you misclick in the harp",
+            category = "Sound"
+    )
+    public static boolean HARP_MISCLICK_WARNING = false;
+
+    @Info(
+            text = "The Alternate Hub feature is very broken, may cause visual issues. Try refreshing your chunks",
+            type = InfoType.WARNING,
+            category = "Features",
+            subcategory = "Misc",
+            size = 2
+
+    )
+    public static boolean ignored3;
+
+    @Switch(
+            name = "Alternate Hub (W.I.P)",
+            description = "Changes some blocks in the Hub island.",
+            category = "Features",
+            subcategory = "Misc"
+    )
+    public static boolean WORLD_RESKIN_HUB = false;
+
+    @Switch(
+            name = "Alternate NEU Lowest BIN",
+            description = "Changes the look of NEU's lowest BIN tooltip.",
+            category = "Features",
+            subcategory = "Misc"
+    )
+    public static boolean CHANGE_NEU_TOOLTIP = false;
+
+
+    @Switch(
             name = "Click Join Messages to Add Friend",
             description = "Makes Skywars/Bedwars player join messages clickable to add them as friends",
             category = "Non-Skyblock"
@@ -332,10 +405,17 @@ public class NewConfig extends Config {
 
 
 
+    public static int totalFriendRequests = 0;
+    // register this here, so it can be stored across game restarts
+
+
+
     public NewConfig() {
         super(new Mod(OwnwnAddons.NAME, ModType.UTIL_QOL, "/ownwn.png"), OwnwnAddons.MODID + ".json");
 
         initialize();
+
+
 
         addDependency("CUSTOM_NAME_EDITOR", "CUSTOM_NAME_TOGGLE");
         addDependency("CUSTOM_RANK_EDITOR", "CUSTOM_RANK_TOGGLE");
@@ -355,7 +435,7 @@ public class NewConfig extends Config {
 
         addDependency("ONBOARDING_FIRST_TIME", "VERBOSE_CODE_SWITCH");
 
-
+        registerKeyBind(START_TIMER_KEY, OnScreenTimer::toggleTimer);
 
     }
 }

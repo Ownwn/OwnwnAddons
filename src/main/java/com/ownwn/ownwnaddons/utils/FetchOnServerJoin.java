@@ -130,7 +130,7 @@ public class FetchOnServerJoin {
                 "\n &aYou can access the config with &b/owa" +
                 "\n &aIf you want your chroma name to be visible" +
                 "\n &ato other users, message me on Hypixel" +
-                "\n &aor on Discord at &bOw&bnwn#3723");
+                "\n &aor on Discord at &b@own&bwn");
         NewConfig.ONBOARDING_FIRST_TIME = false;
     };
 

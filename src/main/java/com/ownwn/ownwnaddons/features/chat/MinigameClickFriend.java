@@ -29,6 +29,12 @@ public class MinigameClickFriend {
         }
 
         String msg = event.message.getFormattedText();
+
+        if (msg.startsWith("§eYou sent a friend request to")) {
+            NewConfig.totalFriendRequests++;
+            return;
+        }
+
         if (msg.contains("§cYou can only have 10 active requests simultaneously!§r")) {
             onCooldown = true;
         } else if (msg.contains("§eYour friend request to §r")) {

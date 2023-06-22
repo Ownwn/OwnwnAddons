@@ -7,14 +7,6 @@
     }
     ]
   },
-  "mimicspawned": {
-    "sounds": [{
-      "name": "ownwnaddons:mimicspawned",
-      "stream": true,
-      "category": "master"
-    }
-    ]
-  },
   "bidenupdate": {
     "sounds": [{
       "name": "ownwnaddons:bidenupdate",

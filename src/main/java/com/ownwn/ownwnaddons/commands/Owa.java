@@ -6,6 +6,7 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.*;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.ApiUtils;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
+import com.ownwn.ownwnaddons.utils.NewConfig;
 import com.ownwn.ownwnaddons.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
@@ -70,5 +71,12 @@ public class Owa {
         UChat.chat(OwnwnAddons.PREFIX + "&aRefreshing names...");
         FetchOnServerJoin.fetchNameTime = System.currentTimeMillis();
         Multithreading.schedule(FetchOnServerJoin.fetchotherNames, 2, TimeUnit.SECONDS);
+    }
+
+    @SubCommand(description = "View friend request information")
+    @SuppressWarnings("SameParameterValue")
+    private void friends() {
+
+        UChat.chat(OwnwnAddons.PREFIX + "&bTotal friend requests: &a" + NewConfig.totalFriendRequests);
     }
 }
