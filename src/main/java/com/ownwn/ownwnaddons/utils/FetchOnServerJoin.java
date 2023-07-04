@@ -128,7 +128,7 @@ public class FetchOnServerJoin {
         }
         UChat.chat(OwnwnAddons.PREFIX + "&aThanks for downloading &bOw&bnwnAddons!" +
                 "\n &aYou can access the config with &b/owa" +
-                "\n &aIf you want your chroma name to be visible" +
+                "\n &aIf you want your name to appear chroma" +
                 "\n &ato other users, message me on Hypixel" +
                 "\n &aor on Discord at &b@own&bwn");
         NewConfig.ONBOARDING_FIRST_TIME = false;
