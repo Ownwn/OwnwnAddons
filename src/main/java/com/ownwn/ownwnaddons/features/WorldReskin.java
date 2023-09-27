@@ -14,7 +14,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class HubReskin {
+public class WorldReskin {
 
     public static boolean reskinHub(IBlockState state, BlockPos pos, IBlockAccess blockAccess, WorldRenderer worldRendererIn) {
         if (!NewConfig.WORLD_RESKIN_HUB) {
@@ -46,14 +46,42 @@ public class HubReskin {
             }
         }
 
+        return renderReskinnedBlock(newState, pos, blockAccess, worldRendererIn);
+
+    }
+
+
+
+//    public static boolean reskinEnd(IBlockState state, BlockPos pos, IBlockAccess blockAccess, WorldRenderer worldRendererIn) {
+//        if (!NewConfig.WORLD_RESKIN_END) {
+//            return false;
+//        }
+//
+//        if (!Utils.checkLocMap("The End")) {
+//            return false;
+//        }
+//
+//        Block block = state.getBlock();
+//        IBlockState newState = null;
+//
+//        if (block == Blocks.end_stone) {
+//            newState = Blocks.stonebrick.getDefaultState(); // normal stone bricks
+//        } else if (block == Blocks.sandstone) {
+//            newState = Blocks.stonebrick.getStateFromMeta(2); // cracked stone bricks
+//        }
+//
+//        return renderReskinnedBlock(newState, pos, blockAccess, worldRendererIn);
+//
+//    }
+
+
+    private static boolean renderReskinnedBlock(IBlockState newState, BlockPos pos, IBlockAccess blockAccess, WorldRenderer worldRendererIn) {
         if (newState == null) {
             return false;
         }
-
         BlockRendererDispatcher dispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
         dispatcher.renderBlock(newState, pos, blockAccess, worldRendererIn);
-        // render the new block and return true to cancel the old block being rendered
         return true;
-
     }
+
 }

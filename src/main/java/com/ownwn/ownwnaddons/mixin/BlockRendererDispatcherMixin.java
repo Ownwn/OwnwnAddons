@@ -1,6 +1,6 @@
     package com.ownwn.ownwnaddons.mixin;
 
-    import com.ownwn.ownwnaddons.features.HubReskin;
+    import com.ownwn.ownwnaddons.features.WorldReskin;
     import com.ownwn.ownwnaddons.utils.NewConfig;
     import net.minecraft.block.state.IBlockState;
     import net.minecraft.client.Minecraft;
@@ -30,8 +30,12 @@ public class BlockRendererDispatcherMixin {
         }
 
         // If true, cancel the block render and render a new one in the below method
-        if (HubReskin.reskinHub(state, pos, blockAccess, worldRendererIn)) {
+        if (WorldReskin.reskinHub(state, pos, blockAccess, worldRendererIn)) {
             cir.cancel();
+            return;
         }
+
+//        if (WorldReskin.reskinEnd(state, pos, blockAccess, worldRendererIn)) cir.cancel();
+
     }
 }

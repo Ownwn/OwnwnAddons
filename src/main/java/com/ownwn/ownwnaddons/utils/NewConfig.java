@@ -12,6 +12,7 @@ import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.features.OnScreenTimer;
 import com.ownwn.ownwnaddons.features.TrevorCooldown;
 import com.ownwn.ownwnaddons.features.TrevorLootTracker;
+import com.ownwn.ownwnaddons.features.dungeons.CellsAlignedDisplay;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.dungeons.SinSeekerHUD;
 
@@ -95,10 +96,23 @@ public class NewConfig extends Config {
 
     @Text(
             name = "Custom Rank",
-            description = "Allows you to customize your rank. Leave blank for default name.",
+            description = "Allows you to customize your rank. Leave blank for default rank.",
             category = "Custom Name"
     )
     public static String CUSTOM_RANK_EDITOR = "&&9[Rank]";
+
+    @Switch(
+            name = "Custom Skyblock Level",
+            category = "Custom Name"
+    )
+    public static boolean CUSTOM_LEVEL_TOGGLE = false;
+
+    @Text(
+            name = "Custom Skyblock Level",
+            description = "Allows you to customize your level. Leave blank for default level.",
+            category = "Custom Name"
+    )
+    public static String CUSTOM_LEVEL_EDITOR = "&&44&&c2&&e0";
 
 
     @Info(
@@ -301,6 +315,12 @@ public class NewConfig extends Config {
     public static TrevorLootTracker trevorLootTracker = new TrevorLootTracker();
 
     @HUD(
+            name = "Cells Aligned Display",
+            category = "HUDS"
+    )
+    public static CellsAlignedDisplay cellsAlignedDisplay = new CellsAlignedDisplay();
+
+    @HUD(
             name = "On Screen Timer",
             category = "HUDS"
     )
@@ -370,7 +390,7 @@ public class NewConfig extends Config {
     public static boolean HARP_MISCLICK_WARNING = false;
 
     @Info(
-            text = "The Alternate Hub feature is very broken, may cause visual issues. Try refreshing your chunks",
+            text = "The Alternate Island feature is very broken, may cause visual issues. Try refreshing your chunks",
             type = InfoType.WARNING,
             category = "Features",
             subcategory = "Misc",
@@ -426,12 +446,12 @@ public class NewConfig extends Config {
         addDependency("THIRD_PERSON_MODIFIER", "THIRD_PERSON_FOV");
 
 
-        addDependency("WITHER_IMPLODE_VOLUME", "WITHER_IMPLODE_SOUND", () -> !WITHER_IMPLODE_SOUND.equals(""));
-        addDependency("WITHER_IMPLODE_PITCH", "WITHER_IMPLODE_SOUND", () -> !WITHER_IMPLODE_SOUND.equals(""));
+        addDependency("WITHER_IMPLODE_VOLUME", "WITHER_IMPLODE_SOUND", () -> !WITHER_IMPLODE_SOUND.isEmpty());
+        addDependency("WITHER_IMPLODE_PITCH", "WITHER_IMPLODE_SOUND", () -> !WITHER_IMPLODE_SOUND.isEmpty());
 
 
-        addDependency("WITHER_SHIELD_VOLUME", "WITHER_SHIELD_SOUND", () -> !WITHER_SHIELD_SOUND.equals(""));
-        addDependency("WITHER_SHIELD_PITCH", "WITHER_SHIELD_SOUND", () -> !WITHER_SHIELD_SOUND.equals(""));
+        addDependency("WITHER_SHIELD_VOLUME", "WITHER_SHIELD_SOUND", () -> !WITHER_SHIELD_SOUND.isEmpty());
+        addDependency("WITHER_SHIELD_PITCH", "WITHER_SHIELD_SOUND", () -> !WITHER_SHIELD_SOUND.isEmpty());
 
         addDependency("ONBOARDING_FIRST_TIME", "VERBOSE_CODE_SWITCH");
 

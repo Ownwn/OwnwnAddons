@@ -34,7 +34,7 @@ public class CustomNames {
     public static Pattern MVP_DOUBLEPLUS_PATTERN;
 
     public static String replacePlayerNameAndRank(String text) {
-        if (!NewConfig.CUSTOM_NAME_TOGGLE || NewConfig.CUSTOM_NAME_EDITOR.equals("")) {
+        if (!NewConfig.CUSTOM_NAME_TOGGLE || NewConfig.CUSTOM_NAME_EDITOR.isEmpty()) {
             return text;
         }
         if (Minecraft.getMinecraft().thePlayer == null) {
@@ -46,7 +46,7 @@ public class CustomNames {
             return text;
         }
 
-        if (NewConfig.CUSTOM_RANK_TOGGLE && !NewConfig.CUSTOM_RANK_EDITOR.equals("") && NewConfig.PLAYER_HYPIXEL_RANK != 0) {
+        if (NewConfig.CUSTOM_RANK_TOGGLE && !NewConfig.CUSTOM_RANK_EDITOR.isEmpty() && NewConfig.PLAYER_HYPIXEL_RANK != 0) {
             if (Utils.stripFormatting(text).contains(hypixelRanks[NewConfig.PLAYER_HYPIXEL_RANK] + username)) {
                 Pattern chosenPattern;
 
@@ -92,7 +92,7 @@ public class CustomNames {
         if (!NewConfig.SHARED_RAINBOW_NAMES) {
             return text;
         }
-        if (FetchOnServerJoin.nameList == null || FetchOnServerJoin.nameList.size() == 0) {
+        if (FetchOnServerJoin.nameList == null || FetchOnServerJoin.nameList.isEmpty()) {
             return text;
         }
 
@@ -116,7 +116,7 @@ public class CustomNames {
         if (Minecraft.getMinecraft().thePlayer == null) {
             return text;
         }
-        if (NewConfig.CHROMA_TEXT_REPLACE.equals("")) {
+        if (NewConfig.CHROMA_TEXT_REPLACE.isEmpty()) {
             return text;
         }
         String newColour = "§";
@@ -134,6 +134,30 @@ public class CustomNames {
         }
 
         return text;
+    }
+
+    public static String replaceLevelNumber(String text) {
+        if (!NewConfig.CUSTOM_LEVEL_TOGGLE || NewConfig.CUSTOM_LEVEL_EDITOR.isEmpty()) {
+            return text;
+        }
+        if (Minecraft.getMinecraft().thePlayer == null) {
+            return text;
+        }
+        String unformatted = Utils.stripFormatting(text);
+        if (!unformatted.contains("] " + Minecraft.getMinecraft().thePlayer.getName())) {
+            return text;
+        }
+
+        Matcher a = Pattern.compile("§8\\[(§r)*§.(\\d{0,3})(§r)*§8]").matcher(text);
+        StringBuffer result = new StringBuffer();
+        while (a.find()) {
+            a.appendReplacement(result, "§8[§." + NewConfig.CUSTOM_LEVEL_EDITOR.replace("&&", "§") + "§8]§r");
+        }
+        a.appendTail(result);
+
+
+
+        return result.toString();
     }
 
 
@@ -159,4 +183,22 @@ public class CustomNames {
         // e.g.  §r§8[§r§5161§r§8] §r§b[MVP§r§4+§r§b] Ownwn§r§f: hi§r
         // have updated the MVP++ pattern just in case this occurs with MVP++ too.
     }
+
+
+//    @SubscribeEvent
+//    public void onChat2(ClientChatReceivedEvent event) {
+//        // event.message.getFormattedText() will look like this: §8[§f66§8] §a[VIP] Jaxxkk§f§r§f: test§r
+//        String unformattedText = Utils.stripFormatting(event.message.getFormattedText());
+//        String noRankText = unformattedText.replace("[VIP] ", "");
+//        noRankText = noRankText.replace("[VIP+] ", "");
+//        noRankText = noRankText.replace("[VIP+] ", "");
+//        noRankText = noRankText.replace("[MVP] ", "");
+//        noRankText = noRankText.replace("[MVP+] ", "");
+//        noRankText = noRankText.replace("[MVP++] ", "");
+//        noRankText = noRankText.replace("[YOUTUBE] ", "");
+//        if (!noRankText.matches("^\\[\\d+] " + username)) {
+//            return;
+//        }
+//        // we got here
+//    }
 }

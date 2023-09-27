@@ -1,12 +1,12 @@
     package com.ownwn.ownwnaddons.mixin;
 
-import com.ownwn.ownwnaddons.features.CustomNames;
-import com.ownwn.ownwnaddons.utils.ColourUtils;
-import com.ownwn.ownwnaddons.utils.NewConfig;
-import net.minecraft.client.gui.FontRenderer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+    import com.ownwn.ownwnaddons.features.CustomNames;
+    import com.ownwn.ownwnaddons.utils.ColourUtils;
+    import com.ownwn.ownwnaddons.utils.NewConfig;
+    import net.minecraft.client.gui.FontRenderer;
+    import org.spongepowered.asm.mixin.Mixin;
+    import org.spongepowered.asm.mixin.injection.At;
+    import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(FontRenderer.class)
 public class FontRendererMixin {
@@ -27,12 +27,16 @@ public class FontRendererMixin {
 
 
     private String compressReplacements(String text) {
+        if (text.isEmpty() || text.equals("§r")) return text;
+
+        text = CustomNames.replaceLevelNumber(text);
         text = CustomNames.replacePlayerNameAndRank(text);
         text = CustomNames.replaceOtherNames(text);
         text = CustomNames.replaceChromaMessages(text);
         text = text.replace("§x", "§" + ColourUtils.scuffedChroma());
 
-        if (!NewConfig.CUSTOM_SIDEBAR_URL.equals("")) {
+
+        if (!NewConfig.CUSTOM_SIDEBAR_URL.isEmpty()) {
             // kinda dirty text replacement, would be better practice to edit the scoreboard itself. oh well
             text = text.replace("§ewww.hypixel.ne\uD83C\uDF82§et", NewConfig.CUSTOM_SIDEBAR_URL.replace("&&", "§"));
             // yes, the hypixel url has a birthday cake unicode character. who knows???

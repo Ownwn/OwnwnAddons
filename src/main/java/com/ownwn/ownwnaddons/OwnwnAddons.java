@@ -7,6 +7,7 @@ import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.features.*;
 import com.ownwn.ownwnaddons.features.chat.*;
+import com.ownwn.ownwnaddons.features.dungeons.CellsAlignedDisplay;
 import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
 import com.ownwn.ownwnaddons.features.dungeons.PartyFinderHighlight;
 import com.ownwn.ownwnaddons.features.dungeons.SinSeekerCooldown;
@@ -70,6 +71,7 @@ public class OwnwnAddons
         MinecraftForge.EVENT_BUS.register(new CustomNames());
         MinecraftForge.EVENT_BUS.register(new OnScreenTimer());
         MinecraftForge.EVENT_BUS.register(new HarpFailWarning());
+        MinecraftForge.EVENT_BUS.register(new CellsAlignedDisplay());
 
 
         CommandManager.INSTANCE.registerCommand(new Owa());

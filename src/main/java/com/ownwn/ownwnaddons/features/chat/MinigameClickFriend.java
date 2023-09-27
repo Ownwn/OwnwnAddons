@@ -5,6 +5,7 @@ import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
+import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -28,24 +29,24 @@ public class MinigameClickFriend {
             return;
         }
 
-        String msg = event.message.getFormattedText();
+        String msg = Utils.stripFormatting(event.message.getFormattedText());
 
         if (msg.startsWith("§eYou sent a friend request to")) {
             NewConfig.totalFriendRequests++;
             return;
         }
 
-        if (msg.contains("§cYou can only have 10 active requests simultaneously!§r")) {
+        if (msg.equals("You can only have 10 active requests simultaneously!")) {
             onCooldown = true;
-        } else if (msg.contains("§eYour friend request to §r")) {
+        } else if (msg.startsWith("Your friend request to") && msg.endsWith("has expired.")) {
             onCooldown = false;
-        } else if (msg.contains("§aYou are now friends with §r")) {
+        } else if (msg.startsWith("You are now friends with ")) {
             onCooldown = false;
         }
-        if (!msg.contains("§e has joined") || msg.contains(Minecraft.getMinecraft().thePlayer.getName())) {
+        if (!msg.endsWith(")!") || msg.contains(Minecraft.getMinecraft().thePlayer.getName())) {
             return;
         }
-        Matcher playerJoined = Pattern.compile("§e§r§.(.+)§r§r§r§e has joined \\(§r§b\\d+§r§r§r§e/§r§b\\d+§r§r§r§e\\)!§r§e§r").matcher(msg);
+        Matcher playerJoined = Pattern.compile("^(\\w{1,16}) has joined \\(\\d+/\\d+\\)!").matcher(msg);
         if (!playerJoined.find()) {
             return;
         }
@@ -64,7 +65,7 @@ public class MinigameClickFriend {
         if (!NewConfig.CLICK_MINIGAME_FRIENDS) {
             return;
         }
-        if (!event.message.contains("/f add ")) {
+        if (!event.message.startsWith("/f add ")) {
             return;
         }
         if (onCooldown) {
