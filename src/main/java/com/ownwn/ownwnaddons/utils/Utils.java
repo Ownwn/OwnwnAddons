@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import java.util.regex.Pattern;
 
 public class Utils {
+
+    private static final Pattern stripFormattingPattern = Pattern.compile("(?i)§[0-9A-FK-ORZ]");
     public static int JsonInt(JsonObject source, String key) {
         int returnNum = 0;
         try {
@@ -64,7 +66,7 @@ public class Utils {
     }
 
     public static String stripFormatting(String text) { // taken from https://github.com/BiscuitDevelopment/SkyblockAddons
-        return Pattern.compile("(?i)§[0-9A-FK-ORZ]").matcher(text).replaceAll("");
+        return stripFormattingPattern.matcher(text).replaceAll("");
     }
 
     public static boolean checkLocMap(String location) {

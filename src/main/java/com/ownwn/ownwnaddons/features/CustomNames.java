@@ -4,7 +4,6 @@ import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.ColourUtils;
 import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -33,45 +32,18 @@ public class CustomNames {
     public static Pattern MVP_PLUS_PATTERN;
     public static Pattern MVP_DOUBLEPLUS_PATTERN;
 
-    public static String replacePlayerNameAndRank(String text) {
+    private static final Pattern skyblockLevelPattern = Pattern.compile("§8\\[(§r)*§.(\\d{0,3})(§r)*§8]");
+
+    public static String replacePlayerNameAndRank(String text, String unformatted) {
         if (!NewConfig.CUSTOM_NAME_TOGGLE || NewConfig.CUSTOM_NAME_EDITOR.isEmpty()) {
             return text;
         }
-        if (Minecraft.getMinecraft().thePlayer == null) {
-            return text;
-        }
 
-
-        if (!text.contains(username)) {
-            return text;
-        }
+        if (!unformatted.contains(username)) return text;
 
         if (NewConfig.CUSTOM_RANK_TOGGLE && !NewConfig.CUSTOM_RANK_EDITOR.isEmpty() && NewConfig.PLAYER_HYPIXEL_RANK != 0) {
-            if (Utils.stripFormatting(text).contains(hypixelRanks[NewConfig.PLAYER_HYPIXEL_RANK] + username)) {
-                Pattern chosenPattern;
-
-                // kid named java 8 switch statement:
-                switch (NewConfig.PLAYER_HYPIXEL_RANK) {
-                    case 1:
-                        chosenPattern = VIP_PATTERN;
-                        break;
-                    case 2:
-                        chosenPattern = VIP_PLUS_PATTERN;
-                        break;
-                    case 3:
-                        chosenPattern = MVP_PATTERN;
-                        break;
-                    case 4:
-                        chosenPattern = MVP_PLUS_PATTERN;
-                        break;
-                    case 5:
-                        chosenPattern = MVP_DOUBLEPLUS_PATTERN;
-                        break;
-                    default:
-                        throw new IllegalArgumentException(OwnwnAddons.PREFIX + "&cInvalid rank: " + NewConfig.PLAYER_HYPIXEL_RANK);
-                }
-
-                Matcher matcher = chosenPattern.matcher(text);
+            if (unformatted.contains(hypixelRanks[NewConfig.PLAYER_HYPIXEL_RANK] + username)) {
+                Matcher matcher = selectPlayerRank(text);
                 if (matcher.find()) {
 
                     String newRank = NewConfig.CUSTOM_RANK_EDITOR.replace("&&", "§");
@@ -85,77 +57,53 @@ public class CustomNames {
     }
 
 
-    public static String replaceOtherNames(String text) {
-        if (Minecraft.getMinecraft().thePlayer == null) {
-            return text;
-        }
-        if (!NewConfig.SHARED_RAINBOW_NAMES) {
-            return text;
-        }
-        if (FetchOnServerJoin.nameList == null || FetchOnServerJoin.nameList.isEmpty()) {
-            return text;
-        }
+        public static String replaceOtherNames(String text, String unformatted) {
+            if (!NewConfig.SHARED_RAINBOW_NAMES) return text;
 
-        for (String name : FetchOnServerJoin.nameList) {
+            if (FetchOnServerJoin.nameList == null || FetchOnServerJoin.nameList.isEmpty()) return text;
 
-            if (name.equals(username)) {
-                continue;
+            for (String name : FetchOnServerJoin.nameList) {
+
+                if (name.equals(username)) continue;
+                if (!unformatted.contains(name)) continue;
+
+                String newName = "§" + ColourUtils.chooseColour() + name + "§r";
+                text = text.replace(name, newName);
             }
 
-            String newName = "§" + ColourUtils.chooseColour() + name + "§r";
-            text = text.replace(name, newName);
+            return text;
         }
-        text = text.replace("§zOwnwn§rAddons", "§zOwnwnAddons§r");
-        // ^ stop "Ownwn" being coloured when typing the mod name
-        return text;
-    }
 
 
     public static String replaceChromaMessages(String text) {
 
-        if (Minecraft.getMinecraft().thePlayer == null) {
-            return text;
-        }
-        if (NewConfig.CHROMA_TEXT_REPLACE.isEmpty()) {
-            return text;
-        }
-        String newColour = "§";
+        if (NewConfig.CHROMA_TEXT_REPLACE.isEmpty()) return text;
 
-        newColour += ColourUtils.chooseColour();
+        String newColour = "§" + ColourUtils.chooseColour();
+        String[] replacementList = NewConfig.CHROMA_TEXT_REPLACE.replace("&&", "§").split(", ");
 
-        for (String replacementText: NewConfig.CHROMA_TEXT_REPLACE.replace("&&", "§").split(", ")) {
-            if (replacementText.startsWith("§l") || replacementText.startsWith("§l", 2)) {
-                newColour = newColour.replace("§l", "") + "§l";
-            } else {
-                newColour = newColour.replace("§l", "");
-            }
-            text = text.replace(replacementText, newColour + Utils.stripFormatting(replacementText) + "§r");
-            // it *technically* works
+        for (String replacement : replacementList) {
+            text = text.replace(replacement, newColour + replacement + "§r");
         }
 
         return text;
     }
 
-    public static String replaceLevelNumber(String text) {
+    public static String replaceLevelNumber(String text, String unformatted) {
         if (!NewConfig.CUSTOM_LEVEL_TOGGLE || NewConfig.CUSTOM_LEVEL_EDITOR.isEmpty()) {
             return text;
         }
-        if (Minecraft.getMinecraft().thePlayer == null) {
-            return text;
-        }
-        String unformatted = Utils.stripFormatting(text);
+
         if (!unformatted.contains("] " + Minecraft.getMinecraft().thePlayer.getName())) {
             return text;
         }
 
-        Matcher a = Pattern.compile("§8\\[(§r)*§.(\\d{0,3})(§r)*§8]").matcher(text);
+        Matcher levelMatcher = skyblockLevelPattern.matcher(text);
         StringBuffer result = new StringBuffer();
-        while (a.find()) {
-            a.appendReplacement(result, "§8[§." + NewConfig.CUSTOM_LEVEL_EDITOR.replace("&&", "§") + "§8]§r");
+        while (levelMatcher.find()) {
+            levelMatcher.appendReplacement(result, "§8[§." + NewConfig.CUSTOM_LEVEL_EDITOR.replace("&&", "§") + "§8]§r");
         }
-        a.appendTail(result);
-
-
+        levelMatcher.appendTail(result);
 
         return result.toString();
     }
@@ -167,9 +115,7 @@ public class CustomNames {
         this could be done with mc.get$ession().getUsername() but getting the session looks sus
         and probably doesn't support account switching (e.g. essential) */
 
-        if (!username.equals("-Placeholder")) { // the username has already been set
-            return;
-        }
+        if (!username.equals("-Placeholder")) return; // the username has already been set
         username = Minecraft.getMinecraft().thePlayer.getName();
 
         // compile patterns when the game is open, so that we can include the players' username.
@@ -182,6 +128,34 @@ public class CustomNames {
         // ^ the MVP+ regex is completely cooked, for some reason my name gets load of extra section signs??
         // e.g.  §r§8[§r§5161§r§8] §r§b[MVP§r§4+§r§b] Ownwn§r§f: hi§r
         // have updated the MVP++ pattern just in case this occurs with MVP++ too.
+    }
+
+
+    private static Matcher selectPlayerRank(String text) {
+        Pattern chosenPattern;
+
+        // kid named java 8 switch statement:
+        switch (NewConfig.PLAYER_HYPIXEL_RANK) {
+            case 1:
+                chosenPattern = VIP_PATTERN;
+                break;
+            case 2:
+                chosenPattern = VIP_PLUS_PATTERN;
+                break;
+            case 3:
+                chosenPattern = MVP_PATTERN;
+                break;
+            case 4:
+                chosenPattern = MVP_PLUS_PATTERN;
+                break;
+            case 5:
+                chosenPattern = MVP_DOUBLEPLUS_PATTERN;
+                break;
+            default:
+                throw new IllegalArgumentException(OwnwnAddons.PREFIX + "&cInvalid rank: " + NewConfig.PLAYER_HYPIXEL_RANK);
+        }
+
+        return chosenPattern.matcher(text);
     }
 
 

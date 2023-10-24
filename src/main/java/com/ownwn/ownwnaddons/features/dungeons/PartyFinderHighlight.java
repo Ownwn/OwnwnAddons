@@ -12,7 +12,7 @@ public class PartyFinderHighlight {
             return;
         }
 
-        if (NewConfig.PF_NAME_HIGHLIGHT.equals("") && NewConfig.PF_NAME_GOOD.equals("")) {
+        if (NewConfig.PF_NAME_HIGHLIGHT.isEmpty() && NewConfig.PF_NAME_GOOD.isEmpty()) {
             return;
         } // check this second because it's probably slightly more intensive
 
@@ -20,15 +20,19 @@ public class PartyFinderHighlight {
             return;
         }
 
-        for (int i = 5; i < event.toolTip.size(); i++) {
+        String[] highlightNames = NewConfig.PF_NAME_HIGHLIGHT.toLowerCase().split(", ");
+        String[] goodNames = NewConfig.PF_NAME_GOOD.toLowerCase().split(", ");
+
+
+        for (int i = 5; i < event.toolTip.size(); i++) { // start at 5 to skip unnecessary lines
             String tooltipText = event.toolTip.get(i).toLowerCase();
 
             if (!tooltipText.startsWith("§5§o ") || !tooltipText.endsWith("§b)")) {
                 continue;
             }
 
-            if (!NewConfig.PF_NAME_HIGHLIGHT.equals("")) {
-                for (String name: NewConfig.PF_NAME_HIGHLIGHT.toLowerCase().split(", ")) {
+            if (!NewConfig.PF_NAME_HIGHLIGHT.isEmpty()) {
+                for (String name: highlightNames) {
 
                     if (tooltipText.contains(name)) {
                         String oldText = event.toolTip.get(i);
@@ -43,8 +47,8 @@ public class PartyFinderHighlight {
                 }
             }
 
-            if (!NewConfig.PF_NAME_GOOD.equals("")) {
-                for (String name: NewConfig.PF_NAME_GOOD.toLowerCase().split(", ")) {
+            if (!NewConfig.PF_NAME_GOOD.isEmpty()) {
+                for (String name: goodNames) {
                     if (!tooltipText.contains(name)) {
                         continue;
                     }
