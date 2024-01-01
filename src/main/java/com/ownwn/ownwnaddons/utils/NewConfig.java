@@ -40,6 +40,34 @@ public class NewConfig extends Config {
     public static boolean CHECK_FOR_UPDATES = true;
 
     @Text(
+            name = "Dungeons Secret Click Sound",
+            description = "Customize the sound that plays when you click a secret in dungeons e.g. random.successful_hit. Leave blank for no sound",
+            category = "Features",
+            subcategory = "Dungeons"
+    )
+    public static String SECRET_CLICK_SOUND = "random.break";
+
+    @Slider(
+            name = "Click Sound Volume",
+            description = "Change the volume of the dungeons secret click sound",
+            category = "Features",
+            subcategory = "Dungeons",
+            min = 1f, max = 10.01f,
+            step = 1
+    )
+    public static float SECRET_CLICK_VOLUME = 5f;
+
+    @Slider(
+            name = "Click Sound Pitch",
+            description = "Change the pitch of the dungeons secret click sound",
+            category = "Features",
+            subcategory = "Dungeons",
+            min = 5f, max = 20f,
+            step = 1
+    )
+    public static float SECRET_CLICK_PITCH = 10f;
+
+    @Text(
             name = "Party-Finder Highlight (Warn ⚠)",
             description = "Highlights specific names in Mort's Party Finder. Seperate names with \", \"",
             category = "Features",
@@ -218,6 +246,14 @@ public class NewConfig extends Config {
     public static boolean CATA_CHAT_CLEANUP = false;
 
     @Switch(
+            name = "Disable reverse third person in dungeons",
+            description = "Stops you switching to reverse third person in dungeons",
+            category = "Features",
+            subcategory = "Perspective"
+    )
+    public static boolean DUNGEONS_THIRD_PERSON = false;
+
+    @Switch(
             name = "Third Person FOV changer",
             description = "Changes your FOV when you enter third person",
             category = "Features",
@@ -229,22 +265,11 @@ public class NewConfig extends Config {
             name = "Third Person FOV modifier",
             category = "Features",
             subcategory = "Perspective",
-            min = 30,
-            max = 140,
+            min = 30f,
+            max = 140f,
             step = 1
     )
-    public static int THIRD_PERSON_MODIFIER = 70;
-
-    @Slider(
-            name = "Normal FOV",
-            description = "Set this to the standard FOV that you use",
-            category = "Features",
-            subcategory = "Perspective",
-            min = 30,
-            max = 140,
-            step = 1
-    )
-    public static int STANDARD_VIEW_MODIFIER = 70;
+    public static float THIRD_PERSON_MODIFIER = 100f;
 
     @Switch(
             name = "Send Garden Milestones to Guild Chat",

@@ -1,30 +1,36 @@
-package com.ownwn.ownwnaddons.features;
+package com.ownwn.ownwnaddons.features
 
-import com.ownwn.ownwnaddons.utils.NewConfig;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-public class ThirdPersonFOV {
+import com.ownwn.ownwnaddons.utils.GameLaunchEvent
+import com.ownwn.ownwnaddons.utils.NewConfig
+import net.minecraft.client.Minecraft
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
+
+class ThirdPersonFOV {
+    private var normalFov: Float = 0f
+    private var isThirdPerson = false
+
     @SubscribeEvent
-    public void onTick(TickEvent event) {
-        if (!NewConfig.THIRD_PERSON_FOV) {
-            return;
+    fun onTick(event: TickEvent) {
+        if (!NewConfig.THIRD_PERSON_FOV) return
+
+        val mc = Minecraft.getMinecraft()
+        val currentlyThirdPerson = mc.gameSettings.thirdPersonView == 1
+
+        if (currentlyThirdPerson && !isThirdPerson) { // just entered f5
+            normalFov = mc.gameSettings.fovSetting // save player's FOV
+            mc.gameSettings.fovSetting = NewConfig.THIRD_PERSON_MODIFIER
+            isThirdPerson = true
+
+        } else if (!currentlyThirdPerson && isThirdPerson) { // just left f5
+            mc.gameSettings.fovSetting = normalFov // reset FOV to normal
+            isThirdPerson = false
         }
+    }
 
-        Minecraft mc = Minecraft.getMinecraft();
-        if (mc.gameSettings.thirdPersonView == 1) {
-            if (mc.gameSettings.fovSetting == NewConfig.THIRD_PERSON_MODIFIER) {
-                return;
-            }
-            mc.gameSettings.fovSetting = NewConfig.THIRD_PERSON_MODIFIER;
-        } else {
-            if (mc.gameSettings.fovSetting == NewConfig.STANDARD_VIEW_MODIFIER) {
-                return;
-            }
-            mc.gameSettings.fovSetting = NewConfig.STANDARD_VIEW_MODIFIER;
-        }
-
-
+    @SubscribeEvent
+    fun onModInit(event: GameLaunchEvent) {
+        normalFov = Minecraft.getMinecraft().gameSettings.fovSetting
     }
 }

@@ -1,17 +1,16 @@
 package com.ownwn.ownwnaddons.features;
 
 import com.ownwn.ownwnaddons.commands.Owa;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C01PacketChatMessage;
 
 public class OwaDevMode {
+    public static void logLocraw(Packet packet) {
+        if (!Owa.devMode) return;
+        if (!(packet instanceof C01PacketChatMessage)) return;
+//
+        C01PacketChatMessage messagePacket = (C01PacketChatMessage) packet;
 
-    @SubscribeEvent
-    public void onPacketReceive(RenderGameOverlayEvent event) {
-        if (!Owa.devMode) {
-            return;
-        }
-
+        System.out.println("Message sent: " + messagePacket.getMessage());
     }
-
 }

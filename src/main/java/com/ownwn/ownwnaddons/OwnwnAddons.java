@@ -7,16 +7,11 @@ import com.ownwn.ownwnaddons.commands.HyperionPrice;
 import com.ownwn.ownwnaddons.commands.Owa;
 import com.ownwn.ownwnaddons.features.*;
 import com.ownwn.ownwnaddons.features.chat.*;
-import com.ownwn.ownwnaddons.features.dungeons.CellsAlignedDisplay;
-import com.ownwn.ownwnaddons.features.dungeons.DungeonsTerminalDisplay;
-import com.ownwn.ownwnaddons.features.dungeons.PartyFinderHighlight;
-import com.ownwn.ownwnaddons.features.dungeons.SinSeekerCooldown;
-import com.ownwn.ownwnaddons.utils.CheckSlot;
-import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
-import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.TickUtils;
+import com.ownwn.ownwnaddons.features.dungeons.*;
+import com.ownwn.ownwnaddons.utils.*;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 @net.minecraftforge.fml.common.Mod(modid = OwnwnAddons.MODID, name = OwnwnAddons.NAME, version = OwnwnAddons.VERSION)
 public class OwnwnAddons
@@ -48,40 +43,60 @@ public class OwnwnAddons
     public void onFMLInitialization(net.minecraftforge.fml.common.event.FMLInitializationEvent event) {
         config = new NewConfig();
 
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new TrevorChatCleanup());
-        MinecraftForge.EVENT_BUS.register(new BazaarChatCleanup());
-        MinecraftForge.EVENT_BUS.register(new TrevorCooldown());
-        MinecraftForge.EVENT_BUS.register(new BankChatCleanup());
-        MinecraftForge.EVENT_BUS.register(new SBAChromaReplacement());
-        MinecraftForge.EVENT_BUS.register(new DungeonsChatCleanup());
-        MinecraftForge.EVENT_BUS.register(new WitherShieldSound());
-        MinecraftForge.EVENT_BUS.register(new FetchOnServerJoin());
-        MinecraftForge.EVENT_BUS.register(new DungeonsTerminalDisplay());
-        MinecraftForge.EVENT_BUS.register(new MinigameClickFriend());
+        registerForgeEventBus(this);
+        registerForgeEventBus(new TrevorChatCleanup());
+        registerForgeEventBus(new BazaarChatCleanup());
+        registerForgeEventBus(new TrevorCooldown());
+        registerForgeEventBus(new BankChatCleanup());
+        registerForgeEventBus(new SBAChromaReplacement());
+        registerForgeEventBus(new DungeonsChatCleanup());
+        registerForgeEventBus(new WitherShieldSound());
+        registerForgeEventBus(new FetchOnServerJoin());
+        registerForgeEventBus(new DungeonsTerminalDisplay());
+        registerForgeEventBus(new MinigameClickFriend());
 
-        MinecraftForge.EVENT_BUS.register(new ThirdPersonFOV());
-        MinecraftForge.EVENT_BUS.register(new SecretStuff());
-        MinecraftForge.EVENT_BUS.register(new GardenMilestoneMsg());
-        MinecraftForge.EVENT_BUS.register(new TickUtils());
-        MinecraftForge.EVENT_BUS.register(new CheckSlot());
-        MinecraftForge.EVENT_BUS.register(new SinSeekerCooldown());
-        MinecraftForge.EVENT_BUS.register(new PartyFinderHighlight());
-        MinecraftForge.EVENT_BUS.register(new OwaDevMode());
-        MinecraftForge.EVENT_BUS.register(new CustomNames());
-        MinecraftForge.EVENT_BUS.register(new OnScreenTimer());
-        MinecraftForge.EVENT_BUS.register(new HarpFailWarning());
-        MinecraftForge.EVENT_BUS.register(new CellsAlignedDisplay());
+        registerForgeEventBus(new ThirdPersonFOV());
+        registerForgeEventBus(new SecretStuff());
+        registerForgeEventBus(new GardenMilestoneMsg());
+        registerForgeEventBus(new TickUtils());
+        registerForgeEventBus(new CheckSlot());
+        registerForgeEventBus(new SinSeekerCooldown());
+        registerForgeEventBus(new PartyFinderHighlight());
 
-
-        CommandManager.INSTANCE.registerCommand(new Owa());
-        CommandManager.INSTANCE.registerCommand(new HyperionPrice());
-        CommandManager.INSTANCE.registerCommand(new FragRunCalc());
-        EventManager.INSTANCE.register(new MinigameClickFriend());
-//        EventManager.INSTANCE.register(new OwaDevMode());
+        registerForgeEventBus(new CustomNames());
+        registerForgeEventBus(new OnScreenTimer());
+        registerForgeEventBus(new HarpFailWarning());
+        registerForgeEventBus(new CellsAlignedDisplay());
+        registerForgeEventBus(new SecretClickSounds());
+        
+        
 
 
+        registerCommand(new Owa());
+        registerCommand(new HyperionPrice());
+        registerCommand(new FragRunCalc());
+        
+        
+        registerOneconfigEventBus(new MinigameClickFriend());
 
+        postEvent(new GameLaunchEvent());
+
+    }
+    
+    public void registerForgeEventBus(Object object) {
+        MinecraftForge.EVENT_BUS.register(object);
+    }
+
+    public void registerOneconfigEventBus(Object object) {
+        EventManager.INSTANCE.register(object);
+    }
+
+    public void registerCommand(Object object) {
+        CommandManager.INSTANCE.registerCommand(object);
+    }
+
+    public void postEvent(Event event) {
+        MinecraftForge.EVENT_BUS.post(event);
     }
 }
 

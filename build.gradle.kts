@@ -5,13 +5,13 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 // Adds support for kotlin, and adds the Polyfrost Gradle Toolkit
 // which we use to prepare the environment.
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version ("1.9.10")
     id("cc.polyfrost.multi-version")
     id("cc.polyfrost.defaults.repo")
     id("cc.polyfrost.defaults.java")
     id("cc.polyfrost.defaults.loom")
     id("com.github.johnrengelman.shadow")
-    id("net.kyori.blossom") version "1.3.0"
+    id("net.kyori.blossom") version "1.3.1"
     id("signing")
     java
 }
@@ -91,7 +91,7 @@ repositories {
 // Configures the libraries/dependencies for your mod.
 dependencies {
     // Adds the OneConfig library, so we can develop with it.
-    modCompileOnly("cc.polyfrost:oneconfig-$platform:0.2.0-alpha+")
+    modCompileOnly("cc.polyfrost:oneconfig-$platform:0.2.1-alpha+")
 
     // If we are building for legacy forge, includes the launch wrapper with `shade` as we configured earlier.
     if (platform.isLegacyForge) {

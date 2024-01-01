@@ -11,7 +11,9 @@
     "HandleMouseClickMixin",
     "BlockRendererDispatcherMixin",
     "MixinItemPriceInformation",
-    "MixinFontRendererHook"
+    "MixinFontRendererHook",
+    "NetHandlerPlayClientMixin",
+    "RenderGlobalMixin"
   ],
   "verbose": true
 }
