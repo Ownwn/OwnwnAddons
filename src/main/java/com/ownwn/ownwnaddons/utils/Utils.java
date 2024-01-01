@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons.utils;
 
+import cc.polyfrost.oneconfig.utils.hypixel.LocrawInfo;
 import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil;
 import com.google.gson.JsonObject;
 
@@ -70,16 +71,20 @@ public class Utils {
     }
 
     public static boolean checkLocMap(String location) {
-
-        if (LocrawUtil.INSTANCE.getLocrawInfo() == null) {
-            return false;
-        }
-
-        String map = LocrawUtil.INSTANCE.getLocrawInfo().getMapName();
-        if (map == null) {
-            return false;
-        }
-
-        return map.equals(location);
+        return locrawIsValid() && getLocraw().getMapName().equals(location);
     }
+
+    public static boolean checkLocGameMode(String gameMode) {
+        return locrawIsValid() && getLocraw().getGameMode().equals(gameMode);
+    }
+
+    private static LocrawInfo getLocraw() {
+        return LocrawUtil.INSTANCE.getLocrawInfo();
+    }
+
+    private static boolean locrawIsValid() {
+        LocrawInfo map = getLocraw();
+        return map != null && map.getMapName() != null && map.getGameMode() != null;
+    }
+
 }
