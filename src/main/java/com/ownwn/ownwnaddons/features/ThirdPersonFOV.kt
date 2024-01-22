@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features
 
 
-import com.ownwn.ownwnaddons.utils.GameLaunchEvent
+import com.ownwn.ownwnaddons.utils.ServerJoinEvent
 import com.ownwn.ownwnaddons.utils.NewConfig
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -30,7 +30,7 @@ class ThirdPersonFOV {
     }
 
     @SubscribeEvent
-    fun onModInit(event: GameLaunchEvent) {
+    fun onModInit(event: ServerJoinEvent) {
         normalFov = Minecraft.getMinecraft().gameSettings.fovSetting
     }
 }

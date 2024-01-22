@@ -5,9 +5,7 @@ import cc.polyfrost.oneconfig.utils.Multithreading;
 import cc.polyfrost.oneconfig.utils.commands.annotations.*;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.ApiUtils;
-import com.ownwn.ownwnaddons.utils.FetchOnServerJoin;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +20,7 @@ public class Owa {
     @SubCommand(description = "Gets the lowest BIN price for any item.")
     @SuppressWarnings("SameParameterValue")
     private void lbin(@Description("ItemID") @Greedy String id) {
-        if (id.equals("")) {
+        if (id.isEmpty()) {
             UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter an ItemID!");
             return;
         }
@@ -30,7 +28,7 @@ public class Owa {
         Thread T = new Thread(() -> {
             try {
                 int itemPrice = ApiUtils.lbin().get(id.toUpperCase()).getAsInt();
-                String roundPrice = Utils.roundPrice(itemPrice);
+                String roundPrice = OwnwnAddons.utils.roundPrice(itemPrice);
 
                 UChat.chat(OwnwnAddons.PREFIX + "&aThe price of &b" + id.toUpperCase() + "&a is: &b" + roundPrice);
             } catch (Exception e) {
@@ -44,7 +42,7 @@ public class Owa {
     @SubCommand(description = "Displays a customizable, formatted chat message in your chat. \"&\"s will be replaced with formatting codes.")
     @SuppressWarnings("SameParameterValue")
     private void preview(@Description("message") @Greedy String message) {
-        if (message.equals("")) {
+        if (message.isEmpty()) {
             UChat.chat(OwnwnAddons.PREFIX + "&cPlease enter a message to preview!");
             return;
         }
@@ -69,8 +67,8 @@ public class Owa {
     @SuppressWarnings("SameParameterValue")
     private void fetchnames() {
         UChat.chat(OwnwnAddons.PREFIX + "&aRefreshing names...");
-        FetchOnServerJoin.fetchNameTime = System.currentTimeMillis();
-        Multithreading.schedule(FetchOnServerJoin.fetchotherNames, 2, TimeUnit.SECONDS);
+        OwnwnAddons.customName.setLastFetchedNames(System.currentTimeMillis());
+        Multithreading.schedule(OwnwnAddons.customName.getFetchOtherNames(), 0, TimeUnit.SECONDS);
     }
 
     @SubCommand(description = "View friend request information")
