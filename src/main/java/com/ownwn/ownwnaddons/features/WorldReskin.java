@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockDirt;
@@ -21,7 +21,7 @@ public class WorldReskin {
             return false;
         }
 
-        if (!Utils.checkLocMap("Hub")) {
+        if (!OwnwnAddons.utils.checkLocMap("Hub")) {
             return false;
         }
 

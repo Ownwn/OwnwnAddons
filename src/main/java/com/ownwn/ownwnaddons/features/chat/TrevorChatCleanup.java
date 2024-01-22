@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features.chat;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -24,7 +24,7 @@ public class TrevorChatCleanup {
             return;
         }
 
-        if (!Utils.checkLocMap("The Farming Islands")) {
+        if (!OwnwnAddons.utils.checkLocMap("The Farming Islands")) {
             return;
         }
 
@@ -86,7 +86,7 @@ public class TrevorChatCleanup {
                 break;
 
         }
-        if (newMsg.equals("")) { // avoid screwing with other messages e.g. removing click prompts
+        if (newMsg.isEmpty()) { // avoid screwing with other messages e.g. removing click prompts
             return;
         }
 

@@ -6,7 +6,7 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.ApiUtils;
-import com.ownwn.ownwnaddons.utils.Utils;
+
 
 import static com.ownwn.ownwnaddons.utils.ApiUtils.bz;
 import static com.ownwn.ownwnaddons.utils.ApiUtils.lbin;
@@ -33,7 +33,7 @@ public class HyperionPrice {
             try { // fetch lowest bin stuff
                 JsonObject lbins = lbin();
 
-                hypPrice = Utils.roundPrice(lbins.get("HYPERION").getAsInt());
+                hypPrice = OwnwnAddons.utils.roundPrice(lbins.get("HYPERION").getAsInt());
                 handlePrice = lbins.get("NECRON_HANDLE").getAsInt();
 
             } catch (Exception e) {
@@ -76,7 +76,7 @@ public class HyperionPrice {
     }
 
     public static void sendResults(String hypPrice, long cleanHyperion, long scrollsCost) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + Utils.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + Utils.roundPrice(scrollsCost));
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lHyperion Price Info: \n &aLowest BIN: &a" + hypPrice + "\n &aCraft Cost: &a" + OwnwnAddons.utils.roundPrice(cleanHyperion) + "\n &5Scrolls Cost: " + OwnwnAddons.utils.roundPrice(scrollsCost));
 
     }
 }

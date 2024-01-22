@@ -8,7 +8,6 @@ import cc.polyfrost.oneconfig.utils.commands.annotations.Main;
 import com.google.gson.JsonObject;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.ApiUtils;
-import com.ownwn.ownwnaddons.utils.Utils;
 
 import static com.ownwn.ownwnaddons.utils.ApiUtils.bz;
 
@@ -52,7 +51,7 @@ public class FragRunCalc {
             System.out.println(finalChance);
             double moneyPerHour = (finalChance / Integer.parseInt(allArgs[0])) * 3600;
 
-            String rounded = Utils.roundPrice(moneyPerHour);
+            String rounded = OwnwnAddons.utils.roundPrice(moneyPerHour);
 
             sendResults(rounded, diamante);
 
@@ -64,6 +63,6 @@ public class FragRunCalc {
     }
 
     public static void sendResults(String profitPerHour, int diamante) {
-        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + Utils.roundPrice(diamante));
+        UChat.chat(OwnwnAddons.PREFIX + "&b&lF7 Frag Run Calculator: \n &a$ per hour: &a" + profitPerHour + "\n &aDiamante Cost: &a" + OwnwnAddons.utils.roundPrice(diamante));
     }
 }

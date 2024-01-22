@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ChatComponentText;
@@ -26,7 +26,7 @@ public class SecretStuff {
         String newMsg = "";
 
 
-        if (Utils.checkLocMap("Hub")) {
+        if (OwnwnAddons.utils.checkLocMap("Hub")) {
             if (msg.equals("§e[NPC] Baker§f: §rI've recently added a §dNew Year Cake Bag §rto my inventory. Sadly, it's not free! Click me again to open my shop!§r")) {
                 newMsg = "§e[NPC] Baker§f: Let him cook.";
 
@@ -44,7 +44,7 @@ public class SecretStuff {
             }
         }
 
-        if (newMsg.equals("")) {
+        if (newMsg.isEmpty()) {
             return;
         }
 
@@ -59,7 +59,7 @@ public class SecretStuff {
             return;
         }
 
-        if (Utils.checkLocMap("Garden")) {
+        if (OwnwnAddons.utils.checkLocMap("Garden")) {
             if (!(event.entity instanceof EntityArmorStand)) {
                 return;
             }
@@ -77,7 +77,7 @@ public class SecretStuff {
                     event.entity.setCustomNameTag("§aChemistry Notebook");
                     break;
             }
-        } else if (Utils.checkLocMap("Hub")) {
+        } else if (OwnwnAddons.utils.checkLocMap("Hub")) {
             if (!(event.entity instanceof EntityArmorStand)) {
                 return;
             }

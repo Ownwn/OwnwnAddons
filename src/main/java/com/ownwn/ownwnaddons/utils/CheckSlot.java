@@ -1,5 +1,6 @@
 package com.ownwn.ownwnaddons.utils;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ContainerChest;
@@ -22,7 +23,7 @@ public class CheckSlot {
         GuiChest chest = (GuiChest) event.gui;
         ContainerChest chestContainer = (ContainerChest) chest.inventorySlots;
 
-        openGuiName = Utils.stripFormatting(chestContainer.getLowerChestInventory().getDisplayName().getUnformattedText());
+        openGuiName = OwnwnAddons.utils.stripFormatting(chestContainer.getLowerChestInventory().getDisplayName().getUnformattedText());
     }
 
     public static boolean checkSlotNameAndLore(Slot slot, String name, String[] lore) {
@@ -34,12 +35,12 @@ public class CheckSlot {
 
         ItemStack slotStack = slot.getStack();
 
-        if (!Utils.stripFormatting(slotStack.getDisplayName()).contains(name)) {
+        if (!OwnwnAddons.utils.stripFormatting(slotStack.getDisplayName()).contains(name)) {
             return false;
         }
 
         for (String itemLore : slotStack.getTooltip(Minecraft.getMinecraft().thePlayer, false)) { // loop through the lines of lore on the item
-            itemLore = Utils.stripFormatting(itemLore);
+            itemLore = OwnwnAddons.utils.stripFormatting(itemLore);
 
             for (String loreMatch : lore) { // loop through the String[] array of item names
                 if (itemLore.contains(loreMatch)) {

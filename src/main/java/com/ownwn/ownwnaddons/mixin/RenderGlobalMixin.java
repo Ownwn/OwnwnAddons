@@ -1,8 +1,8 @@
 package com.ownwn.ownwnaddons.mixin;
 
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderGlobal;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +17,7 @@ public class RenderGlobalMixin {
     @Inject(method = "setDisplayListEntitiesDirty", at = @At(value = "HEAD"))
     public void tick(CallbackInfo ci) {
         if (!NewConfig.DUNGEONS_THIRD_PERSON) return;
-        if (!Utils.checkLocGameMode("dungeon")) return;
+        if (!OwnwnAddons.utils.checkLocGameMode("dungeon")) return;
 
         Minecraft mc = Minecraft.getMinecraft();
 

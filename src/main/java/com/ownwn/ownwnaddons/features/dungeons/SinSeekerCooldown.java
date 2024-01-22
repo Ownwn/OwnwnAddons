@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features.dungeons;
 
+import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -33,7 +33,7 @@ public class SinSeekerCooldown {
         }
         String itemName = player.getHeldItem().getDisplayName();
 
-        if (!Utils.stripFormatting(itemName).contains("Sinseeker Scythe")) {
+        if (!OwnwnAddons.utils.stripFormatting(itemName).contains("Sinseeker Scythe")) {
             return;
         }
 

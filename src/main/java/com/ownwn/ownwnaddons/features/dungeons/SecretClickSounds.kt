@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features.dungeons
 
+import com.ownwn.ownwnaddons.OwnwnAddons
 import com.ownwn.ownwnaddons.utils.NewConfig
-import com.ownwn.ownwnaddons.utils.Utils
 import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
 import net.minecraft.tileentity.TileEntitySkull
@@ -23,7 +23,7 @@ class SecretClickSounds {
         if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) return
 
         if (NewConfig.SECRET_CLICK_SOUND.isEmpty()) return
-        if (!Utils.checkLocGameMode("dungeon")) return
+        if (!OwnwnAddons.utils.checkLocGameMode("dungeon")) return
 
         val world = Minecraft.getMinecraft().theWorld
         val theBlock = world?.getBlockState(event.pos)?.block ?: return

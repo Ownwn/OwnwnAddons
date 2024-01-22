@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.features;
 
 import cc.polyfrost.oneconfig.hud.SingleTextHud;
-import com.ownwn.ownwnaddons.utils.Utils;
+import com.ownwn.ownwnaddons.OwnwnAddons;
 
 public class OnScreenTimer extends SingleTextHud {
     private static boolean isActive;
@@ -22,7 +22,7 @@ public class OnScreenTimer extends SingleTextHud {
             elapsed += now - startTime;
             startTime = now;
         }
-        return Utils.roundNum(elapsed / 1000.0, 1) + "s";
+        return OwnwnAddons.utils.roundNum(elapsed / 1000.0) + "s";
     }
 
     public static void toggleTimer() {

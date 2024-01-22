@@ -86,6 +86,22 @@ public class NewConfig extends Config {
     public static String PF_NAME_GOOD = "";
 
     @Switch(
+            name = "F7 Terminal Overview",
+            description = "Displays how many terminals each player did in P3. Idea by Soopy",
+            category = "Features",
+            subcategory = "Dungeons"
+    )
+    public static boolean F7_TERMINAL_OVERVIEW = true;
+
+    @Dropdown(
+            name = "Terminal Overview Style",
+            options = {"Old Soopy", "Improved Soopy", "Experimental"},
+            category = "Features",
+            subcategory = "Dungeons"
+    )
+    public static int TERMINAL_OVERVIEW_STYLE = 1;
+
+    @Switch(
             name = "Debug Mode",
             description = "Should the mod send helpful messages to the log? Also allows onboarding toggle"
             // include this in the config in case the user wants to see the message again

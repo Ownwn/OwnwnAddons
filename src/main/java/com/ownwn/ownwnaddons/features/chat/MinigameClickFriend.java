@@ -5,7 +5,6 @@ import cc.polyfrost.oneconfig.libs.eventbus.Subscribe;
 import cc.polyfrost.oneconfig.libs.universal.UChat;
 import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.utils.NewConfig;
-import com.ownwn.ownwnaddons.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -29,7 +28,7 @@ public class MinigameClickFriend {
             return;
         }
 
-        String msg = Utils.stripFormatting(event.message.getFormattedText());
+        String msg = OwnwnAddons.utils.stripFormatting(event.message.getFormattedText());
 
         if (msg.startsWith("§eYou sent a friend request to")) {
             NewConfig.totalFriendRequests++;
