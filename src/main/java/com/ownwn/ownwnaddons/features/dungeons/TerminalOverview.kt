@@ -27,8 +27,8 @@ class TerminalOverview {
     // width of space character for padding
 
 
-    private val dungeonPlayerList = mutableMapOf<String, Player>(); // string is username
-    private var isActive = false;
+    private val dungeonPlayerList = mutableMapOf<String, Player>() // string is username
+    private var isActive = false
 
     private val activationMessages = setOf(
         "[BOSS] Goldor: The little ants have a brain it seems.",
@@ -46,7 +46,7 @@ class TerminalOverview {
 
     @SubscribeEvent(priority = EventPriority.HIGH, receiveCanceled = true )
     fun onChat(event: ClientChatReceivedEvent) {
-        if (!NewConfig.F7_TERMINAL_OVERVIEW) return;
+        if (!NewConfig.F7_TERMINAL_OVERVIEW) return
 
         val unformattedMsg = OwnwnAddons.utils.stripFormatting(event.message.formattedText)
 
@@ -58,21 +58,21 @@ class TerminalOverview {
 
         if (activationMessages.contains(unformattedMsg)) {
             isActive = true
-            return;
+            return
         }
 
 
-        if (!isActive || !unformattedMsg.endsWith(")")) return;
+        if (!isActive || !unformattedMsg.endsWith(")")) return
 
 
         for ((pattern: Regex, playerValue) in players) {
             val playerName = pattern.find(unformattedMsg)?.groupValues?.get(1) ?: continue // continue if regex doesn't find
 
-            val currentPlayer = dungeonPlayerList.getOrPut(playerName) { Player() };
+            val currentPlayer = dungeonPlayerList.getOrPut(playerName) { Player() }
             val currentScore = playerValue.get(currentPlayer)
 
             playerValue.set(currentPlayer, currentScore + 1) // add to their device, lever or terminal count
-            return;
+            return
 
         }
     }
@@ -143,7 +143,7 @@ class TerminalOverview {
     }
 
     private fun clearTerms() {
-        isActive = false;
+        isActive = false
         dungeonPlayerList.clear()
     }
 
