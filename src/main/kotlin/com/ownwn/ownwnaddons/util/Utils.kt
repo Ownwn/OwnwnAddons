@@ -1,24 +1,22 @@
-package com.ownwn.ownwnaddons.utils
+package com.ownwn.ownwnaddons.util
 
 import cc.polyfrost.oneconfig.utils.hypixel.LocrawUtil
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-object Util {
-
-
+object Utils {
     private val locraw get() = LocrawUtil.INSTANCE.locrawInfo
     private val colourCodeRegex = Regex("(?i)§[0-9A-FK-ORZ]")
 
-    private val trillion = 1000000000000
-    private val billion = 1000000000
-    private val million = 1000000
-    private val thousand = 1000
+    private const val TRILLION = 1000000000000
+    private const val BILLION = 1000000000
+    private const val MILLION = 1000000
+    private const val THOUSAND = 1000
 
 
 
-    fun stripFormatting(text: String): String {
-        return text.replace(colourCodeRegex, "")
+    fun stripFormatting(text: String?): String {
+        return text!!.replace(colourCodeRegex, "")
     }
 
     fun roundNum(value: Double) = roundNum(value, 1)
@@ -29,22 +27,20 @@ object Util {
 
     fun roundPrice(price: Double): String {
         return when {
-            price >= trillion -> "${roundNum(price / trillion, 2)}T"
-            price >= billion -> "${roundNum(price / billion, 2)}B"
-            price >= million -> "${roundNum(price / million, 2)}M"
-            price >= thousand -> "${roundNum(price / thousand, 2)}K"
+            price >= TRILLION -> "${roundNum(price / TRILLION, 2)}T"
+            price >= BILLION -> "${roundNum(price / BILLION, 2)}B"
+            price >= MILLION -> "${roundNum(price / MILLION, 2)}M"
+            price >= THOUSAND -> "${roundNum(price / THOUSAND, 2)}K"
             else -> price.roundToInt().toString()
         }
     }
 
 
 
-    fun checkLocMap(location: String): Boolean {
+    fun isInIsland(location: String): Boolean {
         return (locraw?.mapName ?: false) == location
     }
-    fun checkLocGameMode(gameMode: String): Boolean {
+    fun isInGameMode(gameMode: String): Boolean {
         return (locraw?.gameMode ?: false) == gameMode
     }
-
-
 }
