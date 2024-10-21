@@ -2,17 +2,16 @@
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.7",
   "package": "com.ownwn.ownwnaddons.mixin",
-  "refmap": "mixins.ownwnaddons.refmap.json",
+  "refmap": "mixins.${id}.refmap.json",
   "injectors": {
     "maxShiftBy": 5
   },
   "client": [
+    "BlockRendererDispatcherMixin",
     "FontRendererMixin",
     "HandleMouseClickMixin",
-    "BlockRendererDispatcherMixin",
-    "MixinItemPriceInformation",
     "MixinFontRendererHook",
-    "NetHandlerPlayClientMixin",
+    "MixinItemPriceInformation",
     "RenderGlobalMixin"
   ],
   "verbose": true
