@@ -1,28 +1,29 @@
-package com.ownwn.ownwnaddons.utils
+package com.ownwn.ownwnaddons.feature
 
-
+import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.libs.universal.UChat
 import cc.polyfrost.oneconfig.utils.Multithreading
 import cc.polyfrost.oneconfig.utils.NetworkUtils
+import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.OwnwnAddons
+import com.ownwn.ownwnaddons.util.ServerJoinEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.concurrent.TimeUnit
 
-class UpdateChecker {
+object UpdateChecker {
     private var checkUpdateTime = 0L
 
-    private val releasesURL: String = "https://github.com/Ownwn/OwnwnAddons/releases/latest"
-    private val updateCheckerUrl: String = "https://api.github.com/repos/ownwn/ownwnaddons/releases/latest"
+    private const val RELEASE_URL: String = "https://github.com/Ownwn/OwnwnAddons/releases/latest"
+    private const val UPDATE_CHECK_URL: String = "https://api.github.com/repos/ownwn/ownwnaddons/releases/latest"
 
 
-    @SubscribeEvent
+    @Subscribe
     fun onJoinServer(event: ServerJoinEvent) {
-        if (NewConfig.ONBOARDING_FIRST_TIME) {
+        if (Config.onboardingFirstTime) {
             UChat.chat(
                 "${OwnwnAddons.PREFIX}&aThanks for downloading &bOw&bnwnAddons!" +
                         "\n &aYou can access the config with &b/owa" +
@@ -32,10 +33,10 @@ class UpdateChecker {
 
             )
 
-            NewConfig.ONBOARDING_FIRST_TIME = false
+            Config.onboardingFirstTime = false
         }
 
-        if (!NewConfig.CHECK_FOR_UPDATES) return
+        if (!Config.checkForUpdates) return
         if (System.currentTimeMillis() - checkUpdateTime < 10000) return
 
         checkUpdateTime = System.currentTimeMillis()
@@ -46,7 +47,7 @@ class UpdateChecker {
 
     private var checkForUpdates = Runnable {
 
-        val versionTag = NetworkUtils.getJsonElement(updateCheckerUrl)?.asJsonObject?.get("tag_name")?.asString
+        val versionTag = NetworkUtils.getJsonElement(UPDATE_CHECK_URL)?.asJsonObject?.get("tag_name")?.asString
         if (versionTag == null) {
             UChat.chat(OwnwnAddons.PREFIX + "&cError checking for updates.")
             return@Runnable
@@ -68,21 +69,22 @@ class UpdateChecker {
                     .setChatClickEvent(
                         ClickEvent(
                             ClickEvent.Action.OPEN_URL,
-                            releasesURL
+                            RELEASE_URL
                         )
                     )
             )
 
         val player = Minecraft.getMinecraft().thePlayer
 
-        player.addChatMessage(ChatComponentText(
+        player.addChatMessage(
+            ChatComponentText(
             "${OwnwnAddons.PREFIX}§aNew version of §bOwn§bwnAddons §aavailable!: §b$latestVersion" +
                     "\n §aDisable this message in §b/owa ").appendSibling(githubLink))
 
-        if (!NewConfig.FUNNY_STUFF_SECRET) return@Runnable
 
-        Minecraft.getMinecraft().thePlayer.playSound("ownwnaddons:bidenupdate", 1f, 1f)
-        println("OwnwnAddons: Playing update reminder")
-
+        if (Config.secretPrankMessages) {
+            Minecraft.getMinecraft().thePlayer.playSound("ownwnaddons:bidenupdate", 1f, 1f)
+            println("OwnwnAddons: Playing update reminder")
+        }
     }
 }
