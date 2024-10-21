@@ -1,4 +1,4 @@
-package com.ownwn.ownwnaddons.utils
+package com.ownwn.ownwnaddons.util
 
 import com.ownwn.ownwnaddons.OwnwnAddons
 import net.minecraft.client.Minecraft
@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.network.FMLNetworkEvent
 
-class OnJoinServer {
+object OnJoinServer {
     private var hasJustJoined = false
 
     @SubscribeEvent
