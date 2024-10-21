@@ -5,7 +5,6 @@ import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.util.Game
 import com.ownwn.ownwnaddons.util.ServerJoinEvent
-import net.minecraft.client.Minecraft
 
 object ThirdPersonFOV {
     private var normalFov: Float = 0f

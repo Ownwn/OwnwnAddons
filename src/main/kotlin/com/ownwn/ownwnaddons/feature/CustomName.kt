@@ -10,8 +10,6 @@ import com.ownwn.ownwnaddons.util.ColourUtils
 import com.ownwn.ownwnaddons.util.Game
 import com.ownwn.ownwnaddons.util.ServerJoinEvent
 import com.ownwn.ownwnaddons.util.Utils
-import net.minecraft.client.Minecraft
-import net.minecraftforge.fml.common.gameevent.TickEvent
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 

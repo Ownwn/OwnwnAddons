@@ -3,7 +3,6 @@ package com.ownwn.ownwnaddons.feature.dungeons.terminal
 import cc.polyfrost.oneconfig.config.annotations.Exclude
 import cc.polyfrost.oneconfig.config.annotations.Switch
 import cc.polyfrost.oneconfig.hud.TextHud
-import com.ownwn.ownwnaddons.OwnwnAddons
 
 class TerminalHud : TextHud(false) {
 

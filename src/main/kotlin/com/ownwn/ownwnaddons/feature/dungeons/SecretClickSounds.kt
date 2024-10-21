@@ -3,7 +3,6 @@ package com.ownwn.ownwnaddons.feature.dungeons
 import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.util.Game
 import com.ownwn.ownwnaddons.util.Utils
-import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
 import net.minecraft.tileentity.TileEntitySkull
 import net.minecraftforge.event.entity.player.PlayerInteractEvent

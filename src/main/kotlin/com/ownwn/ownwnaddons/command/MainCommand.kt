@@ -7,11 +7,6 @@ import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.OwnwnAddons
 import com.ownwn.ownwnaddons.feature.CustomName
 import com.ownwn.ownwnaddons.feature.dungeons.EnderPearlGrabber
-import com.ownwn.ownwnaddons.util.Game
-import net.minecraft.client.Minecraft
-import net.minecraft.client.audio.ISound
-import net.minecraft.client.audio.PositionedSound
-import net.minecraft.util.ResourceLocation
 import java.util.concurrent.TimeUnit
 
 

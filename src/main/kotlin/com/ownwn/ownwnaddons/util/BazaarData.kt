@@ -14,7 +14,7 @@ object BazaarData {
 
     fun getItemPrice(name: String): Double {
         val price = json?.get(name)?.asJsonObject?.get("quick_status")?.asJsonObject?.get("buyPrice")?.asDouble ?: run {
-            UChat.chat(OwnwnAddons.PREFIX + "&cError reaching the Bazaar API! ");
+            UChat.chat(OwnwnAddons.PREFIX + "&cError reaching the Bazaar API! ")
             Double.NaN
         }
         return price

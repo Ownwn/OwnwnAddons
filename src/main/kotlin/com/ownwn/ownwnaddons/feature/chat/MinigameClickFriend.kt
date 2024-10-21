@@ -40,7 +40,7 @@ object MinigameClickFriend {
         }
 
         if (!msg.endsWith(")!") || msg.contains(Game.name!!)) {
-            return;
+            return
         }
 
         val match = joinedRegex.find(msg) ?: run {

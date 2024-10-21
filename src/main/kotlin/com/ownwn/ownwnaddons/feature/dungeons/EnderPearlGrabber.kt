@@ -2,7 +2,6 @@ package com.ownwn.ownwnaddons.feature.dungeons
 
 import cc.polyfrost.oneconfig.libs.universal.UChat
 import com.ownwn.ownwnaddons.util.Game
-import net.minecraft.client.Minecraft
 import net.minecraft.init.Items
 
 object EnderPearlGrabber {

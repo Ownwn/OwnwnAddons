@@ -8,7 +8,6 @@ import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.OwnwnAddons
 import com.ownwn.ownwnaddons.util.Game
 import com.ownwn.ownwnaddons.util.ServerJoinEvent
-import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText

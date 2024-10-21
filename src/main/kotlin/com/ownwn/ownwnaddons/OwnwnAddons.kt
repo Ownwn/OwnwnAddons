@@ -30,14 +30,6 @@ object OwnwnAddons {
 
     const val PREFIX = "§5<§dOWA§5>§r "
 
-
-    const val HELP = ("&9&l➜ OwnwnAddons Help\n"
-            + "&9/owa ➡ &bOpens the GUI\n"
-            + "&9/owa preview <message> ➡ &bDisplays any message in chat, supports formatting codes"
-            + "&9/owa fetchnames ➡ &bRefreshes custom names without rejoining the server"
-            + "&9/owa friends ➡ &bDisplays total number of friend requests")
-
-
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent?) {
 

@@ -1,6 +1,5 @@
 package com.ownwn.ownwnaddons.util
 
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.ContainerChest
 import net.minecraft.inventory.Slot

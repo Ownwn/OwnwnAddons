@@ -1,7 +1,6 @@
 package com.ownwn.ownwnaddons.mixin;
 
 
-import com.ownwn.ownwnaddons.OwnwnAddons;
 import com.ownwn.ownwnaddons.feature.CustomName;
 import net.minecraft.client.gui.FontRenderer;
 import org.spongepowered.asm.mixin.Mixin;

@@ -2,7 +2,6 @@ package com.ownwn.ownwnaddons.feature.chat
 
 import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import com.ownwn.ownwnaddons.Config
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
