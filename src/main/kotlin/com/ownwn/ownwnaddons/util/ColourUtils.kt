@@ -4,7 +4,7 @@ import cc.polyfrost.oneconfig.events.event.TickEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import com.ownwn.ownwnaddons.Config
 
-object ColourUtils { // todo test
+object ColourUtils {
     private var colourNum: Int = 0
     private var colourChangeDelay: Long = 0
     // sorted by colour instead of alphabetically
