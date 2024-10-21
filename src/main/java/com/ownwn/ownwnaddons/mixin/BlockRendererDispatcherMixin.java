@@ -1,9 +1,9 @@
     package com.ownwn.ownwnaddons.mixin;
 
-    import com.ownwn.ownwnaddons.features.WorldReskin;
-    import com.ownwn.ownwnaddons.utils.NewConfig;
+    import com.ownwn.ownwnaddons.Config;
+    import com.ownwn.ownwnaddons.feature.WorldReskin;
+    import com.ownwn.ownwnaddons.util.Game;
     import net.minecraft.block.state.IBlockState;
-    import net.minecraft.client.Minecraft;
     import net.minecraft.client.renderer.BlockRendererDispatcher;
     import net.minecraft.client.renderer.WorldRenderer;
     import net.minecraft.util.BlockPos;
@@ -19,23 +19,16 @@ public class BlockRendererDispatcherMixin {
     @Inject(method = "renderBlock", at = @At(value = "HEAD"), cancellable = true)
     public void renderBlock(IBlockState state, BlockPos pos, IBlockAccess blockAccess, WorldRenderer worldRendererIn, CallbackInfoReturnable<Boolean> cir) {
 
-        if (!NewConfig.WORLD_RESKIN_HUB) {
+        if (!Config.INSTANCE.getWorldReskinHub()) {
             return;
         }
-        if (state.getBlock() == null) {
-            return;
-        }
-        if (Minecraft.getMinecraft().thePlayer == null) {
+        if (state.getBlock() == null || Game.INSTANCE.getPlayer() == null) {
             return;
         }
 
         // If true, cancel the block render and render a new one in the below method
-        if (WorldReskin.reskinHub(state, pos, blockAccess, worldRendererIn)) {
+        if (WorldReskin.INSTANCE.reskinHub(state, pos, blockAccess, worldRendererIn)) {
             cir.cancel();
-            return;
         }
-
-//        if (WorldReskin.reskinEnd(state, pos, blockAccess, worldRendererIn)) cir.cancel();
-
     }
 }

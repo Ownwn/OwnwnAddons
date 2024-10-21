@@ -15,7 +15,7 @@ import net.minecraft.util.BlockPos
 import net.minecraft.world.IBlockAccess
 
 
-object WorldReskin { // todo test
+object WorldReskin {
     fun reskinHub(state: IBlockState, pos: BlockPos, blockAccess: IBlockAccess, worldRendererIn: WorldRenderer): Boolean {
         if (!Config.worldReskinHub) {
             return false
