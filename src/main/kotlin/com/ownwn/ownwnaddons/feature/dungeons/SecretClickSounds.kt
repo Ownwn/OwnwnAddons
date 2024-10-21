@@ -1,6 +1,7 @@
 package com.ownwn.ownwnaddons.feature.dungeons
 
 import com.ownwn.ownwnaddons.Config
+import com.ownwn.ownwnaddons.util.Game
 import com.ownwn.ownwnaddons.util.Utils
 import net.minecraft.client.Minecraft
 import net.minecraft.init.Blocks
@@ -23,8 +24,8 @@ object SecretClickSounds {
         if (Config.secretClickSound.isEmpty()) return
         if (!Utils.isInGameMode("dungeon")) return
 
-        val world = Minecraft.getMinecraft().theWorld
-        val theBlock = world?.getBlockState(event.pos)?.block ?: return
+        val world = Game.world ?: return
+        val theBlock = world.getBlockState(event.pos)?.block ?: return
 
         if (theBlock !in blockSet) return
 
@@ -43,7 +44,7 @@ object SecretClickSounds {
     private fun playSound() {
         if (System.currentTimeMillis() - lastSound < 50) return // don't kill ears
 
-        Minecraft.getMinecraft().thePlayer.playSound(
+        Game.player!!.playSound(
             Config.secretClickSound,
             Config.secretClickVolume / 10,
             Config.secretClickPitch / 10

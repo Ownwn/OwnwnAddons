@@ -6,6 +6,7 @@ import cc.polyfrost.oneconfig.utils.Multithreading
 import cc.polyfrost.oneconfig.utils.NetworkUtils
 import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.OwnwnAddons
+import com.ownwn.ownwnaddons.util.Game
 import com.ownwn.ownwnaddons.util.ServerJoinEvent
 import net.minecraft.client.Minecraft
 import net.minecraft.event.ClickEvent
@@ -74,16 +75,15 @@ object UpdateChecker {
                     )
             )
 
-        val player = Minecraft.getMinecraft().thePlayer
 
-        player.addChatMessage(
+        Game.player?.addChatMessage(
             ChatComponentText(
             "${OwnwnAddons.PREFIX}§aNew version of §bOwn§bwnAddons §aavailable!: §b$latestVersion" +
                     "\n §aDisable this message in §b/owa ").appendSibling(githubLink))
 
 
         if (Config.secretPrankMessages) {
-            Minecraft.getMinecraft().thePlayer.playSound("ownwnaddons:bidenupdate", 1f, 1f)
+            Game.player?.playSound("ownwnaddons:bidenupdate", 1f, 1f)
             println("OwnwnAddons: Playing update reminder")
         }
     }

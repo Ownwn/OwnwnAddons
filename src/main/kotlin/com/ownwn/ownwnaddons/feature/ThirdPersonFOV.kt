@@ -40,6 +40,6 @@ object ThirdPersonFOV {
 
     @Subscribe
     fun onServerJoin(event: ServerJoinEvent) {
-        normalFov = Minecraft.getMinecraft().gameSettings.fovSetting
+        normalFov = Game.mc?.gameSettings?.fovSetting ?: return
     }
 }

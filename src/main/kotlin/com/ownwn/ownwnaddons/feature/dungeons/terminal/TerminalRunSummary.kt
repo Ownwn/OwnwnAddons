@@ -3,6 +3,7 @@ package com.ownwn.ownwnaddons.feature.dungeons.terminal
 import cc.polyfrost.oneconfig.libs.universal.UChat
 import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.OwnwnAddons
+import com.ownwn.ownwnaddons.util.Game
 import net.minecraft.client.Minecraft
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
@@ -45,7 +46,7 @@ class TerminalRunSummary {
                     val playerStats = sumPlayerStats(statsList)
                     val performanceGrade = calculateGrade(playerStats)
 
-                    Minecraft.getMinecraft().thePlayer.addChatMessage(generateHoverText(
+                    Game.player!!.addChatMessage(generateHoverText(
                         "§6$playerName§7:" +
                                 " §f${playerStats.terminals} §7terms, " +
                                 "§f${playerStats.devices} §7devices, " +
@@ -145,5 +146,5 @@ class TerminalRunSummary {
         return player
     }
 
-    private fun stringWidth(string: String): Int { return Minecraft.getMinecraft().fontRendererObj.getStringWidth(string) }
+    private fun stringWidth(string: String): Int { return Game.mc!!.fontRendererObj.getStringWidth(string) }
 }

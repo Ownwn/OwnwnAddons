@@ -37,7 +37,7 @@ object CheckSlot {
             return false
         }
 
-        val loreList = slotStack.getTooltip(Minecraft.getMinecraft().thePlayer, false)
+        val loreList = slotStack.getTooltip(Game.player!!, false)
 
         for (itemLore in loreList) { // loop through the lines of lore on the item
 
