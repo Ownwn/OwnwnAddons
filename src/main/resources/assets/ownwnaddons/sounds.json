@@ -1,17 +1,9 @@
 {
-  "trevorready": {
-    "sounds": [{
-      "name": "ownwnaddons:trevorready",
-      "stream": true,
-      "category": "master"
-    }
-    ]
-  },
   "bidenupdate": {
+    "category": "master",
     "sounds": [{
       "name": "ownwnaddons:bidenupdate",
-      "stream": true,
-      "category": "master"
+      "stream": true
     }
     ]
   }
