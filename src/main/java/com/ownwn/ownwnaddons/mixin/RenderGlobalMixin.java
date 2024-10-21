@@ -1,8 +1,9 @@
 package com.ownwn.ownwnaddons.mixin;
 
 
-import com.ownwn.ownwnaddons.OwnwnAddons;
-import com.ownwn.ownwnaddons.utils.NewConfig;
+import com.ownwn.ownwnaddons.Config;
+import com.ownwn.ownwnaddons.util.Game;
+import com.ownwn.ownwnaddons.util.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderGlobal;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,10 +17,11 @@ public class RenderGlobalMixin {
 
     @Inject(method = "setDisplayListEntitiesDirty", at = @At(value = "HEAD"))
     public void tick(CallbackInfo ci) {
-        if (!NewConfig.DUNGEONS_THIRD_PERSON) return;
-        if (!OwnwnAddons.utils.checkLocGameMode("dungeon")) return;
+        if (!Config.INSTANCE.getDungeonsThirdPerson()) return;
+        if (!Utils.INSTANCE.isInGameMode("dungeon")) return;
 
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Game.INSTANCE.getMc();
+        assert mc != null;
 
         if (mc.gameSettings.thirdPersonView == 2) {
             mc.gameSettings.thirdPersonView = 0;
