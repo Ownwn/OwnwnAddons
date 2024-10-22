@@ -13,13 +13,15 @@ import com.ownwn.ownwnaddons.feature.chat.MinigameClickFriend
 import com.ownwn.ownwnaddons.feature.chat.TrevorChatFormatter
 import com.ownwn.ownwnaddons.feature.dungeons.SecretClickSounds
 import com.ownwn.ownwnaddons.feature.dungeons.terminal.TerminalUtil
-import com.ownwn.ownwnaddons.util.*
+import com.ownwn.ownwnaddons.util.CheckSlot
+import com.ownwn.ownwnaddons.util.ColourUtils
+import com.ownwn.ownwnaddons.util.Game
+import com.ownwn.ownwnaddons.util.OnJoinServer
 import net.minecraft.client.Minecraft
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.Event
-
 
 @Mod(modid = OwnwnAddons.MODID, name = OwnwnAddons.NAME, version = OwnwnAddons.VERSION, modLanguageAdapter = "cc.polyfrost.oneconfig.utils.KotlinLanguageAdapter")
 object OwnwnAddons {
@@ -57,15 +59,15 @@ object OwnwnAddons {
         registerCommand(MainCommand)
     }
 
-    fun registerForgeEventBus(obj: Any?) {
+    private fun registerForgeEventBus(obj: Any?) {
         MinecraftForge.EVENT_BUS.register(obj)
     }
 
-    fun registerOneconfigEventBus(obj: Any?) {
+    private fun registerOneconfigEventBus(obj: Any?) {
         EventManager.INSTANCE.register(obj)
     }
 
-    fun registerCommand(obj: Any?) {
+    private fun registerCommand(obj: Any?) {
         CommandManager.INSTANCE.registerCommand(obj)
     }
 

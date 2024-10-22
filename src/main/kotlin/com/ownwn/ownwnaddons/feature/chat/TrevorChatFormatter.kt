@@ -1,11 +1,11 @@
 package com.ownwn.ownwnaddons.feature.chat
 
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import com.ownwn.ownwnaddons.Config
 import com.ownwn.ownwnaddons.util.Utils
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -22,7 +22,7 @@ object TrevorChatFormatter { // todo test
     private val relatedMessages = setOf("pelt", "trevor", "trapper")
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    fun onChat(event: ChatReceiveEvent) {
+    fun onChat(event: ClientChatReceivedEvent) {
         if (!Config.trevorChatFormatter) {
             return
         }
@@ -81,7 +81,7 @@ object TrevorChatFormatter { // todo test
         }
 
         if (msg in spamMessages) {
-            event.isCancelled = true
+            event.isCanceled = true
             return
         }
 

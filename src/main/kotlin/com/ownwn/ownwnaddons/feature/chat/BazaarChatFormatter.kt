@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.feature.chat
 
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import com.ownwn.ownwnaddons.Config
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -21,7 +21,7 @@ object BazaarChatFormatter { // todo continue
     private val instaBuy = Regex("§r§6\\[Bazaar] §r§7Bought §r§a((?:\\d|,){1,6}§r§7x) §r(.+) §r§7for §r(§6(?:\\d|,|.)+) coins§r§7!§r")
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    fun onChat(event: ChatReceiveEvent) {
+    fun onChat(event: ClientChatReceivedEvent) {
         if (!Config.bazaarSpamFilter) {
             return
         }
@@ -35,7 +35,7 @@ object BazaarChatFormatter { // todo continue
         }
 
         if (msg in uselessMessages) {
-            event.isCancelled = true
+            event.isCanceled = true
             return
         }
     }

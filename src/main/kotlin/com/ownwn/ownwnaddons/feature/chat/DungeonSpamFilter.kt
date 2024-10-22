@@ -1,7 +1,7 @@
 package com.ownwn.ownwnaddons.feature.chat
 
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import com.ownwn.ownwnaddons.Config
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -23,14 +23,14 @@ object DungeonSpamFilter {
     )
 
     @SubscribeEvent(priority = EventPriority.LOW)
-    fun onChat(event: ChatReceiveEvent) {
+    fun onChat(event: ClientChatReceivedEvent) {
         if (!Config.dungeonSpamFilter) {
             return
         }
 
         val msg = event.message.formattedText
         if (msg in spamMessages) {
-            event.isCancelled = true
+            event.isCanceled = true
         }
     }
 }

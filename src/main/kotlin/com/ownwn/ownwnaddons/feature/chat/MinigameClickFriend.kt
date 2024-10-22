@@ -1,6 +1,5 @@
 package com.ownwn.ownwnaddons.feature.chat
 
-import cc.polyfrost.oneconfig.events.event.ChatReceiveEvent
 import cc.polyfrost.oneconfig.events.event.ChatSendEvent
 import cc.polyfrost.oneconfig.libs.eventbus.Subscribe
 import cc.polyfrost.oneconfig.libs.universal.UChat
@@ -11,7 +10,8 @@ import com.ownwn.ownwnaddons.util.Utils
 import net.minecraft.event.ClickEvent
 import net.minecraft.event.HoverEvent
 import net.minecraft.util.ChatComponentText
-
+import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 
 object MinigameClickFriend {
@@ -25,8 +25,8 @@ object MinigameClickFriend {
 
 
 
-    @Subscribe
-    fun onChat(event: ChatReceiveEvent) {
+    @SubscribeEvent
+    fun onChat(event: ClientChatReceivedEvent) {
         if (!Config.minigameClickFriend) {
             return
         }
