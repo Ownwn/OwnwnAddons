@@ -7,6 +7,7 @@ import cc.polyfrost.oneconfig.config.data.InfoType
 import cc.polyfrost.oneconfig.config.data.Mod
 import cc.polyfrost.oneconfig.config.data.ModType
 import cc.polyfrost.oneconfig.libs.universal.UKeyboard
+import com.ownwn.ownwnaddons.feature.CustomName
 import com.ownwn.ownwnaddons.feature.dungeons.terminal.CallTerminalsDisplay
 import com.ownwn.ownwnaddons.feature.dungeons.terminal.TerminalHud
 import com.ownwn.ownwnaddons.feature.OnScreenTimer
@@ -322,6 +323,9 @@ object Config : Config(
         addDependency("CUSTOM_RANK_EDITOR", "CUSTOM_RANK_TOGGLE")
         addDependency("CUSTOM_RANK_TOGGLE", "CUSTOM_NAME_TOGGLE")
         addDependency("CUSTOM_RANK_TOGGLE", "PLAYER_HYPIXEL_RANK") { playerHypixelRank != 0 }
+        listOf("customNameEditor", "customRankEditor", "customLevelEditor").forEach {
+            addListener(it, { CustomName.resetCache() })
+        }
 
         addDependency("STANDARD_VIEW_MODIFIER", "THIRD_PERSON_FOV")
         addDependency("THIRD_PERSON_MODIFIER", "THIRD_PERSON_FOV")

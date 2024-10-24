@@ -32,15 +32,26 @@ object CustomName {
 
     // use copyonwritearraylist to avoid crash when reading while writing in thread
     private var rainbowNamesList: MutableList<String> = CopyOnWriteArrayList()
-    private val rainbowNamesUrl: String = "https://raw.githubusercontent.com/Ownwn/OwaData/main/rainbownames.json"
+    private const val RAINBOW_NAMES_URL: String = "https://raw.githubusercontent.com/Ownwn/OwaData/main/rainbownames.json"
+
+    // store replacements in a hashmap for fast lookup
+    private val textReplacementCache: HashMap<String?, String?> = hashMapOf(Pair(null, null))
+
+    fun resetCache() {
+        textReplacementCache.clear()
+        textReplacementCache[null] = null
+    }
 
 
     fun replaceAllText(text: String?): String? {
-        if (text.isNullOrEmpty() || text == "§r" || Game.name == null) return text
 
-        val unformatted = Utils.stripFormatting(text)
-        if (unformatted.isEmpty()) return text
+        if (Game.name == null || Game.player == null) return text
+        
+        textReplacementCache[text]?.let { return it }
 
+
+
+        val unformatted = Utils.stripFormatting(text!!)
         var newText = text
 
         if (unformatted.contains(Game.name!!)) {
@@ -54,6 +65,7 @@ object CustomName {
 
         if (Config.chromaType) newText = newText.replace("§x", "§" + ColourUtils.scuffedChroma())
 
+        textReplacementCache[text] = newText
         return newText
     }
 
@@ -136,6 +148,9 @@ object CustomName {
 
     @Subscribe
     fun onJoinServer(event: ServerJoinEvent) {
+
+        resetCache()
+
         if (Config.playerHypixelRank == 0) {
             UChat.chat(
                 OwnwnAddons.PREFIX +
@@ -151,11 +166,11 @@ object CustomName {
     }
 
 
-    var fetchOtherNames = Runnable { // todo map cache
+    var fetchOtherNames = Runnable {
         rainbowNamesList.clear()
         rainbowNamesList.add("OwnwnAddons")
 
-        val rainbowNames = NetworkUtils.getJsonElement(rainbowNamesUrl)?.asJsonObject?.get("usernames")?.asJsonArray
+        val rainbowNames = NetworkUtils.getJsonElement(RAINBOW_NAMES_URL)?.asJsonObject?.get("usernames")?.asJsonArray
         if (rainbowNames == null || rainbowNames.size() == 0) {
             UChat.chat(OwnwnAddons.PREFIX + "&cError fetching rainbow usernames.")
             return@Runnable
