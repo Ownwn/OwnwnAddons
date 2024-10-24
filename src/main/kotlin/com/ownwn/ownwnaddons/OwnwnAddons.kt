@@ -43,18 +43,21 @@ object OwnwnAddons {
         registerOneconfigEventBus(UpdateChecker)
         registerOneconfigEventBus(ColourUtils)
         registerOneconfigEventBus(ThirdPersonFOV)
-        registerOneconfigEventBus(Config.callTermsDisplay)
-        registerOneconfigEventBus(TrevorChatFormatter)
+
+
         registerOneconfigEventBus(MinigameClickFriend)
-        registerOneconfigEventBus(DungeonSpamFilter)
-        registerOneconfigEventBus(BazaarChatFormatter)
+
 
 
         registerForgeEventBus(OnJoinServer)
+        registerForgeEventBus(BazaarChatFormatter)
+        registerForgeEventBus(DungeonSpamFilter)
+        registerForgeEventBus(MinigameClickFriend)
         registerForgeEventBus(CheckSlot)
         registerForgeEventBus(SecretPrankStuff)
         registerForgeEventBus(SecretClickSounds)
         registerForgeEventBus(TerminalUtil)
+        registerForgeEventBus(TrevorChatFormatter)
 
         registerCommand(MainCommand)
     }
