@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 
-object TrevorChatFormatter { // todo test
+object TrevorChatFormatter {
 
     private val peltRewardPattern = Regex("§r§aKilling the animal rewarded you §r§5(\\d+) pelts§r§a.§r|§r§aYour mob died randomly, you are rewarded §r§5(\\d+) pelts§r§a.§r")
     private val animalLocationPattern = Regex("§e\\[NPC] Trevor The Trapper§f: §rYou can find your (.+) §fanimal near the (.+).§r")
@@ -46,7 +46,7 @@ object TrevorChatFormatter { // todo test
         val animalLocationMatch = animalLocationPattern.find(msg)
 
         if (peltRewardMatch != null) {
-            val peltNum = peltRewardMatch.groupValues.getOrNull(1) ?: peltRewardMatch.groupValues[2]
+            val peltNum = peltRewardMatch.let { it.groups[1]?.value ?: it.groups[2]?.value ?: return }
 
             newMsg = "§a+§5$peltNum§a pelts. §b§l[WARP TO TRAPPER]"
 
