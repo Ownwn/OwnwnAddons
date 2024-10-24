@@ -15,8 +15,8 @@ object Utils {
 
 
 
-    fun stripFormatting(text: String?): String {
-        return text!!.replace(colourCodeRegex, "")
+    fun stripFormatting(text: String): String {
+        return text.replace(colourCodeRegex, "")
     }
 
     fun roundNum(value: Double) = roundNum(value, 1)
