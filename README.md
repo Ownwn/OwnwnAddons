@@ -1,5 +1,5 @@
-# A utilities mod for Hypickle Cornblock
-If you have any questions you can message me on Discord at @ownwn
+# A Minecraft mod for Hypixel Skyblock
+Provides a few useful features that I haven't found in other mods
 
 ## Features
 - Custom Name
