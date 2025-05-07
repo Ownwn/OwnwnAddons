@@ -5,13 +5,9 @@ Provides a few useful features that I haven't found in other mods
 - Custom Name
 - Custom Rank
 
-  ![Custom Rank and Name](https://i.imgur.com/m7qZKXi.png)
+  ![Custom name and rank](https://github.com/user-attachments/assets/600b88e2-ff39-4950-bc1a-eb45cd56b8bf)
 
 
-
-- Customise the hypixel URL on the sidebar
-
-  ![Custom hypixel url](https://i.imgur.com/dnBC8Wy.png)
 
 
 - Dungeons Terminal Display
